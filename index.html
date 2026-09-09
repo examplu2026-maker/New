@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXAMPLUS — Sign in</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+
+  <main class="login-wrap">
+    <div class="login-mark">
+      <span class="login-mark-glyph">E</span>
+      <span class="login-mark-text">EXAMPLUS</span>
+    </div>
+
+    <form class="login-card" id="loginForm" autocomplete="off">
+      <h1>Sign in</h1>
+      <p class="login-sub">Enter your school-issued username and password.</p>
+
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required placeholder="e.g. john.teacher">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required placeholder="••••••••">
+
+      <button type="submit" id="loginBtn">Sign in</button>
+
+      <p class="login-error" id="loginError" role="alert" hidden></p>
+    </form>
+
+    <p class="login-footnote">Trouble signing in? Ask your school administrator to check your account status.</p>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('loginBtn');
+      const errorEl = document.getElementById('loginError');
+
+      errorEl.hidden = true;
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+
+      try {
+        const res = await apiCall({ action: 'login', username, password });
+        if (res.status === 'ok') {
+          saveSession({
+            username,
+            name: res.name,
+            role: res.role,
+            school: res.school
+          });
+          window.location.href = 'dashboard.html';
+        } else {
+          errorEl.textContent = res.message || 'Sign in failed. Check your details and try again.';
+          errorEl.hidden = false;
+        }
+      } catch (err) {
+        errorEl.textContent = 'Could not reach the server. Check your connection and try again.';
+        errorEl.hidden = false;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Sign in';
+      }
+    });
+
+    // If already signed in, skip straight to dashboard
+    if (getSession()) {
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+</body>
+</html>
