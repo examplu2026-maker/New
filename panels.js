@@ -15,6 +15,11 @@ function renderPanel(id, session) {
     case "reportcards": return renderReportCards();
     case "promotion": return renderPromotion();
     case "fees": return renderFees(session);
+    case "addclass": return renderAddClass();
+    case "addteacher": return renderAddStaff("Teacher");
+    case "addbursar": return renderAddStaff("Bursar");
+    case "schooldetails": return renderSchoolDetails();
+    case "assessment": return renderAssessment();
     default: return `<div class="card"><p>Nothing here yet.</p></div>`;
   }
 }
@@ -27,21 +32,241 @@ function wirePanel(id, session) {
     case "reportcards": return wireReportCards(session);
     case "promotion": return wirePromotion(session);
     case "fees": return wireFees(session);
+    case "addclass": return wireAddClass(session);
+    case "addteacher": return wireAddStaff(session, "Teacher");
+    case "addbursar": return wireAddStaff(session, "Bursar");
+    case "schooldetails": return wireSchoolDetails(session);
+    case "assessment": return wireAssessment(session);
   }
 }
 
 // ---------------- Overview ----------------
 
 function renderOverview(session) {
-  return `
+  const welcome = `
     <div class="card">
       <h2>Welcome, ${session.name || session.username}</h2>
       <p class="card-desc">
         You're signed in as <strong>${session.role}</strong>
         ${session.school !== "ALL" ? `for <strong>${session.school}</strong>` : "with access to all schools"}.
-        Use the menu to get started.
       </p>
     </div>`;
+
+  const extras = (typeof EXTRA_PANELS_BY_ROLE !== "undefined" && EXTRA_PANELS_BY_ROLE[session.role]) || [];
+  if (extras.length === 0) return welcome;
+
+  const tiles = extras.map(item => `
+    <button class="icon-tile" onclick="window.goToPanel('${item.id}')">
+      <span class="icon-tile-glyph">${item.icon}</span>
+      <span class="icon-tile-label">${item.label}</span>
+    </button>`).join("");
+
+  return welcome + `
+    <div class="card">
+      <h2>Quick actions</h2>
+      <p class="card-desc">Set up your school — classes, staff logins, details, and grading.</p>
+      <div class="icon-grid">${tiles}</div>
+    </div>`;
+}
+
+// ---------------- Add Class ----------------
+
+function renderAddClass() {
+  return `
+    <div class="card">
+      <h2>Add a class</h2>
+      <p class="card-desc">e.g. JSS1, JSS2, SS1 — used everywhere a class is selected.</p>
+      <div class="form-row">
+        <div class="field"><label for="newClassName">Class name</label><input type="text" id="newClassName" placeholder="JSS1"></div>
+      </div>
+      <button class="btn" id="addClassBtn">Add class</button>
+      <div class="status-msg" id="addClassStatus"></div>
+      <div id="classList" style="margin-top:16px;"></div>
+    </div>`;
+}
+
+function wireAddClass(session) {
+  const btn = document.getElementById("addClassBtn");
+  if (!btn) return;
+
+  async function refreshList() {
+    const listEl = document.getElementById("classList");
+    try {
+      const res = await apiCallAsUser("getClasses", {});
+      listEl.innerHTML = res.status === "ok" && res.classes.length
+        ? `<p class="card-desc" style="margin:0;"><strong>Current classes:</strong> ${res.classes.join(", ")}</p>`
+        : `<div class="empty-state">No classes added yet.</div>`;
+    } catch (e) { /* silent — list is a convenience, not critical */ }
+  }
+
+  btn.onclick = async () => {
+    const className = document.getElementById("newClassName").value.trim();
+    const statusEl = document.getElementById("addClassStatus");
+    if (!className) return;
+    btn.disabled = true;
+    try {
+      const res = await apiCallAsUser("addClass", { className });
+      if (res.status === "ok") {
+        showStatus(statusEl, `"${className}" added.`, true);
+        document.getElementById("newClassName").value = "";
+        refreshList();
+      } else {
+        showStatus(statusEl, res.message || "Could not add class.", false);
+      }
+    } catch (e) {
+      showStatus(statusEl, "Could not reach the server.", false);
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  refreshList();
+}
+
+// ---------------- Add Teacher / Add Bursar ----------------
+// Same form shape for both — role is fixed by which icon was tapped,
+// and creating the account here also creates their Users login row.
+
+function renderAddStaff(role) {
+  return `
+    <div class="card">
+      <h2>Add ${role}</h2>
+      <p class="card-desc">Creates their login — they can sign in with this username and password right away.</p>
+      <div class="form-row">
+        <div class="field"><label for="staffName-${role}">Full name</label><input type="text" id="staffName-${role}" placeholder="e.g. John Okafor"></div>
+        <div class="field"><label for="staffUsername-${role}">Username</label><input type="text" id="staffUsername-${role}" placeholder="e.g. john.teacher"></div>
+        <div class="field"><label for="staffPassword-${role}">Password</label><input type="text" id="staffPassword-${role}" placeholder="Temporary password"></div>
+      </div>
+      <button class="btn btn-gold" id="addStaffBtn-${role}">Add ${role}</button>
+      <div class="status-msg" id="addStaffStatus-${role}"></div>
+    </div>`;
+}
+
+function wireAddStaff(session, role) {
+  const btn = document.getElementById(`addStaffBtn-${role}`);
+  if (!btn) return;
+  btn.onclick = async () => {
+    const name = document.getElementById(`staffName-${role}`).value.trim();
+    const newUsername = document.getElementById(`staffUsername-${role}`).value.trim();
+    const newPassword = document.getElementById(`staffPassword-${role}`).value;
+    const statusEl = document.getElementById(`addStaffStatus-${role}`);
+    if (!name || !newUsername || !newPassword) {
+      showStatus(statusEl, "Fill in name, username, and password.", false);
+      return;
+    }
+    btn.disabled = true;
+    try {
+      const res = await apiCallAsUser("createStaffLogin", { name, newUsername, newPassword, role });
+      if (res.status === "ok") {
+        showStatus(statusEl, `${role} account created for ${name}.`, true);
+        document.getElementById(`staffName-${role}`).value = "";
+        document.getElementById(`staffUsername-${role}`).value = "";
+        document.getElementById(`staffPassword-${role}`).value = "";
+      } else {
+        showStatus(statusEl, res.message || `Could not create ${role} account.`, false);
+      }
+    } catch (e) {
+      showStatus(statusEl, "Could not reach the server.", false);
+    } finally {
+      btn.disabled = false;
+    }
+  };
+}
+
+// ---------------- School Details ----------------
+
+function renderSchoolDetails() {
+  return `
+    <div class="card">
+      <h2>School details</h2>
+      <div class="form-row">
+        <div class="field"><label for="sdAddress">Address</label><input type="text" id="sdAddress"></div>
+        <div class="field"><label for="sdPhone">Phone</label><input type="text" id="sdPhone"></div>
+        <div class="field"><label for="sdEmail">Email</label><input type="text" id="sdEmail"></div>
+        <div class="field"><label for="sdMotto">Motto</label><input type="text" id="sdMotto"></div>
+      </div>
+      <button class="btn" id="saveSchoolDetailsBtn">Save</button>
+      <div class="status-msg" id="schoolDetailsStatus"></div>
+    </div>`;
+}
+
+function wireSchoolDetails(session) {
+  const btn = document.getElementById("saveSchoolDetailsBtn");
+  if (!btn) return;
+
+  apiCallAsUser("getSchoolDetails", {}).then(res => {
+    if (res.status === "ok") {
+      document.getElementById("sdAddress").value = res.address || "";
+      document.getElementById("sdPhone").value = res.phone || "";
+      document.getElementById("sdEmail").value = res.email || "";
+      document.getElementById("sdMotto").value = res.motto || "";
+    }
+  }).catch(() => {});
+
+  btn.onclick = async () => {
+    const statusEl = document.getElementById("schoolDetailsStatus");
+    const details = {
+      address: document.getElementById("sdAddress").value.trim(),
+      phone: document.getElementById("sdPhone").value.trim(),
+      email: document.getElementById("sdEmail").value.trim(),
+      motto: document.getElementById("sdMotto").value.trim()
+    };
+    btn.disabled = true;
+    try {
+      const res = await apiCallAsUser("saveSchoolDetails", { details });
+      showStatus(statusEl, res.status === "ok" ? "Saved." : (res.message || "Could not save."), res.status === "ok");
+    } catch (e) {
+      showStatus(statusEl, "Could not reach the server.", false);
+    } finally {
+      btn.disabled = false;
+    }
+  };
+}
+
+// ---------------- Assessment Settings ----------------
+
+function renderAssessment() {
+  return `
+    <div class="card">
+      <h2>Assessment settings</h2>
+      <p class="card-desc">Set the maximum obtainable mark for each component. Applies across all scores for this school.</p>
+      <div class="form-row">
+        <div class="field"><label for="maxTest1">Test 1 max</label><input type="number" id="maxTest1" min="0"></div>
+        <div class="field"><label for="maxTest2">Test 2 max</label><input type="number" id="maxTest2" min="0"></div>
+        <div class="field"><label for="maxExam">Exam max</label><input type="number" id="maxExam" min="0"></div>
+      </div>
+      <button class="btn" id="saveAssessmentBtn">Save</button>
+      <div class="status-msg" id="assessmentStatus"></div>
+    </div>`;
+}
+
+function wireAssessment(session) {
+  const btn = document.getElementById("saveAssessmentBtn");
+  if (!btn) return;
+
+  apiCallAsUser("getAssessmentSettings", {}).then(res => {
+    if (res.status === "ok") {
+      document.getElementById("maxTest1").value = res.maxTest1;
+      document.getElementById("maxTest2").value = res.maxTest2;
+      document.getElementById("maxExam").value = res.maxExam;
+    }
+  }).catch(() => {});
+
+  btn.onclick = async () => {
+    const statusEl = document.getElementById("assessmentStatus");
+    const maxTest1 = Number(document.getElementById("maxTest1").value || 0);
+    const maxTest2 = Number(document.getElementById("maxTest2").value || 0);
+    const maxExam = Number(document.getElementById("maxExam").value || 0);
+    btn.disabled = true;
+    try {
+      const res = await apiCallAsUser("saveAssessmentSettings", { maxTest1, maxTest2, maxExam });
+      showStatus(statusEl, res.status === "ok" ? "Saved." : (res.message || "Could not save."), res.status === "ok");
+    } catch (e) {
+      showStatus(statusEl, "Could not reach the server.", false);
+    } finally {
+      btn.disabled = false;
+    }
+  };
 }
 
 // ---------------- Schools (SuperAdmin only) ----------------
