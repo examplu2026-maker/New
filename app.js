@@ -85,6 +85,20 @@ const NAV_BY_ROLE = {
   ]
 };
 
+// Panels that exist but are NOT shown as sidebar/tabbar menu items —
+// only reachable via the icon tiles on the Overview page. Keeps the
+// main menu short while still giving SchoolAdmin quick access to
+// less-frequent setup tasks (add class, add staff, school details...).
+const EXTRA_PANELS_BY_ROLE = {
+  SchoolAdmin: [
+    { id: "addclass", label: "Add Class", icon: "▥" },
+    { id: "addteacher", label: "Add Teacher", icon: "🧑\u200d🏫" },
+    { id: "addbursar", label: "Add Bursar", icon: "🧾" },
+    { id: "schooldetails", label: "School Details", icon: "🏫" },
+    { id: "assessment", label: "Assessment Settings", icon: "⚙" }
+  ]
+};
+
 function initDashboard(session) {
   document.getElementById("sidebarName").textContent = session.name || session.username;
   document.getElementById("sidebarRole").textContent = session.role;
@@ -97,12 +111,14 @@ function initDashboard(session) {
   });
 
   const items = NAV_BY_ROLE[session.role] || [];
+  const extraItems = EXTRA_PANELS_BY_ROLE[session.role] || [];
+  const allItems = items.concat(extraItems); // used for title lookup + panel creation
   const nav = document.getElementById("nav");
   const tabbar = document.getElementById("tabbar");
   const panels = document.getElementById("panels");
   const pageTitle = document.getElementById("pageTitle");
 
-  // Build sidebar nav + mobile tab bar
+  // Build sidebar nav + mobile tab bar (menu items only)
   items.forEach((item, idx) => {
     const navBtn = document.createElement("button");
     navBtn.className = "nav-item" + (idx === 0 ? " active" : "");
@@ -117,8 +133,10 @@ function initDashboard(session) {
     tabBtn.innerHTML = `<div>${item.icon}</div><div>${item.label}</div>`;
     tabBtn.addEventListener("click", () => showPanel(item.id));
     tabbar.appendChild(tabBtn);
+  });
 
-    // Build the panel content (defined per-role in panels.js)
+  // Build panel content for EVERY panel (menu items + icon-only extras)
+  allItems.forEach((item, idx) => {
     const panelEl = document.createElement("section");
     panelEl.className = "panel" + (idx === 0 ? " active" : "");
     panelEl.id = "panel-" + item.id;
@@ -130,10 +148,15 @@ function initDashboard(session) {
     document.querySelectorAll(".panel").forEach(p => p.classList.toggle("active", p.id === "panel-" + id));
     document.querySelectorAll(".nav-item").forEach(b => b.classList.toggle("active", b.dataset.panel === id));
     document.querySelectorAll(".tabbar button").forEach(b => b.classList.toggle("active", b.dataset.panel === id));
-    const found = items.find(i => i.id === id);
+    const found = allItems.find(i => i.id === id);
     if (found) pageTitle.textContent = found.label;
     wirePanel(id, session);
   }
+
+  // Exposed so icon tiles inside the Overview panel (built in panels.js)
+  // can jump to any panel — including the icon-only extras — without
+  // needing a sidebar entry.
+  window.goToPanel = showPanel;
 
   pageTitle.textContent = items[0] ? items[0].label : "Overview";
   if (items[0]) wirePanel(items[0].id, session);
