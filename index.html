@@ -26,7 +26,10 @@ button,input,select,textarea{
   display:none !important;
 }
 
-/* LOGIN */
+/* =========================
+   LOGIN
+========================= */
+
 #loginPage{
   min-height:100vh;
   display:flex;
@@ -151,7 +154,10 @@ button,input,select,textarea{
   color:#2e7d32;
 }
 
-/* APP */
+/* =========================
+   APPLICATION
+========================= */
+
 #appPage{
   min-height:100vh;
 }
@@ -265,7 +271,10 @@ button,input,select,textarea{
   opacity:.75;
 }
 
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
+
 .modal{
   position:fixed;
   inset:0;
@@ -345,7 +354,10 @@ button,input,select,textarea{
   font-weight:bold;
 }
 
-/* LOGO */
+/* =========================
+   LOGO
+========================= */
+
 .logo-upload-area{
   border:2px dashed #b8c7dd;
   border-radius:12px;
@@ -377,7 +389,10 @@ button,input,select,textarea{
   padding:8px;
 }
 
-/* SCHOOL CARDS */
+/* =========================
+   SCHOOL CARDS
+========================= */
+
 .school-card{
   border:1px solid #e5e7eb;
   border-radius:12px;
@@ -397,7 +412,10 @@ button,input,select,textarea{
   color:#555;
 }
 
-/* SETTINGS */
+/* =========================
+   SETTINGS
+========================= */
+
 .settings-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -407,6 +425,10 @@ button,input,select,textarea{
 .settings-grid .full{
   grid-column:1/-1;
 }
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
@@ -436,6 +458,7 @@ button,input,select,textarea{
   .settings-grid{
     grid-template-columns:1fr;
   }
+
 }
 
 @media(max-width:380px){
@@ -443,6 +466,7 @@ button,input,select,textarea{
   .tiles{
     grid-template-columns:1fr;
   }
+
 }
 </style>
 </head>
@@ -458,20 +482,14 @@ button,input,select,textarea{
   <div class="login-box">
 
     <div class="logo-title">
-
       <div class="icon">🎓</div>
-
       <h1>ExamPlus</h1>
-
       <p>School Management System</p>
-
     </div>
-
 
     <form id="loginForm">
 
       <div class="form-group">
-
         <label>Email</label>
 
         <input
@@ -480,9 +498,7 @@ button,input,select,textarea{
           placeholder="Enter your email"
           required
         >
-
       </div>
-
 
       <div class="form-group">
 
@@ -509,14 +525,12 @@ button,input,select,textarea{
 
       </div>
 
-
       <button
         class="primary-btn"
         type="submit"
       >
         Login
       </button>
-
 
       <div
         id="loginMessage"
@@ -545,7 +559,6 @@ button,input,select,textarea{
       🎓 ExamPlus
     </div>
 
-
     <div class="user-info">
 
       <strong id="topUserEmail"></strong>
@@ -553,7 +566,6 @@ button,input,select,textarea{
       <span id="topUserRole"></span>
 
     </div>
-
 
     <button
       class="logout-btn"
@@ -594,7 +606,6 @@ button,input,select,textarea{
         Super Admin Dashboard
       </h3>
 
-
       <div class="tiles">
 
         <button
@@ -602,17 +613,11 @@ button,input,select,textarea{
           onclick="openCreateSchool()"
         >
 
-          <div class="tile-icon">
-            🏫
-          </div>
+          <div class="tile-icon">🏫</div>
 
-          <h3>
-            Create School
-          </h3>
+          <h3>Create School</h3>
 
-          <p>
-            Create a new school
-          </p>
+          <p>Create a new school</p>
 
         </button>
 
@@ -622,17 +627,11 @@ button,input,select,textarea{
           onclick="openViewSchools()"
         >
 
-          <div class="tile-icon">
-            🏢
-          </div>
+          <div class="tile-icon">🏢</div>
 
-          <h3>
-            View Schools
-          </h3>
+          <h3>View Schools</h3>
 
-          <p>
-            View registered schools
-          </p>
+          <p>View registered schools</p>
 
         </button>
 
@@ -642,17 +641,11 @@ button,input,select,textarea{
           onclick="openSystemSettings()"
         >
 
-          <div class="tile-icon">
-            ⚙️
-          </div>
+          <div class="tile-icon">⚙️</div>
 
-          <h3>
-            System Settings
-          </h3>
+          <h3>System Settings</h3>
 
-          <p>
-            Configure ExamPlus
-          </p>
+          <p>Configure ExamPlus</p>
 
         </button>
 
@@ -674,7 +667,6 @@ button,input,select,textarea{
         School Admin Dashboard
       </h3>
 
-
       <div class="tiles">
 
         <button
@@ -682,17 +674,11 @@ button,input,select,textarea{
           onclick="openSchoolDetails()"
         >
 
-          <div class="tile-icon">
-            🏫
-          </div>
+          <div class="tile-icon">🏫</div>
 
-          <h3>
-            School Details
-          </h3>
+          <h3>School Details</h3>
 
-          <p>
-            Manage school information
-          </p>
+          <p>Manage school information</p>
 
         </button>
 
@@ -702,17 +688,11 @@ button,input,select,textarea{
           onclick="comingSoon('Students Details')"
         >
 
-          <div class="tile-icon">
-            👨‍🎓
-          </div>
+          <div class="tile-icon">👨‍🎓</div>
 
-          <h3>
-            Students Details
-          </h3>
+          <h3>Students Details</h3>
 
-          <p>
-            Manage students
-          </p>
+          <p>Manage students</p>
 
         </button>
 
@@ -722,17 +702,11 @@ button,input,select,textarea{
           onclick="comingSoon('All Classes')"
         >
 
-          <div class="tile-icon">
-            📚
-          </div>
+          <div class="tile-icon">📚</div>
 
-          <h3>
-            All Classes
-          </h3>
+          <h3>All Classes</h3>
 
-          <p>
-            Create and manage classes
-          </p>
+          <p>Create and manage classes</p>
 
         </button>
 
@@ -742,17 +716,11 @@ button,input,select,textarea{
           onclick="comingSoon('All Subjects')"
         >
 
-          <div class="tile-icon">
-            📖
-          </div>
+          <div class="tile-icon">📖</div>
 
-          <h3>
-            All Subjects
-          </h3>
+          <h3>All Subjects</h3>
 
-          <p>
-            Manage school subjects
-          </p>
+          <p>Manage school subjects</p>
 
         </button>
 
@@ -762,17 +730,11 @@ button,input,select,textarea{
           onclick="comingSoon('Students in Bulk')"
         >
 
-          <div class="tile-icon">
-            👥
-          </div>
+          <div class="tile-icon">👥</div>
 
-          <h3>
-            Students in Bulk
-          </h3>
+          <h3>Students in Bulk</h3>
 
-          <p>
-            Add students in bulk
-          </p>
+          <p>Add students in bulk</p>
 
         </button>
 
@@ -782,17 +744,11 @@ button,input,select,textarea{
           onclick="comingSoon('Report Card')"
         >
 
-          <div class="tile-icon">
-            📄
-          </div>
+          <div class="tile-icon">📄</div>
 
-          <h3>
-            Report Card
-          </h3>
+          <h3>Report Card</h3>
 
-          <p>
-            Generate report cards
-          </p>
+          <p>Generate report cards</p>
 
         </button>
 
@@ -802,17 +758,11 @@ button,input,select,textarea{
           onclick="comingSoon('Settings')"
         >
 
-          <div class="tile-icon">
-            ⚙️
-          </div>
+          <div class="tile-icon">⚙️</div>
 
-          <h3>
-            Settings
-          </h3>
+          <h3>Settings</h3>
 
-          <p>
-            School settings
-          </p>
+          <p>School settings</p>
 
         </button>
 
@@ -822,17 +772,11 @@ button,input,select,textarea{
           onclick="comingSoon('Contact Us')"
         >
 
-          <div class="tile-icon">
-            📞
-          </div>
+          <div class="tile-icon">📞</div>
 
-          <h3>
-            Contact Us
-          </h3>
+          <h3>Contact Us</h3>
 
-          <p>
-            Contact Super Admin
-          </p>
+          <p>Contact Super Admin</p>
 
         </button>
 
@@ -854,7 +798,6 @@ button,input,select,textarea{
         Teacher Dashboard
       </h3>
 
-
       <div class="tiles">
 
         <button
@@ -862,17 +805,11 @@ button,input,select,textarea{
           onclick="comingSoon('Upload Result')"
         >
 
-          <div class="tile-icon">
-            📝
-          </div>
+          <div class="tile-icon">📝</div>
 
-          <h3>
-            Upload Result
-          </h3>
+          <h3>Upload Result</h3>
 
-          <p>
-            Enter student scores
-          </p>
+          <p>Enter student scores</p>
 
         </button>
 
@@ -882,17 +819,11 @@ button,input,select,textarea{
           onclick="comingSoon('View Results')"
         >
 
-          <div class="tile-icon">
-            📊
-          </div>
+          <div class="tile-icon">📊</div>
 
-          <h3>
-            View Results
-          </h3>
+          <h3>View Results</h3>
 
-          <p>
-            View student results
-          </p>
+          <p>View student results</p>
 
         </button>
 
@@ -914,7 +845,6 @@ button,input,select,textarea{
         Bursar Dashboard
       </h3>
 
-
       <div class="tiles">
 
         <button
@@ -922,17 +852,11 @@ button,input,select,textarea{
           onclick="comingSoon('Generate Receipt')"
         >
 
-          <div class="tile-icon">
-            🧾
-          </div>
+          <div class="tile-icon">🧾</div>
 
-          <h3>
-            Generate Receipt
-          </h3>
+          <h3>Generate Receipt</h3>
 
-          <p>
-            Record student payment
-          </p>
+          <p>Record student payment</p>
 
         </button>
 
@@ -942,17 +866,11 @@ button,input,select,textarea{
           onclick="comingSoon('Receipt History')"
         >
 
-          <div class="tile-icon">
-            📜
-          </div>
+          <div class="tile-icon">📜</div>
 
-          <h3>
-            Receipt History
-          </h3>
+          <h3>Receipt History</h3>
 
-          <p>
-            View payment records
-          </p>
+          <p>View payment records</p>
 
         </button>
 
@@ -978,9 +896,7 @@ button,input,select,textarea{
 
     <div class="modal-header">
 
-      <h2>
-        🏫 Create School
-      </h2>
+      <h2>🏫 Create School</h2>
 
       <button
         class="close-btn"
@@ -996,9 +912,7 @@ button,input,select,textarea{
 
       <div class="form-group">
 
-        <label>
-          School Name
-        </label>
+        <label>School Name</label>
 
         <input
           type="text"
@@ -1011,9 +925,7 @@ button,input,select,textarea{
 
       <div class="form-group">
 
-        <label>
-          Admin Email
-        </label>
+        <label>Admin Email</label>
 
         <input
           type="email"
@@ -1026,9 +938,7 @@ button,input,select,textarea{
 
       <div class="form-group">
 
-        <label>
-          Admin Password
-        </label>
+        <label>Admin Password</label>
 
         <input
           type="password"
@@ -1048,7 +958,6 @@ button,input,select,textarea{
         >
           Cancel
         </button>
-
 
         <button
           type="submit"
@@ -1085,9 +994,7 @@ button,input,select,textarea{
 
     <div class="modal-header">
 
-      <h2>
-        🏢 Registered Schools
-      </h2>
+      <h2>🏢 Registered Schools</h2>
 
       <button
         class="close-btn"
@@ -1121,9 +1028,7 @@ button,input,select,textarea{
 
     <div class="modal-header">
 
-      <h2>
-        ⚙️ System Settings
-      </h2>
+      <h2>⚙️ System Settings</h2>
 
       <button
         class="close-btn"
@@ -1139,12 +1044,9 @@ button,input,select,textarea{
 
       <div class="settings-grid">
 
-
         <div class="form-group">
 
-          <label>
-            Free Trial Days
-          </label>
+          <label>Free Trial Days</label>
 
           <input
             type="number"
@@ -1156,9 +1058,7 @@ button,input,select,textarea{
 
         <div class="form-group">
 
-          <label>
-            1 Term Price (₦)
-          </label>
+          <label>1 Term Price (₦)</label>
 
           <input
             type="number"
@@ -1170,9 +1070,7 @@ button,input,select,textarea{
 
         <div class="form-group">
 
-          <label>
-            2 Terms Price (₦)
-          </label>
+          <label>2 Terms Price (₦)</label>
 
           <input
             type="number"
@@ -1184,9 +1082,7 @@ button,input,select,textarea{
 
         <div class="form-group">
 
-          <label>
-            1 Session Price (₦)
-          </label>
+          <label>1 Session Price (₦)</label>
 
           <input
             type="number"
@@ -1198,9 +1094,7 @@ button,input,select,textarea{
 
         <div class="form-group">
 
-          <label>
-            Bank Name
-          </label>
+          <label>Bank Name</label>
 
           <input
             type="text"
@@ -1212,9 +1106,7 @@ button,input,select,textarea{
 
         <div class="form-group">
 
-          <label>
-            Account Name
-          </label>
+          <label>Account Name</label>
 
           <input
             type="text"
@@ -1226,9 +1118,7 @@ button,input,select,textarea{
 
         <div class="form-group">
 
-          <label>
-            Account Number
-          </label>
+          <label>Account Number</label>
 
           <input
             type="text"
@@ -1254,9 +1144,7 @@ button,input,select,textarea{
 
         <div class="form-group full">
 
-          <label>
-            Paystack Public Key
-          </label>
+          <label>Paystack Public Key</label>
 
           <input
             type="text"
@@ -1274,13 +1162,9 @@ button,input,select,textarea{
 
           <select id="paystackEnabled">
 
-            <option value="No">
-              No
-            </option>
+            <option value="No">No</option>
 
-            <option value="Yes">
-              Yes
-            </option>
+            <option value="Yes">Yes</option>
 
           </select>
 
@@ -1298,7 +1182,6 @@ button,input,select,textarea{
         >
           Cancel
         </button>
-
 
         <button
           type="submit"
@@ -1335,9 +1218,7 @@ button,input,select,textarea{
 
     <div class="modal-header">
 
-      <h2>
-        🏫 School Details
-      </h2>
+      <h2>🏫 School Details</h2>
 
       <button
         class="close-btn"
@@ -1351,12 +1232,9 @@ button,input,select,textarea{
 
     <form id="schoolDetailsForm">
 
-
       <div class="form-group">
 
-        <label>
-          School Name
-        </label>
+        <label>School Name</label>
 
         <input
           type="text"
@@ -1370,9 +1248,7 @@ button,input,select,textarea{
 
       <div class="form-group">
 
-        <label>
-          School Address
-        </label>
+        <label>School Address</label>
 
         <textarea
           id="schoolAddress"
@@ -1385,9 +1261,7 @@ button,input,select,textarea{
 
       <div class="form-group">
 
-        <label>
-          School Contact Number
-        </label>
+        <label>School Contact Number</label>
 
         <input
           type="tel"
@@ -1400,9 +1274,7 @@ button,input,select,textarea{
 
       <div class="form-group">
 
-        <label>
-          School Email
-        </label>
+        <label>School Email</label>
 
         <input
           type="email"
@@ -1415,9 +1287,7 @@ button,input,select,textarea{
 
       <div class="form-group">
 
-        <label>
-          Resumption Date
-        </label>
+        <label>Resumption Date</label>
 
         <input
           type="date"
@@ -1429,10 +1299,7 @@ button,input,select,textarea{
 
       <div class="form-group">
 
-        <label>
-          School Logo
-        </label>
-
+        <label>School Logo</label>
 
         <div class="logo-upload-area">
 
@@ -1442,14 +1309,12 @@ button,input,select,textarea{
             alt="School Logo Preview"
           >
 
-
           <div
             id="logoPlaceholder"
             class="logo-placeholder"
           >
             No logo selected
           </div>
-
 
           <input
             type="file"
@@ -1458,9 +1323,9 @@ button,input,select,textarea{
             accept="image/*"
           >
 
-
           <small>
-            Select a school logo image. Maximum size: 1 MB.
+            Select a school logo image.
+            Maximum size: 1 MB.
           </small>
 
         </div>
@@ -1477,7 +1342,6 @@ button,input,select,textarea{
         >
           Cancel
         </button>
-
 
         <button
           type="submit"
@@ -1504,11 +1368,11 @@ button,input,select,textarea{
 <script>
 
 /* =====================================================
-   CURRENT EXAMPLUS BACKEND URL
+   CURRENT EXAMPLUS WEB APP URL
 ===================================================== */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycby_4kkOKgwzagrQcndLqQB6E80Bb7Dug0Pzzznc1wclJBjPolCEjgk3-KonKR1ky_76yA/exec";
+"https://script.google.com/macros/s/AKfycbxrMw09DOmpuaKVyjD357asj2oQ0FYG-5eQ6I8Vt4kiRwSYearkmdhScl-xV2Ln6anLMw/exec";
 
 
 let currentUser = null;
@@ -1546,21 +1410,15 @@ function escapeHtml(value){
    MESSAGE
 ===================================================== */
 
-function showMessage(
-  elementId,
-  text,
-  type
-){
+function showMessage(elementId,text,type){
 
-  const element =
-    $(elementId);
+  const element = $(elementId);
 
   if(!element){
     return;
   }
 
-  element.textContent =
-    text;
+  element.textContent = text;
 
   element.className =
     "message " + type;
@@ -1569,18 +1427,15 @@ function showMessage(
 
 function clearMessage(elementId){
 
-  const element =
-    $(elementId);
+  const element = $(elementId);
 
   if(!element){
     return;
   }
 
-  element.textContent =
-    "";
+  element.textContent = "";
 
-  element.className =
-    "message";
+  element.className = "message";
 }
 
 
@@ -1588,185 +1443,155 @@ function clearMessage(elementId){
    JSONP REQUEST
 ===================================================== */
 
-function apiRequest(
-  action,
-  params={}
-){
+function apiRequest(action,params={}){
 
-  return new Promise(
-    (resolve,reject)=>{
+  return new Promise((resolve,reject)=>{
 
-      const callbackName =
-        "examplus_callback_" +
-        Date.now() +
-        "_" +
-        Math.floor(
-          Math.random()*100000
-        );
+    const callbackName =
+      "examplus_callback_" +
+      Date.now() +
+      "_" +
+      Math.floor(Math.random()*100000);
 
+    const script =
+      document.createElement("script");
 
-      const script =
-        document.createElement(
-          "script"
-        );
+    let finished = false;
 
+    const timeout =
+      setTimeout(()=>{
 
-      let finished =
-        false;
-
-
-      const timeout =
-        setTimeout(()=>{
-
-          if(finished){
-            return;
-          }
-
-          finished = true;
-
-          cleanup();
-
-          reject(
-            new Error(
-              "The server did not respond. Please try again."
-            )
-          );
-
-        },30000);
-
-
-      function cleanup(){
-
-        clearTimeout(timeout);
-
-        if(script.parentNode){
-
-          script.parentNode.removeChild(
-            script
-          );
-
+        if(finished){
+          return;
         }
 
-        try{
+        finished = true;
 
-          delete window[callbackName];
+        cleanup();
 
-        }catch(error){
+        reject(
+          new Error(
+            "The server did not respond. Please try again."
+          )
+        );
 
-          window[callbackName] =
-            undefined;
+      },30000);
 
-        }
+
+    function cleanup(){
+
+      clearTimeout(timeout);
+
+      if(script.parentNode){
+
+        script.parentNode.removeChild(script);
 
       }
 
+      try{
 
-      window[callbackName] =
-        function(response){
+        delete window[callbackName];
 
-          if(finished){
-            return;
-          }
+      }catch(error){
 
-          finished = true;
+        window[callbackName] = undefined;
 
-          cleanup();
+      }
 
-
-          if(
-            response &&
-            response.success === false
-          ){
-
-            reject(
-              new Error(
-                response.message ||
-                "Request failed."
-              )
-            );
-
-            return;
-          }
+    }
 
 
-          resolve(response);
+    window[callbackName] =
+      function(response){
 
-        };
-
-
-      const query =
-        new URLSearchParams();
-
-
-      query.set(
-        "action",
-        action
-      );
-
-
-      query.set(
-        "callback",
-        callbackName
-      );
-
-
-      Object.keys(params)
-      .forEach(key=>{
-
-        let value =
-          params[key];
-
-
-        if(
-          value === null ||
-          value === undefined
-        ){
-
-          value = "";
-
+        if(finished){
+          return;
         }
 
+        finished = true;
 
-        query.set(
-          key,
-          String(value)
-        );
+        cleanup();
 
-      });
-
-
-      script.src =
-        API_URL +
-        "?" +
-        query.toString();
-
-
-      script.onerror =
-        function(){
-
-          if(finished){
-            return;
-          }
-
-          finished = true;
-
-          cleanup();
+        if(
+          response &&
+          response.success === false
+        ){
 
           reject(
             new Error(
-              "Unable to connect to ExamPlus server."
+              response.message ||
+              "Request failed."
             )
           );
 
-        };
+          return;
+        }
+
+        resolve(response);
+
+      };
 
 
-      document.body.appendChild(
-        script
+    const query =
+      new URLSearchParams();
+
+
+    query.set("action",action);
+
+    query.set("callback",callbackName);
+
+
+    Object.keys(params)
+    .forEach(key=>{
+
+      let value = params[key];
+
+      if(
+        value === null ||
+        value === undefined
+      ){
+
+        value = "";
+
+      }
+
+      query.set(
+        key,
+        String(value)
       );
 
-    }
-  );
+    });
+
+
+    script.src =
+      API_URL +
+      "?" +
+      query.toString();
+
+
+    script.onerror =
+      function(){
+
+        if(finished){
+          return;
+        }
+
+        finished = true;
+
+        cleanup();
+
+        reject(
+          new Error(
+            "Unable to connect to ExamPlus server."
+          )
+        );
+
+      };
+
+
+    document.body.appendChild(script);
+
+  });
 
 }
 
@@ -1782,10 +1607,7 @@ $("loginForm")
 
     event.preventDefault();
 
-
-    clearMessage(
-      "loginMessage"
-    );
+    clearMessage("loginMessage");
 
 
     const email =
@@ -1799,10 +1621,7 @@ $("loginForm")
       .value;
 
 
-    if(
-      !email ||
-      !password
-    ){
+    if(!email || !password){
 
       showMessage(
         "loginMessage",
@@ -1820,8 +1639,7 @@ $("loginForm")
       );
 
 
-    button.disabled =
-      true;
+    button.disabled = true;
 
     button.textContent =
       "Logging in...";
@@ -1875,9 +1693,7 @@ $("loginForm")
 
       sessionStorage.setItem(
         "examplusUser",
-        JSON.stringify(
-          currentUser
-        )
+        JSON.stringify(currentUser)
       );
 
 
@@ -1895,11 +1711,9 @@ $("loginForm")
 
     }finally{
 
-      button.disabled =
-        false;
+      button.disabled = false;
 
-      button.textContent =
-        "Login";
+      button.textContent = "Login";
 
     }
 
@@ -1916,31 +1730,23 @@ function togglePassword(){
   const input =
     $("loginPassword");
 
-
   const button =
     document.querySelector(
       ".show-password"
     );
 
 
-  if(
-    input.type ===
-    "password"
-  ){
+  if(input.type === "password"){
 
-    input.type =
-      "text";
+    input.type = "text";
 
-    button.textContent =
-      "Hide";
+    button.textContent = "Hide";
 
   }else{
 
-    input.type =
-      "password";
+    input.type = "password";
 
-    button.textContent =
-      "Show";
+    button.textContent = "Show";
 
   }
 
@@ -2009,14 +1815,12 @@ function showApp(){
 
   $("topUserEmail")
     .textContent =
-    currentUser.email ||
-    "";
+    currentUser.email || "";
 
 
   $("topUserRole")
     .textContent =
-    currentUser.role ||
-    "";
+    currentUser.role || "";
 
 
   $("welcomeTitle")
@@ -2045,10 +1849,7 @@ function showApp(){
     .toLowerCase();
 
 
-  if(
-    role ===
-    "super admin"
-  ){
+  if(role === "super admin"){
 
     $("superAdminSection")
       .classList
@@ -2056,10 +1857,7 @@ function showApp(){
 
   }
 
-  else if(
-    role ===
-    "admin"
-  ){
+  else if(role === "admin"){
 
     $("adminSection")
       .classList
@@ -2067,10 +1865,7 @@ function showApp(){
 
   }
 
-  else if(
-    role ===
-    "teacher"
-  ){
+  else if(role === "teacher"){
 
     $("teacherSection")
       .classList
@@ -2078,10 +1873,7 @@ function showApp(){
 
   }
 
-  else if(
-    role ===
-    "bursar"
-  ){
+  else if(role === "bursar"){
 
     $("bursarSection")
       .classList
@@ -2121,9 +1913,7 @@ function hideAllRoleSections(){
 
 function logout(){
 
-  currentUser =
-    null;
-
+  currentUser = null;
 
   sessionStorage.removeItem(
     "examplusUser"
@@ -2140,17 +1930,11 @@ function logout(){
     .remove("hidden");
 
 
-  $("loginEmail").value =
-    "";
+  $("loginEmail").value = "";
 
+  $("loginPassword").value = "";
 
-  $("loginPassword").value =
-    "";
-
-
-  clearMessage(
-    "loginMessage"
-  );
+  clearMessage("loginMessage");
 
 }
 
@@ -2188,9 +1972,7 @@ function openCreateSchool(){
   }
 
 
-  $("createSchoolForm")
-    .reset();
-
+  $("createSchoolForm").reset();
 
   clearMessage(
     "createSchoolMessage"
@@ -2210,7 +1992,6 @@ $("createSchoolForm")
   async function(event){
 
     event.preventDefault();
-
 
     clearMessage(
       "createSchoolMessage"
@@ -2256,8 +2037,7 @@ $("createSchoolForm")
       );
 
 
-    button.disabled =
-      true;
+    button.disabled = true;
 
     button.textContent =
       "Creating...";
@@ -2269,6 +2049,7 @@ $("createSchoolForm")
         await apiRequest(
           "createSchool",
           {
+
             email:
               currentUser.email,
 
@@ -2280,13 +2061,12 @@ $("createSchoolForm")
 
             adminPassword:
               adminPassword
+
           }
         );
 
 
-      if(
-        !response.success
-      ){
+      if(!response.success){
 
         throw new Error(
           response.message ||
@@ -2327,8 +2107,7 @@ $("createSchoolForm")
 
     }finally{
 
-      button.disabled =
-        false;
+      button.disabled = false;
 
       button.textContent =
         "Create School";
@@ -2372,9 +2151,7 @@ async function openViewSchools(){
       );
 
 
-    if(
-      !response.success
-    ){
+    if(!response.success){
 
       throw new Error(
         response.message ||
@@ -2390,15 +2167,14 @@ async function openViewSchools(){
       [];
 
 
-    if(
-      !schools.length
-    ){
+    if(!schools.length){
 
       $("schoolsList")
         .innerHTML =
         "<p>No schools found.</p>";
 
       return;
+
     }
 
 
@@ -2515,9 +2291,7 @@ async function openSystemSettings(){
       );
 
 
-    if(
-      !response.success
-    ){
+    if(!response.success){
 
       throw new Error(
         response.message ||
@@ -2615,7 +2389,6 @@ $("systemSettingsForm")
 
     event.preventDefault();
 
-
     clearMessage(
       "systemSettingsMessage"
     );
@@ -2662,8 +2435,7 @@ $("systemSettingsForm")
       );
 
 
-    button.disabled =
-      true;
+    button.disabled = true;
 
     button.textContent =
       "Saving...";
@@ -2675,20 +2447,18 @@ $("systemSettingsForm")
         await apiRequest(
           "saveSystemSettings",
           {
+
             email:
               currentUser.email,
 
             settings:
-              JSON.stringify(
-                settings
-              )
+              JSON.stringify(settings)
+
           }
         );
 
 
-      if(
-        !response.success
-      ){
+      if(!response.success){
 
         throw new Error(
           response.message ||
@@ -2717,8 +2487,7 @@ $("systemSettingsForm")
 
     }finally{
 
-      button.disabled =
-        false;
+      button.disabled = false;
 
       button.textContent =
         "Save Settings";
@@ -2750,24 +2519,14 @@ async function openSchoolDetails(){
   );
 
 
-  $("schoolLogoInput").value =
-    "";
+  $("schoolLogoInput").value = "";
 
-
-  $("schoolLogoPreview")
-    .style
-    .display =
+  $("schoolLogoPreview").style.display =
     "none";
 
+  $("schoolLogoPreview").src = "";
 
-  $("schoolLogoPreview")
-    .src =
-    "";
-
-
-  $("logoPlaceholder")
-    .style
-    .display =
+  $("logoPlaceholder").style.display =
     "block";
 
 
@@ -2783,9 +2542,7 @@ async function openSchoolDetails(){
       );
 
 
-    if(
-      !response.success
-    ){
+    if(!response.success){
 
       throw new Error(
         response.message ||
@@ -2843,20 +2600,13 @@ async function openSchoolDetails(){
 
     if(logo){
 
-      $("schoolLogoPreview")
-        .src =
+      $("schoolLogoPreview").src =
         logo;
 
-
-      $("schoolLogoPreview")
-        .style
-        .display =
+      $("schoolLogoPreview").style.display =
         "block";
 
-
-      $("logoPlaceholder")
-        .style
-        .display =
+      $("logoPlaceholder").style.display =
         "none";
 
     }
@@ -2905,11 +2655,7 @@ function normalizeDateForInput(value){
     new Date(text);
 
 
-  if(
-    isNaN(
-      date.getTime()
-    )
-  ){
+  if(isNaN(date.getTime())){
 
     return "";
 
@@ -2923,15 +2669,13 @@ function normalizeDateForInput(value){
   const month =
     String(
       date.getMonth()+1
-    )
-    .padStart(2,"0");
+    ).padStart(2,"0");
 
 
   const day =
     String(
       date.getDate()
-    )
-    .padStart(2,"0");
+    ).padStart(2,"0");
 
 
   return (
@@ -2970,41 +2714,31 @@ $("schoolLogoInput")
       1024;
 
 
-    if(
-      file.size >
-      maxSize
-    ){
+    if(file.size > maxSize){
 
       alert(
         "Please choose a logo smaller than 1 MB."
       );
 
-
-      this.value =
-        "";
-
+      this.value = "";
 
       return;
+
     }
 
 
     if(
-      !file.type
-        .startsWith(
-          "image/"
-        )
+      !file.type.startsWith("image/")
     ){
 
       alert(
         "Please select an image file."
       );
 
-
-      this.value =
-        "";
-
+      this.value = "";
 
       return;
+
     }
 
 
@@ -3015,20 +2749,13 @@ $("schoolLogoInput")
     reader.onload =
       function(event){
 
-        $("schoolLogoPreview")
-          .src =
+        $("schoolLogoPreview").src =
           event.target.result;
 
-
-        $("schoolLogoPreview")
-          .style
-          .display =
+        $("schoolLogoPreview").style.display =
           "block";
 
-
-        $("logoPlaceholder")
-          .style
-          .display =
+        $("logoPlaceholder").style.display =
           "none";
 
       };
@@ -3044,9 +2771,7 @@ $("schoolLogoInput")
       };
 
 
-    reader.readAsDataURL(
-      file
-    );
+    reader.readAsDataURL(file);
 
   }
 );
@@ -3078,6 +2803,7 @@ $("schoolDetailsForm")
       );
 
       return;
+
     }
 
 
@@ -3115,8 +2841,7 @@ $("schoolDetailsForm")
 
 
     const logo =
-      logoPreview.style.display !==
-      "none"
+      logoPreview.style.display !== "none"
         ? logoPreview.src
         : "";
 
@@ -3130,6 +2855,7 @@ $("schoolDetailsForm")
       );
 
       return;
+
     }
 
 
@@ -3139,8 +2865,7 @@ $("schoolDetailsForm")
       );
 
 
-    button.disabled =
-      true;
+    button.disabled = true;
 
     button.textContent =
       "Saving...";
@@ -3178,9 +2903,7 @@ $("schoolDetailsForm")
         );
 
 
-      if(
-        !response.success
-      ){
+      if(!response.success){
 
         throw new Error(
           response.message ||
@@ -3196,9 +2919,7 @@ $("schoolDetailsForm")
 
       sessionStorage.setItem(
         "examplusUser",
-        JSON.stringify(
-          currentUser
-        )
+        JSON.stringify(currentUser)
       );
 
 
@@ -3226,8 +2947,7 @@ $("schoolDetailsForm")
 
     }finally{
 
-      button.disabled =
-        false;
+      button.disabled = false;
 
       button.textContent =
         "💾 Save School Details";
@@ -3292,14 +3012,9 @@ document
     "click",
     function(event){
 
-      if(
-        event.target ===
-        modal
-      ){
+      if(event.target === modal){
 
-        modal.classList.remove(
-          "show"
-        );
+        modal.classList.remove("show");
 
       }
 
@@ -3310,7 +3025,7 @@ document
 
 
 /* =====================================================
-   START
+   START APPLICATION
 ===================================================== */
 
 restoreSession();
