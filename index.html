@@ -33,7 +33,7 @@ body {
 .login-card {
   width: 100%;
   max-width: 420px;
-  background: #fff;
+  background: white;
   border-radius: 18px;
   padding: 30px 24px;
   box-shadow: 0 8px 30px rgba(0,0,0,.10);
@@ -45,7 +45,7 @@ body {
   margin: 0 auto 15px;
   border-radius: 20px;
   background: #1769aa;
-  color: #fff;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,19 +91,21 @@ input {
   position: absolute;
   right: 10px;
   top: 9px;
-  border: none;
   background: transparent;
+  border: none;
   color: #1769aa;
   font-weight: bold;
+  padding: 8px;
 }
 
 .login-button {
   width: 100%;
   margin-top: 22px;
   padding: 14px;
+  border: none;
   border-radius: 9px;
   background: #1769aa;
-  color: #fff;
+  color: white;
   font-size: 17px;
   font-weight: bold;
 }
@@ -116,8 +118,8 @@ input {
   margin-top: 15px;
   padding: 12px;
   border-radius: 8px;
-  display: none;
   text-align: center;
+  display: none;
 }
 
 /* DASHBOARD */
@@ -142,6 +144,7 @@ input {
 .logout-button {
   background: white;
   color: #1769aa;
+  border: none;
   padding: 9px 14px;
   border-radius: 8px;
   font-weight: bold;
@@ -173,14 +176,14 @@ input {
 }
 
 .tile {
-  background: #fff;
+  background: white;
   border-radius: 15px;
   padding: 22px 12px;
+  min-height: 130px;
   box-shadow: 0 4px 15px rgba(0,0,0,.07);
   text-align: center;
   cursor: pointer;
-  transition: .2s;
-  min-height: 130px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -216,7 +219,7 @@ input {
 .modal-box {
   width: 100%;
   max-width: 500px;
-  background: #fff;
+  background: white;
   border-radius: 18px;
   padding: 24px;
   max-height: 92vh;
@@ -236,6 +239,7 @@ input {
 
 .close-button {
   background: #eee;
+  border: none;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -246,8 +250,9 @@ input {
   width: 100%;
   margin-top: 20px;
   padding: 14px;
+  border: none;
   background: #1769aa;
-  color: #fff;
+  color: white;
   border-radius: 9px;
   font-size: 16px;
   font-weight: bold;
@@ -262,8 +267,8 @@ input {
   padding: 15px;
   background: #eef7ee;
   border-radius: 10px;
-  display: none;
   line-height: 1.8;
+  display: none;
 }
 
 .school-list {
@@ -287,7 +292,6 @@ input {
   color: #666;
 }
 
-/* MOBILE */
 @media (min-width: 700px) {
   .tiles {
     grid-template-columns: repeat(4, 1fr);
@@ -298,7 +302,7 @@ input {
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN PAGE -->
 
 <div id="loginPage" class="login-page">
 
@@ -312,7 +316,7 @@ input {
       School Management System
     </div>
 
-    <label>Email</label>
+    <label for="email">Email</label>
 
     <input
       type="email"
@@ -321,7 +325,7 @@ input {
       autocomplete="username"
     >
 
-    <label>Password</label>
+    <label for="password">Password</label>
 
     <div class="password-box">
 
@@ -333,9 +337,9 @@ input {
       >
 
       <button
-        class="show-password"
         type="button"
-        onclick="togglePassword()"
+        id="showPasswordButton"
+        class="show-password"
       >
         Show
       </button>
@@ -343,9 +347,9 @@ input {
     </div>
 
     <button
+      type="button"
       id="loginButton"
       class="login-button"
-      onclick="login()"
     >
       Login
     </button>
@@ -357,7 +361,7 @@ input {
 </div>
 
 
-<!-- ================= DASHBOARD ================= -->
+<!-- DASHBOARD -->
 
 <div id="dashboardPage" class="dashboard hidden">
 
@@ -368,14 +372,14 @@ input {
     </div>
 
     <button
+      type="button"
+      id="logoutButton"
       class="logout-button"
-      onclick="logout()"
     >
       Logout
     </button>
 
   </div>
-
 
   <div class="dashboard-content">
 
@@ -396,40 +400,1067 @@ input {
 
       <div class="tiles">
 
-        <!-- CREATE SCHOOL ICON -->
-
-        <div
-          class="tile"
-          onclick="openCreateSchool()"
-        >
-
-          <div class="tile-icon">
-            🏫
-          </div>
-
-          <div class="tile-title">
-            Create School
-          </div>
-
+        <div class="tile" id="createSchoolTile">
+          <div class="tile-icon">🏫</div>
+          <div class="tile-title">Create School</div>
         </div>
 
-
-        <!-- VIEW SCHOOLS ICON -->
-
-        <div
-          class="tile"
-          onclick="viewSchools()"
-        >
-
-          <div class="tile-icon">
-            🏢
-          </div>
-
-          <div class="tile-title">
-            View Schools
-          </div>
-
+        <div class="tile" id="viewSchoolsTile">
+          <div class="tile-icon">🏢</div>
+          <div class="tile-title">View Schools</div>
         </div>
 
+        <div class="tile" id="systemSettingsTile">
+          <div class="tile-icon">⚙️</div>
+          <div class="tile-title">System Settings</div>
+        </div>
 
-        <!--
+      </div>
+
+    </div>
+
+
+    <!-- ADMIN -->
+
+    <div id="adminDashboard" class="hidden">
+
+      <div class="tiles">
+
+        <div class="tile">
+          <div class="tile-icon">🏫</div>
+          <div class="tile-title">School Details</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-icon">👨‍🎓</div>
+          <div class="tile-title">Students Details</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-icon">🏢</div>
+          <div class="tile-title">All Classes</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-icon">📚</div>
+          <div class="tile-title">All Subjects</div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TEACHER -->
+
+    <div id="teacherDashboard" class="hidden">
+
+      <div class="tiles">
+
+        <div class="tile">
+          <div class="tile-icon">📝</div>
+          <div class="tile-title">Add Score</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-icon">📊</div>
+          <div class="tile-title">View Record</div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- BURSAR -->
+
+    <div id="bursarDashboard" class="hidden">
+
+      <div class="tiles">
+
+        <div class="tile">
+          <div class="tile-icon">💰</div>
+          <div class="tile-title">Payment</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-icon">🧾</div>
+          <div class="tile-title">View Records</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- CREATE SCHOOL -->
+
+<div id="createSchoolModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>Create School</h2>
+
+      <button
+        type="button"
+        id="closeCreateSchoolButton"
+        class="close-button"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <label for="schoolName">
+      School Name
+    </label>
+
+    <input
+      type="text"
+      id="schoolName"
+      placeholder="Enter school name"
+    >
+
+    <label for="adminEmail">
+      School Admin Email
+    </label>
+
+    <input
+      type="email"
+      id="adminEmail"
+      placeholder="Enter School Admin email"
+    >
+
+    <label for="adminPassword">
+      School Admin Password
+    </label>
+
+    <input
+      type="password"
+      id="adminPassword"
+      placeholder="Minimum 6 characters"
+    >
+
+    <button
+      type="button"
+      id="createSchoolButton"
+      class="create-button"
+    >
+      Create School
+    </button>
+
+    <div
+      id="createSchoolResult"
+      class="result-box"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- VIEW SCHOOLS -->
+
+<div id="schoolsModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>View Schools</h2>
+
+      <button
+        type="button"
+        id="closeSchoolsButton"
+        class="close-button"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      id="schoolsList"
+      class="school-list"
+    >
+      Loading...
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/****************************************************
+ * BACKEND URL
+ ****************************************************/
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycby_vtghiScwJGAUXhfBdf9vMiFrKMexW4sjln0Vk6IjfxjBr0rDx-5MBtv4Pc25eeENEw/exec";
+
+
+/****************************************************
+ * CURRENT USER
+ ****************************************************/
+
+let currentUser = null;
+
+
+/****************************************************
+ * JSONP
+ ****************************************************/
+
+function jsonp(action, params, callback) {
+
+  const callbackName =
+    "examPlus_" +
+    Date.now() +
+    "_" +
+    Math.floor(Math.random() * 100000);
+
+
+  const script =
+    document.createElement("script");
+
+
+  const query =
+    new URLSearchParams();
+
+
+  query.set("action", action);
+  query.set("callback", callbackName);
+
+
+  if (params) {
+
+    Object.keys(params).forEach(function(key) {
+
+      query.set(
+        key,
+        String(params[key])
+      );
+
+    });
+
+  }
+
+
+  window[callbackName] =
+    function(data) {
+
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+
+      delete window[callbackName];
+
+      callback(data);
+
+    };
+
+
+  script.onerror =
+    function() {
+
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+
+      delete window[callbackName];
+
+      callback({
+
+        success: false,
+
+        message:
+          "Unable to connect to ExamPlus backend."
+
+      });
+
+    };
+
+
+  script.src =
+    API_URL +
+    "?" +
+    query.toString();
+
+
+  document
+    .body
+    .appendChild(script);
+
+}
+
+
+/****************************************************
+ * LOGIN BUTTON
+ ****************************************************/
+
+document
+  .getElementById("loginButton")
+  .addEventListener(
+    "click",
+    login
+  );
+
+
+/****************************************************
+ * LOGIN
+ ****************************************************/
+
+function login() {
+
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById("password")
+      .value;
+
+
+  const button =
+    document
+      .getElementById("loginButton");
+
+
+  if (!email) {
+
+    showLoginMessage(
+      "Please enter your email.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if (!password) {
+
+    showLoginMessage(
+      "Please enter your password.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "Logging in...";
+
+
+  showLoginMessage(
+    "Connecting...",
+    true
+  );
+
+
+  jsonp(
+
+    "login",
+
+    {
+      email: email,
+      password: password
+    },
+
+    function(data) {
+
+      button.disabled = false;
+
+      button.textContent =
+        "Login";
+
+
+      if (!data || !data.success) {
+
+        showLoginMessage(
+
+          data && data.message
+            ? data.message
+            : "Login failed.",
+
+          false
+
+        );
+
+        return;
+
+      }
+
+
+      currentUser =
+        data.user;
+
+
+      showDashboard();
+
+    }
+
+  );
+
+}
+
+
+/****************************************************
+ * LOGIN MESSAGE
+ ****************************************************/
+
+function showLoginMessage(
+  text,
+  success
+) {
+
+  const box =
+    document
+      .getElementById("loginMessage");
+
+
+  box.style.display =
+    "block";
+
+
+  box.style.background =
+    success
+      ? "#e8f5e9"
+      : "#ffebee";
+
+
+  box.style.color =
+    success
+      ? "#2e7d32"
+      : "#c62828";
+
+
+  box.textContent =
+    text;
+
+}
+
+
+/****************************************************
+ * SHOW DASHBOARD
+ ****************************************************/
+
+function showDashboard() {
+
+  document
+    .getElementById("loginPage")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("dashboardPage")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("dashboardTitle")
+    .textContent =
+      currentUser.role +
+      " Dashboard";
+
+
+  document
+    .getElementById("dashboardUser")
+    .textContent =
+      currentUser.email;
+
+
+  hideDashboards();
+
+
+  const role =
+    String(currentUser.role || "")
+      .trim()
+      .toLowerCase();
+
+
+  if (role === "super admin") {
+
+    document
+      .getElementById("superAdminDashboard")
+      .classList.remove("hidden");
+
+  }
+
+  else if (role === "admin") {
+
+    document
+      .getElementById("adminDashboard")
+      .classList.remove("hidden");
+
+  }
+
+  else if (role === "teacher") {
+
+    document
+      .getElementById("teacherDashboard")
+      .classList.remove("hidden");
+
+  }
+
+  else if (role === "bursar") {
+
+    document
+      .getElementById("bursarDashboard")
+      .classList.remove("hidden");
+
+  }
+
+}
+
+
+/****************************************************
+ * HIDE DASHBOARDS
+ ****************************************************/
+
+function hideDashboards() {
+
+  document
+    .getElementById("superAdminDashboard")
+    .classList.add("hidden");
+
+  document
+    .getElementById("adminDashboard")
+    .classList.add("hidden");
+
+  document
+    .getElementById("teacherDashboard")
+    .classList.add("hidden");
+
+  document
+    .getElementById("bursarDashboard")
+    .classList.add("hidden");
+
+}
+
+
+/****************************************************
+ * SHOW / HIDE PASSWORD
+ ****************************************************/
+
+document
+  .getElementById("showPasswordButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      const password =
+        document
+          .getElementById("password");
+
+
+      const button =
+        document
+          .getElementById("showPasswordButton");
+
+
+      if (password.type === "password") {
+
+        password.type =
+          "text";
+
+        button.textContent =
+          "Hide";
+
+      } else {
+
+        password.type =
+          "password";
+
+        button.textContent =
+          "Show";
+
+      }
+
+    }
+  );
+
+
+/****************************************************
+ * LOGOUT
+ ****************************************************/
+
+document
+  .getElementById("logoutButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      currentUser = null;
+
+
+      document
+        .getElementById("dashboardPage")
+        .classList.add("hidden");
+
+
+      document
+        .getElementById("loginPage")
+        .classList.remove("hidden");
+
+
+      document
+        .getElementById("password")
+        .value = "";
+
+
+      document
+        .getElementById("loginMessage")
+        .style.display = "none";
+
+    }
+  );
+
+
+/****************************************************
+ * CREATE SCHOOL ICON
+ ****************************************************/
+
+document
+  .getElementById("createSchoolTile")
+  .addEventListener(
+    "click",
+    openCreateSchool
+  );
+
+
+function openCreateSchool() {
+
+  document
+    .getElementById("createSchoolModal")
+    .style.display =
+      "flex";
+
+}
+
+
+/****************************************************
+ * CLOSE CREATE SCHOOL
+ ****************************************************/
+
+document
+  .getElementById("closeCreateSchoolButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      document
+        .getElementById("createSchoolModal")
+        .style.display =
+          "none";
+
+    }
+  );
+
+
+/****************************************************
+ * CREATE SCHOOL BUTTON
+ ****************************************************/
+
+document
+  .getElementById("createSchoolButton")
+  .addEventListener(
+    "click",
+    createSchool
+  );
+
+
+function createSchool() {
+
+  if (!currentUser) {
+
+    alert(
+      "Please login first."
+    );
+
+    return;
+
+  }
+
+
+  const schoolName =
+    document
+      .getElementById("schoolName")
+      .value
+      .trim();
+
+
+  const adminEmail =
+    document
+      .getElementById("adminEmail")
+      .value
+      .trim();
+
+
+  const adminPassword =
+    document
+      .getElementById("adminPassword")
+      .value;
+
+
+  const button =
+    document
+      .getElementById("createSchoolButton");
+
+
+  const result =
+    document
+      .getElementById("createSchoolResult");
+
+
+  if (!schoolName) {
+
+    alert(
+      "Please enter the school name."
+    );
+
+    return;
+
+  }
+
+
+  if (!adminEmail) {
+
+    alert(
+      "Please enter the School Admin email."
+    );
+
+    return;
+
+  }
+
+
+  if (!adminPassword) {
+
+    alert(
+      "Please enter the School Admin password."
+    );
+
+    return;
+
+  }
+
+
+  if (adminPassword.length < 6) {
+
+    alert(
+      "Password must contain at least 6 characters."
+    );
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "Creating School...";
+
+
+  jsonp(
+
+    "createSchool",
+
+    {
+
+      schoolName:
+        schoolName,
+
+      adminEmail:
+        adminEmail,
+
+      adminPassword:
+        adminPassword,
+
+      creatorEmail:
+        currentUser.email
+
+    },
+
+    function(data) {
+
+      button.disabled = false;
+
+      button.textContent =
+        "Create School";
+
+
+      if (!data.success) {
+
+        alert(
+          data.message ||
+          "School creation failed."
+        );
+
+        return;
+
+      }
+
+
+      const school =
+        data.school;
+
+
+      result.style.display =
+        "block";
+
+
+      result.innerHTML =
+
+        "<strong>School Created Successfully!</strong><br>" +
+
+        "School ID: <b>" +
+        escapeHtml(
+          school.schoolId
+        ) +
+        "</b><br>" +
+
+        "School Name: <b>" +
+        escapeHtml(
+          school.schoolName
+        ) +
+        "</b><br>" +
+
+        "Admin Email: <b>" +
+        escapeHtml(
+          school.adminEmail
+        ) +
+        "</b><br>" +
+
+        "Admin Password: <b>" +
+        escapeHtml(
+          school.adminPassword
+        ) +
+        "</b><br>" +
+
+        "Free Trial: <b>7 Days</b><br>" +
+
+        "Trial Ends: <b>" +
+        escapeHtml(
+          school.trialEndDate
+        ) +
+        "</b>";
+
+
+      document
+        .getElementById("schoolName")
+        .value = "";
+
+      document
+        .getElementById("adminEmail")
+        .value = "";
+
+      document
+        .getElementById("adminPassword")
+        .value = "";
+
+    }
+
+  );
+
+}
+
+
+/****************************************************
+ * VIEW SCHOOLS
+ ****************************************************/
+
+document
+  .getElementById("viewSchoolsTile")
+  .addEventListener(
+    "click",
+    viewSchools
+  );
+
+
+function viewSchools() {
+
+  document
+    .getElementById("schoolsModal")
+    .style.display =
+      "flex";
+
+
+  document
+    .getElementById("schoolsList")
+    .textContent =
+      "Loading schools...";
+
+
+  jsonp(
+
+    "getSchools",
+
+    {},
+
+    function(data) {
+
+      if (!data.success) {
+
+        document
+          .getElementById("schoolsList")
+          .textContent =
+            data.message ||
+            "Unable to load schools.";
+
+        return;
+
+      }
+
+
+      const schools =
+        data.schools || [];
+
+
+      if (schools.length === 0) {
+
+        document
+          .getElementById("schoolsList")
+          .textContent =
+            "No schools have been created yet.";
+
+        return;
+
+      }
+
+
+      let html = "";
+
+
+      schools.forEach(
+        function(school) {
+
+          html +=
+
+            '<div class="school-item">' +
+
+            "<strong>" +
+            escapeHtml(
+              school.schoolName
+            ) +
+            "</strong>" +
+
+            "<small>School ID: " +
+            escapeHtml(
+              school.schoolId
+            ) +
+            "</small>" +
+
+            "<small>Admin: " +
+            escapeHtml(
+              school.adminEmail
+            ) +
+            "</small>" +
+
+            "<small>Status: " +
+            escapeHtml(
+              school.status
+            ) +
+            "</small>" +
+
+            "<small>Trial Ends: " +
+            escapeHtml(
+              school.trialEndDate
+            ) +
+            "</small>" +
+
+            "</div>";
+
+        }
+      );
+
+
+      document
+        .getElementById("schoolsList")
+        .innerHTML =
+          html;
+
+    }
+
+  );
+
+}
+
+
+/****************************************************
+ * CLOSE SCHOOLS
+ ****************************************************/
+
+document
+  .getElementById("closeSchoolsButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      document
+        .getElementById("schoolsModal")
+        .style.display =
+          "none";
+
+    }
+  );
+
+
+/****************************************************
+ * SYSTEM SETTINGS PLACEHOLDER
+ ****************************************************/
+
+document
+  .getElementById("systemSettingsTile")
+  .addEventListener(
+    "click",
+    function() {
+
+      alert(
+        "System Settings will be connected next."
+      );
+
+    }
+  );
+
+
+/****************************************************
+ * ESCAPE HTML
+ ****************************************************/
+
+function escapeHtml(value) {
+
+  return String(value || "")
+
+    .replace(/&/g, "&amp;")
+
+    .replace(/</g, "&lt;")
+
+    .replace(/>/g, "&gt;")
+
+    .replace(/"/g, "&quot;")
+
+    .replace(/'/g, "&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
