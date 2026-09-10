@@ -3,161 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ExamPlus Connection Test</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f5f9;
-      padding: 30px 15px;
-      text-align: center;
-    }
-
-    .box {
-      max-width: 400px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.12);
-    }
-
-    h1 {
-      color: #0b5ed7;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 7px;
-    }
-
-    button {
-      width: 100%;
-      padding: 13px;
-      margin-top: 10px;
-      border: 0;
-      border-radius: 7px;
-      background: #0b5ed7;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    #result {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f5f5f5;
-      border-radius: 8px;
-      word-break: break-word;
-    }
-  </style>
+  <title>ExamPlus Test</title>
 </head>
 
-<body>
+<body style="font-family:Arial;text-align:center;padding:40px;">
 
-<div class="box">
+<h2>ExamPlus Backend Test</h2>
 
-  <h1>ExamPlus</h1>
+<button onclick="testBackend()"
+style="padding:15px 25px;font-size:18px;">
+TEST BACKEND
+</button>
 
-  <p>Backend Connection Test</p>
-
-  <input
-    type="email"
-    id="email"
-    value="superadmin@examplus.com"
-    placeholder="Email">
-
-  <input
-    type="password"
-    id="password"
-    value="changeMe123"
-    placeholder="Password">
-
-  <button onclick="testLogin()">
-    TEST LOGIN
-  </button>
-
-  <div id="result">
-    Waiting for test...
-  </div>
-
-</div>
-
+<p id="result">Waiting...</p>
 
 <script>
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxcMui-9QoUd9643Lca7Ss3BGPc2PvUn2fnIh2mEfTM7DvTngo6eJkH3OuDrX1xxVEK4Q/exec";
+function testBackend() {
 
+  document.getElementById("result").innerHTML =
+    "Connecting...";
 
-function testLogin() {
+  var iframe = document.createElement("iframe");
 
-  const result =
-    document.getElementById("result");
+  iframe.style.display = "none";
 
-  const email =
-    document.getElementById("email").value;
+  iframe.src =
+  "https://script.google.com/macros/s/AKfycbxcMui-9QoUd9643Lca7Ss3BGPc2PvUn2fnIh2mEfTM7DvTngo6eJkH3OuDrX1xxVEK4Q/exec";
 
-  const password =
-    document.getElementById("password").value;
+  document.body.appendChild(iframe);
 
+  setTimeout(function() {
 
-  result.innerHTML = "Testing connection...";
+    document.getElementById("result").innerHTML =
+      "The Apps Script page was requested.";
 
-
-  const callbackName =
-    "examplusTest_" +
-    Date.now();
-
-
-  window[callbackName] = function(data) {
-
-    result.innerHTML =
-      "<strong>CONNECTION SUCCESSFUL</strong><br><br>" +
-      "<pre>" +
-      JSON.stringify(data, null, 2) +
-      "</pre>";
-
-
-    delete window[callbackName];
-
-  };
-
-
-  const script =
-    document.createElement("script");
-
-
-  const url =
-    API_URL +
-    "?action=login" +
-    "&email=" +
-    encodeURIComponent(email) +
-    "&password=" +
-    encodeURIComponent(password) +
-    "&callback=" +
-    callbackName;
-
-
-  script.src = url;
-
-
-  script.onerror = function() {
-
-    result.innerHTML =
-      "<strong>CONNECTION FAILED</strong><br><br>" +
-      "The browser could not load the Apps Script response.";
-
-    delete window[callbackName];
-
-  };
-
-
-  document.body.appendChild(script);
+  },5000);
 
 }
 
