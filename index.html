@@ -21,6 +21,10 @@ body {
     display: none !important;
 }
 
+button {
+    cursor: pointer;
+}
+
 /* ================= LOGIN ================= */
 
 #loginPage {
@@ -91,11 +95,10 @@ body {
     color: white;
     font-size: 17px;
     font-weight: bold;
-    cursor: pointer;
 }
 
-.primary-btn:hover {
-    background: #084db2;
+.primary-btn:disabled {
+    opacity: .7;
 }
 
 .message {
@@ -139,7 +142,6 @@ body {
     border: none;
     padding: 8px 12px;
     border-radius: 7px;
-    cursor: pointer;
     margin-left: 8px;
 }
 
@@ -167,14 +169,12 @@ body {
     padding: 22px 10px;
     text-align: center;
     box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    cursor: pointer;
-    transition: .2s;
     border: 1px solid #eee;
+    transition: .2s;
 }
 
 .dashboard-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0,0,0,.12);
 }
 
 .dashboard-icon {
@@ -209,7 +209,6 @@ body {
     color: white;
     padding: 9px 14px;
     border-radius: 8px;
-    cursor: pointer;
 }
 
 .page-title {
@@ -255,11 +254,10 @@ body {
     border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
-    cursor: pointer;
 }
 
-.save-class-btn:hover {
-    background: #157347;
+.save-class-btn:disabled {
+    opacity: .7;
 }
 
 .class-list-title {
@@ -296,7 +294,6 @@ body {
     border: none;
     padding: 8px 12px;
     border-radius: 7px;
-    cursor: pointer;
 }
 
 .empty-message {
@@ -314,9 +311,10 @@ body {
     font-weight: bold;
 }
 
-/* ================= RESPONSIVE ================= */
+/* ================= MOBILE ================= */
 
 @media (max-width: 600px) {
+
     .topbar {
         flex-wrap: wrap;
     }
@@ -350,16 +348,19 @@ body {
 
 <body>
 
-<!-- =========================================================
-     LOGIN PAGE
-========================================================= -->
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
 <div id="loginPage">
 
     <div class="login-box">
 
         <div class="logo-title">ExamPlus</div>
-        <div class="login-subtitle">School Management System</div>
+
+        <div class="login-subtitle">
+            School Management System
+        </div>
 
         <div class="form-group">
             <label>Email</label>
@@ -379,7 +380,10 @@ body {
                 autocomplete="current-password">
         </div>
 
-        <button class="primary-btn" onclick="loginUser()">
+        <button
+            class="primary-btn"
+            id="loginButton"
+            onclick="loginUser()">
             Login
         </button>
 
@@ -390,9 +394,9 @@ body {
 </div>
 
 
-<!-- =========================================================
-     MAIN APP
-========================================================= -->
+<!-- =====================================================
+     APP
+===================================================== -->
 
 <div id="appPage" class="hidden">
 
@@ -404,7 +408,10 @@ body {
 
         <div>
             <span id="userDisplay"></span>
-            <button class="logout-btn" onclick="logout()">
+
+            <button
+                class="logout-btn"
+                onclick="logout()">
                 Logout
             </button>
         </div>
@@ -414,9 +421,10 @@ body {
 
     <div class="main-content">
 
+
         <!-- =================================================
-             SUPER ADMIN HOME
-        ================================================== -->
+             SUPER ADMIN
+        ================================================= -->
 
         <div id="superAdminHome" class="dashboard-page hidden">
 
@@ -426,19 +434,28 @@ body {
 
             <div class="dashboard-grid">
 
-                <div class="dashboard-card" onclick="showPage('createSchoolPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('createSchoolPage')">
                     <div class="dashboard-icon">🏫</div>
-                    <div class="dashboard-card-title">Create School</div>
+                    <div class="dashboard-card-title">
+                        Create School
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('viewSchoolsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('viewSchoolsPage')">
                     <div class="dashboard-icon">🏢</div>
-                    <div class="dashboard-card-title">View Schools</div>
+                    <div class="dashboard-card-title">
+                        View Schools
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('systemSettingsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('systemSettingsPage')">
                     <div class="dashboard-icon">⚙️</div>
-                    <div class="dashboard-card-title">Settings</div>
+                    <div class="dashboard-card-title">
+                        Settings
+                    </div>
                 </div>
 
             </div>
@@ -447,8 +464,8 @@ body {
 
 
         <!-- =================================================
-             ADMIN HOME
-        ================================================== -->
+             ADMIN
+        ================================================= -->
 
         <div id="adminHome" class="dashboard-page hidden">
 
@@ -458,49 +475,76 @@ body {
 
             <div class="dashboard-grid">
 
-                <div class="dashboard-card" onclick="showPage('schoolDetailsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('schoolDetailsPage')">
                     <div class="dashboard-icon">🏫</div>
-                    <div class="dashboard-card-title">School Details</div>
+                    <div class="dashboard-card-title">
+                        School Details
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('studentDetailsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('studentDetailsPage')">
                     <div class="dashboard-icon">👨‍🎓</div>
-                    <div class="dashboard-card-title">Student Details</div>
+                    <div class="dashboard-card-title">
+                        Student Details
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="openClassesPage()">
+                <div class="dashboard-card"
+                     onclick="openClassesPage()">
                     <div class="dashboard-icon">📚</div>
-                    <div class="dashboard-card-title">All Classes</div>
+                    <div class="dashboard-card-title">
+                        All Classes
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('subjectsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('subjectsPage')">
                     <div class="dashboard-icon">📖</div>
-                    <div class="dashboard-card-title">All Subjects</div>
+                    <div class="dashboard-card-title">
+                        All Subjects
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('bulkStudentsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('bulkStudentsPage')">
                     <div class="dashboard-icon">👥</div>
-                    <div class="dashboard-card-title">Students in Bulk</div>
+                    <div class="dashboard-card-title">
+                        Students in Bulk
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('reportCardPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('reportCardPage')">
                     <div class="dashboard-icon">📄</div>
-                    <div class="dashboard-card-title">Report Card</div>
+                    <div class="dashboard-card-title">
+                        Report Card
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('adminSettingsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('adminSettingsPage')">
                     <div class="dashboard-icon">⚙️</div>
-                    <div class="dashboard-card-title">Settings</div>
+                    <div class="dashboard-card-title">
+                        Settings
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('contactsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('contactsPage')">
                     <div class="dashboard-icon">📞</div>
-                    <div class="dashboard-card-title">Contacts</div>
+                    <div class="dashboard-card-title">
+                        Contacts
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('staffPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('staffPage')">
                     <div class="dashboard-icon">👨‍🏫</div>
-                    <div class="dashboard-card-title">Teacher / Bursar</div>
+                    <div class="dashboard-card-title">
+                        Teacher / Bursar
+                    </div>
                 </div>
 
             </div>
@@ -509,8 +553,8 @@ body {
 
 
         <!-- =================================================
-             TEACHER HOME
-        ================================================== -->
+             TEACHER
+        ================================================= -->
 
         <div id="teacherHome" class="dashboard-page hidden">
 
@@ -520,14 +564,20 @@ body {
 
             <div class="dashboard-grid">
 
-                <div class="dashboard-card" onclick="showPage('addScorePage')">
+                <div class="dashboard-card"
+                     onclick="showPage('addScorePage')">
                     <div class="dashboard-icon">📝</div>
-                    <div class="dashboard-card-title">Add Score</div>
+                    <div class="dashboard-card-title">
+                        Add Score
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('viewRecordPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('viewRecordPage')">
                     <div class="dashboard-icon">📊</div>
-                    <div class="dashboard-card-title">View Record</div>
+                    <div class="dashboard-card-title">
+                        View Record
+                    </div>
                 </div>
 
             </div>
@@ -536,8 +586,8 @@ body {
 
 
         <!-- =================================================
-             BURSAR HOME
-        ================================================== -->
+             BURSAR
+        ================================================= -->
 
         <div id="bursarHome" class="dashboard-page hidden">
 
@@ -547,14 +597,20 @@ body {
 
             <div class="dashboard-grid">
 
-                <div class="dashboard-card" onclick="showPage('paymentPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('paymentPage')">
                     <div class="dashboard-icon">💰</div>
-                    <div class="dashboard-card-title">Payment</div>
+                    <div class="dashboard-card-title">
+                        Payment
+                    </div>
                 </div>
 
-                <div class="dashboard-card" onclick="showPage('paymentRecordsPage')">
+                <div class="dashboard-card"
+                     onclick="showPage('paymentRecordsPage')">
                     <div class="dashboard-icon">🧾</div>
-                    <div class="dashboard-card-title">View Records</div>
+                    <div class="dashboard-card-title">
+                        View Records
+                    </div>
                 </div>
 
             </div>
@@ -564,7 +620,7 @@ body {
 
         <!-- =================================================
              CREATE SCHOOL
-        ================================================== -->
+        ================================================= -->
 
         <div id="createSchoolPage" class="page hidden">
 
@@ -575,31 +631,43 @@ body {
 
             <div class="form-group">
                 <label>School Name</label>
-                <input type="text" id="newSchoolName" placeholder="Enter school name">
+                <input
+                    type="text"
+                    id="newSchoolName"
+                    placeholder="Enter school name">
             </div>
 
             <div class="form-group">
                 <label>Admin Email</label>
-                <input type="email" id="newSchoolEmail" placeholder="Enter admin email">
+                <input
+                    type="email"
+                    id="newSchoolEmail"
+                    placeholder="Enter admin email">
             </div>
 
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" id="newSchoolPassword" placeholder="Enter password">
+                <input
+                    type="password"
+                    id="newSchoolPassword"
+                    placeholder="Enter password">
             </div>
 
-            <button class="primary-btn" onclick="createSchool()">
+            <button
+                class="primary-btn"
+                onclick="createSchool()">
                 Create School
             </button>
 
-            <div id="createSchoolMessage" class="message"></div>
+            <div id="createSchoolMessage"
+                 class="message"></div>
 
         </div>
 
 
         <!-- =================================================
              VIEW SCHOOLS
-        ================================================== -->
+        ================================================= -->
 
         <div id="viewSchoolsPage" class="page hidden">
 
@@ -609,7 +677,7 @@ body {
             </div>
 
             <div class="info-box">
-                School list will be connected to the Super Admin backend in the next stage.
+                School management will be connected here.
             </div>
 
         </div>
@@ -617,7 +685,7 @@ body {
 
         <!-- =================================================
              SYSTEM SETTINGS
-        ================================================== -->
+        ================================================= -->
 
         <div id="systemSettingsPage" class="page hidden">
 
@@ -627,7 +695,8 @@ body {
             </div>
 
             <div class="info-box">
-                Subscription, bank payment and online payment settings will be connected here.
+                Subscription, bank payment and online payment
+                settings will be connected here.
             </div>
 
         </div>
@@ -635,7 +704,7 @@ body {
 
         <!-- =================================================
              ALL CLASSES
-        ================================================== -->
+        ================================================= -->
 
         <div id="allClassesPage" class="page hidden">
 
@@ -645,14 +714,22 @@ body {
             </div>
 
             <div class="info-box">
-                Enter one class name on each line. For example:
+
+                Enter one class name on each line.
+
                 <br><br>
-                SS1<br>
-                SS2<br>
-                SS3<br>
+
+                Example:
+
+                <br><br>
+
                 JSS1<br>
                 JSS2<br>
-                JSS3
+                JSS3<br>
+                SS1<br>
+                SS2<br>
+                SS3
+
             </div>
 
             <div class="class-entry-area">
@@ -678,20 +755,24 @@ body {
                 Saved Classes
             </div>
 
-            <div id="classList" class="class-list">
+            <div id="classList"
+                 class="class-list">
+
                 <div class="loading">
-                    Loading classes...
+                    Classes will appear here.
                 </div>
+
             </div>
 
-            <div id="classesMessage" class="message"></div>
+            <div id="classesMessage"
+                 class="message"></div>
 
         </div>
 
 
         <!-- =================================================
-             SCHOOL DETAILS
-        ================================================== -->
+             OTHER ADMIN PAGES
+        ================================================= -->
 
         <div id="schoolDetailsPage" class="page hidden">
 
@@ -701,15 +782,12 @@ body {
             </div>
 
             <div class="info-box">
-                School logo, school address, contacts, term and session will be connected here.
+                School logo, address, contacts, term and session
+                will be connected here.
             </div>
 
         </div>
 
-
-        <!-- =================================================
-             STUDENT DETAILS
-        ================================================== -->
 
         <div id="studentDetailsPage" class="page hidden">
 
@@ -719,15 +797,11 @@ body {
             </div>
 
             <div class="info-box">
-                Student registration will use the classes saved under All Classes.
+                Student registration will be connected here.
             </div>
 
         </div>
 
-
-        <!-- =================================================
-             SUBJECTS
-        ================================================== -->
 
         <div id="subjectsPage" class="page hidden">
 
@@ -737,15 +811,12 @@ body {
             </div>
 
             <div class="info-box">
-                Subjects will be connected to the classes created under All Classes.
+                Subjects will use the classes saved under
+                All Classes.
             </div>
 
         </div>
 
-
-        <!-- =================================================
-             BULK STUDENTS
-        ================================================== -->
 
         <div id="bulkStudentsPage" class="page hidden">
 
@@ -755,15 +826,12 @@ body {
             </div>
 
             <div class="info-box">
-                Bulk student registration will use the saved class list.
+                Bulk student registration will use the saved
+                class list.
             </div>
 
         </div>
 
-
-        <!-- =================================================
-             REPORT CARD
-        ================================================== -->
 
         <div id="reportCardPage" class="page hidden">
 
@@ -779,10 +847,6 @@ body {
         </div>
 
 
-        <!-- =================================================
-             ADMIN SETTINGS
-        ================================================== -->
-
         <div id="adminSettingsPage" class="page hidden">
 
             <div class="page-header">
@@ -791,15 +855,12 @@ body {
             </div>
 
             <div class="info-box">
-                Resumption date, term, session, assessment maximum scores and school fees will be connected here.
+                Resumption date, term, session, assessment scores
+                and school fees will be connected here.
             </div>
 
         </div>
 
-
-        <!-- =================================================
-             CONTACTS
-        ================================================== -->
 
         <div id="contactsPage" class="page hidden">
 
@@ -809,15 +870,11 @@ body {
             </div>
 
             <div class="info-box">
-                Super Admin contact information for School Admin support will appear here.
+                Super Admin contact information will appear here.
             </div>
 
         </div>
 
-
-        <!-- =================================================
-             STAFF
-        ================================================== -->
 
         <div id="staffPage" class="page hidden">
 
@@ -827,7 +884,8 @@ body {
             </div>
 
             <div class="info-box">
-                Teacher and Bursar account creation will be connected here.
+                Teacher and Bursar account creation will be
+                connected here.
             </div>
 
         </div>
@@ -835,7 +893,7 @@ body {
 
         <!-- =================================================
              TEACHER PAGES
-        ================================================== -->
+        ================================================= -->
 
         <div id="addScorePage" class="page hidden">
 
@@ -845,7 +903,7 @@ body {
             </div>
 
             <div class="info-box">
-                Score entry will use the classes created by the School Admin.
+                Score entry will be connected here.
             </div>
 
         </div>
@@ -867,7 +925,7 @@ body {
 
         <!-- =================================================
              BURSAR PAGES
-        ================================================== -->
+        ================================================= -->
 
         <div id="paymentPage" class="page hidden">
 
@@ -877,7 +935,7 @@ body {
             </div>
 
             <div class="info-box">
-                Payment and 58mm receipt generation will be connected here.
+                Payment and receipt generation will be connected here.
             </div>
 
         </div>
@@ -896,28 +954,20 @@ body {
 
         </div>
 
-    </div>
 
+    </div>
 </div>
 
 
 <script>
 
 /* =========================================================
-   EXAMPLUS BACKEND URL
+   IMPORTANT:
+   THIS IS YOUR CONFIRMED GOOGLE APPS SCRIPT WEB APP URL.
 ========================================================= */
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbwENOjw2BKVWHxsAXNFokNenNMu5-pA57WC0W0R0H5XH/exec";
-
-/*
- IMPORTANT:
- The URL above is replaced immediately below with the actual
- Web App URL supplied for this ExamPlus project.
-*/
-
 const BACKEND_URL =
-"https://script.google.com/macros/s/AKfycbwENOjw2BKVWHxsAXNFokNenNMu5-pA57WC0H5W0C5vnnnq5Cji2jLzxS75DlOGrWPUViwwg/exec";
+"https://script.google.com/macros/s/AKfycbwENOjw2BKVWHxsAXNFokNenNMu5-pA57WC0W0R0H5XH/exec";
 
 
 /* =========================================================
@@ -934,13 +984,19 @@ let currentUser = null;
 async function loginUser() {
 
     const email =
-        document.getElementById("loginEmail").value.trim();
+        document.getElementById("loginEmail")
+        .value
+        .trim();
 
     const password =
-        document.getElementById("loginPassword").value;
+        document.getElementById("loginPassword")
+        .value;
 
     const message =
         document.getElementById("loginMessage");
+
+    const button =
+        document.getElementById("loginButton");
 
     if (!email || !password) {
 
@@ -951,26 +1007,42 @@ async function loginUser() {
         return;
     }
 
+    button.disabled = true;
+    button.textContent = "Logging in...";
+
     message.style.color = "#0b5ed7";
-    message.textContent = "Logging in...";
+    message.textContent = "";
 
     try {
 
         const url =
             BACKEND_URL +
             "?action=login" +
-            "&email=" + encodeURIComponent(email) +
-            "&password=" + encodeURIComponent(password);
+            "&email=" +
+            encodeURIComponent(email) +
+            "&password=" +
+            encodeURIComponent(password);
 
-        const response = await fetch(url);
+        const response =
+            await fetch(url);
 
-        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(
+                "Server returned HTTP " +
+                response.status
+            );
+        }
+
+        const data =
+            await response.json();
 
         if (!data.success) {
 
             message.style.color = "red";
+
             message.textContent =
-                data.message || "Login failed.";
+                data.message ||
+                "Login failed.";
 
             return;
         }
@@ -981,12 +1053,17 @@ async function loginUser() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Login error:", error);
 
         message.style.color = "red";
+
         message.textContent =
             "Unable to connect to ExamPlus server.";
 
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Login";
     }
 }
 
@@ -1003,7 +1080,8 @@ function openApp(user) {
     document.getElementById("appPage")
         .classList.remove("hidden");
 
-    document.getElementById("userDisplay").textContent =
+    document.getElementById("userDisplay")
+        .textContent =
         (user.schoolName || "ExamPlus") +
         " • " +
         (user.role || "");
@@ -1037,7 +1115,10 @@ function openApp(user) {
 
     } else {
 
-        alert("Unknown user role: " + user.role);
+        alert(
+            "Unknown user role: " +
+            user.role
+        );
     }
 }
 
@@ -1048,14 +1129,15 @@ function openApp(user) {
 
 function hideAllPages() {
 
-    const pages =
-        document.querySelectorAll(
+    document
+        .querySelectorAll(
             ".dashboard-page, .page"
-        );
+        )
+        .forEach(function(page) {
 
-    pages.forEach(function(page) {
-        page.classList.add("hidden");
-    });
+            page.classList.add("hidden");
+
+        });
 }
 
 
@@ -1138,9 +1220,11 @@ function logout() {
         .classList.remove("hidden");
 
     document.getElementById("loginEmail").value = "";
+
     document.getElementById("loginPassword").value = "";
 
-    document.getElementById("loginMessage").textContent = "";
+    document.getElementById("loginMessage")
+        .textContent = "";
 
     hideAllPages();
 }
@@ -1170,18 +1254,22 @@ async function loadClasses() {
     const message =
         document.getElementById("classesMessage");
 
-    if (!currentUser || !currentUser.schoolId) {
+    if (!currentUser ||
+        !currentUser.schoolId) {
 
         list.innerHTML =
             '<div class="empty-message">' +
-            'School information was not found. Please login again.' +
+            'School information was not found. ' +
+            'Please login again.' +
             '</div>';
 
         return;
     }
 
     list.innerHTML =
-        '<div class="loading">Loading classes...</div>';
+        '<div class="loading">' +
+        'Loading classes...' +
+        '</div>';
 
     message.textContent = "";
 
@@ -1191,10 +1279,19 @@ async function loadClasses() {
             BACKEND_URL +
             "?action=getClasses" +
             "&schoolId=" +
-            encodeURIComponent(currentUser.schoolId);
+            encodeURIComponent(
+                currentUser.schoolId
+            );
 
         const response =
             await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(
+                "Server returned HTTP " +
+                response.status
+            );
+        }
 
         const data =
             await response.json();
@@ -1204,22 +1301,28 @@ async function loadClasses() {
             list.innerHTML =
                 '<div class="empty-message">' +
                 escapeHtml(
-                    data.message || "Unable to load classes."
+                    data.message ||
+                    "Unable to load classes."
                 ) +
                 '</div>';
 
             return;
         }
 
-        displayClasses(data.classes || []);
+        displayClasses(
+            data.classes || []
+        );
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Load classes error:",
+            error
+        );
 
         list.innerHTML =
             '<div class="empty-message">' +
-            'Unable to connect to the server.' +
+            'Unable to connect to ExamPlus server.' +
             '</div>';
     }
 }
@@ -1234,7 +1337,8 @@ function displayClasses(classes) {
     const list =
         document.getElementById("classList");
 
-    if (!classes || classes.length === 0) {
+    if (!classes ||
+        classes.length === 0) {
 
         list.innerHTML =
             '<div class="empty-message">' +
@@ -1261,21 +1365,28 @@ function displayClasses(classes) {
 
     classes.forEach(function(item) {
 
-        html += `
-            <div class="class-item">
+        const classId =
+            escapeJs(item.classId);
 
-                <div class="class-name">
-                    ${escapeHtml(item.className)}
-                </div>
+        const className =
+            escapeHtml(item.className);
 
-                <button
-                    class="delete-class-btn"
-                    onclick="deleteClass('${escapeJs(item.classId)}')">
-                    🗑️ Delete
-                </button>
+        html +=
+            '<div class="class-item">' +
 
-            </div>
-        `;
+                '<div class="class-name">' +
+                    className +
+                '</div>' +
+
+                '<button ' +
+                    'class="delete-class-btn" ' +
+                    'onclick="deleteClass(\'' +
+                    classId +
+                    '\')">' +
+                    '🗑️ Delete' +
+                '</button>' +
+
+            '</div>';
     });
 
     list.innerHTML = html;
@@ -1288,9 +1399,11 @@ function displayClasses(classes) {
 
 async function saveClasses() {
 
-    if (!currentUser || !currentUser.schoolId) {
+    if (!currentUser ||
+        !currentUser.schoolId) {
 
         alert("Please login again.");
+
         return;
     }
 
@@ -1298,10 +1411,14 @@ async function saveClasses() {
         document.getElementById("classesInput");
 
     const button =
-        document.getElementById("saveClassesButton");
+        document.getElementById(
+            "saveClassesButton"
+        );
 
     const message =
-        document.getElementById("classesMessage");
+        document.getElementById(
+            "classesMessage"
+        );
 
     const text =
         textarea.value.trim();
@@ -1309,6 +1426,7 @@ async function saveClasses() {
     if (!text) {
 
         message.style.color = "red";
+
         message.textContent =
             "Please enter at least one class.";
 
@@ -1326,12 +1444,21 @@ async function saveClasses() {
             BACKEND_URL +
             "?action=addClasses" +
             "&schoolId=" +
-            encodeURIComponent(currentUser.schoolId) +
+            encodeURIComponent(
+                currentUser.schoolId
+            ) +
             "&classes=" +
             encodeURIComponent(text);
 
         const response =
             await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(
+                "Server returned HTTP " +
+                response.status
+            );
+        }
 
         const data =
             await response.json();
@@ -1339,15 +1466,19 @@ async function saveClasses() {
         if (!data.success) {
 
             message.style.color = "red";
+
             message.textContent =
-                data.message || "Unable to save classes.";
+                data.message ||
+                "Unable to save classes.";
 
             return;
         }
 
         message.style.color = "green";
+
         message.textContent =
-            data.message || "Classes saved successfully.";
+            data.message ||
+            "Classes saved successfully.";
 
         textarea.value = "";
 
@@ -1355,11 +1486,15 @@ async function saveClasses() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Save classes error:",
+            error
+        );
 
         message.style.color = "red";
+
         message.textContent =
-            "Unable to connect to the server.";
+            "Unable to connect to ExamPlus server.";
 
     } finally {
 
@@ -1375,9 +1510,11 @@ async function saveClasses() {
 
 async function deleteClass(classId) {
 
-    if (!currentUser || !currentUser.schoolId) {
+    if (!currentUser ||
+        !currentUser.schoolId) {
 
         alert("Please login again.");
+
         return;
     }
 
@@ -1391,9 +1528,12 @@ async function deleteClass(classId) {
     }
 
     const message =
-        document.getElementById("classesMessage");
+        document.getElementById(
+            "classesMessage"
+        );
 
     message.style.color = "#0b5ed7";
+
     message.textContent =
         "Deleting class...";
 
@@ -1403,12 +1543,21 @@ async function deleteClass(classId) {
             BACKEND_URL +
             "?action=deleteClass" +
             "&schoolId=" +
-            encodeURIComponent(currentUser.schoolId) +
+            encodeURIComponent(
+                currentUser.schoolId
+            ) +
             "&classId=" +
             encodeURIComponent(classId);
 
         const response =
             await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(
+                "Server returned HTTP " +
+                response.status
+            );
+        }
 
         const data =
             await response.json();
@@ -1416,53 +1565,34 @@ async function deleteClass(classId) {
         if (!data.success) {
 
             message.style.color = "red";
+
             message.textContent =
-                data.message || "Unable to delete class.";
+                data.message ||
+                "Unable to delete class.";
 
             return;
         }
 
         message.style.color = "green";
+
         message.textContent =
-            data.message || "Class deleted successfully.";
+            data.message ||
+            "Class deleted successfully.";
 
         await loadClasses();
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Delete class error:",
+            error
+        );
 
         message.style.color = "red";
+
         message.textContent =
-            "Unable to connect to the server.";
+            "Unable to connect to ExamPlus server.";
     }
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(value) {
-
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-
-/* =========================================================
-   ESCAPE JAVASCRIPT
-========================================================= */
-
-function escapeJs(value) {
-
-    return String(value || "")
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'");
 }
 
 
@@ -1473,23 +1603,31 @@ function escapeJs(value) {
 async function createSchool() {
 
     const schoolName =
-        document.getElementById("newSchoolName")
-            .value.trim();
+        document.getElementById(
+            "newSchoolName"
+        ).value.trim();
 
     const email =
-        document.getElementById("newSchoolEmail")
-            .value.trim();
+        document.getElementById(
+            "newSchoolEmail"
+        ).value.trim();
 
     const password =
-        document.getElementById("newSchoolPassword")
-            .value;
+        document.getElementById(
+            "newSchoolPassword"
+        ).value;
 
     const message =
-        document.getElementById("createSchoolMessage");
+        document.getElementById(
+            "createSchoolMessage"
+        );
 
-    if (!schoolName || !email || !password) {
+    if (!schoolName ||
+        !email ||
+        !password) {
 
         message.style.color = "red";
+
         message.textContent =
             "Please fill all fields.";
 
@@ -1497,6 +1635,7 @@ async function createSchool() {
     }
 
     message.style.color = "#0b5ed7";
+
     message.textContent =
         "Creating school...";
 
@@ -1515,34 +1654,84 @@ async function createSchool() {
         const response =
             await fetch(url);
 
+        if (!response.ok) {
+            throw new Error(
+                "Server returned HTTP " +
+                response.status
+            );
+        }
+
         const data =
             await response.json();
 
         if (!data.success) {
 
             message.style.color = "red";
+
             message.textContent =
-                data.message || "Unable to create school.";
+                data.message ||
+                "Unable to create school.";
 
             return;
         }
 
         message.style.color = "green";
-        message.textContent =
-            data.message || "School created successfully.";
 
-        document.getElementById("newSchoolName").value = "";
-        document.getElementById("newSchoolEmail").value = "";
-        document.getElementById("newSchoolPassword").value = "";
+        message.textContent =
+            data.message ||
+            "School created successfully.";
+
+        document.getElementById(
+            "newSchoolName"
+        ).value = "";
+
+        document.getElementById(
+            "newSchoolEmail"
+        ).value = "";
+
+        document.getElementById(
+            "newSchoolPassword"
+        ).value = "";
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Create school error:",
+            error
+        );
 
         message.style.color = "red";
+
         message.textContent =
-            "Unable to connect to the server.";
+            "Unable to connect to ExamPlus server.";
     }
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
+   JAVASCRIPT ESCAPE
+========================================================= */
+
+function escapeJs(value) {
+
+    return String(value || "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
 }
 
 
@@ -1550,14 +1739,18 @@ async function createSchool() {
    ENTER KEY LOGIN
 ========================================================= */
 
-document.getElementById("loginPassword")
-    .addEventListener("keydown", function(event) {
+document
+    .getElementById("loginPassword")
+    .addEventListener(
+        "keydown",
+        function(event) {
 
-        if (event.key === "Enter") {
-            loginUser();
+            if (event.key === "Enter") {
+                loginUser();
+            }
+
         }
-
-    });
+    );
 
 </script>
 
