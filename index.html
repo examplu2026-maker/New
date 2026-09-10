@@ -1,174 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ExamPlus</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamPlus Connection Test</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f7;
+      text-align: center;
+      padding: 40px 20px;
+    }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  color: #222;
-}
+    .box {
+      max-width: 450px;
+      margin: auto;
+      background: white;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.1);
+    }
 
-.header {
-  background: #0b5ed7;
-  color: white;
-  padding: 18px;
-  text-align: center;
-  font-size: 25px;
-  font-weight: bold;
-}
+    button {
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      border-radius: 8px;
+      background: #0b5ed7;
+      color: white;
+      font-size: 17px;
+      margin-top: 20px;
+    }
 
-.container {
-  width: 92%;
-  max-width: 500px;
-  margin: 40px auto;
-}
-
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-h2 {
-  text-align: center;
-  margin-top: 0;
-}
-
-input {
-  width: 100%;
-  padding: 14px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 12px;
-  border: none;
-  border-radius: 8px;
-  background: #0b5ed7;
-  color: white;
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:active {
-  opacity: 0.8;
-}
-
-.message {
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 8px;
-  text-align: center;
-  display: none;
-}
-
-.error {
-  background: #ffe5e5;
-  color: #b00020;
-}
-
-.success {
-  background: #e4f7e9;
-  color: #08752b;
-}
-
-.dashboard {
-  display: none;
-}
-
-.tiles {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 25px;
-}
-
-.tile {
-  background: white;
-  padding: 25px 10px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.icon {
-  font-size: 35px;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.logout {
-  background: #dc3545;
-  margin-top: 25px;
-}
-</style>
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      word-break: break-word;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="header">
-  ExamPlus
-</div>
+<div class="box">
 
-<!-- LOGIN -->
-<div class="container" id="loginPage">
+  <h2>ExamPlus</h2>
 
-  <div class="card">
+  <p>Frontend → Backend Test</p>
 
-    <h2>Login</h2>
+  <button onclick="testBackend()">
+    TEST BACKEND
+  </button>
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Email"
-      value="superadmin@examplus.com"
-    >
-
-    <input
-      type="password"
-      id="password"
-      placeholder="Password"
-      value="changeMe123"
-    >
-
-    <button onclick="login()">LOGIN</button>
-
-    <div id="message" class="message"></div>
-
-  </div>
-
-</div>
-
-
-<!-- DASHBOARD -->
-<div class="container dashboard" id="dashboard">
-
-  <div class="card">
-
-    <h2 id="welcome"></h2>
-
-    <div class="tiles" id="tiles"></div>
-
-    <button class="logout" onclick="logout()">LOGOUT</button>
-
+  <div id="result">
+    Waiting...
   </div>
 
 </div>
@@ -176,327 +62,139 @@ button:active {
 
 <script>
 
-const API_URL =
+const API =
 "https://script.google.com/macros/s/AKfycbxcMui-9QoUd9643Lca7Ss3BGPc2PvUn2fnIh2mEfTM7DvTngo6eJkH3OuDrX1xxVEK4Q/exec";
 
 
-function showMessage(text, type) {
+function testBackend() {
 
-  const box = document.getElementById("message");
+  const result =
+    document.getElementById("result");
 
-  box.innerText = text;
-
-  box.className = "message " + type;
-
-  box.style.display = "block";
-}
+  result.innerHTML =
+    "Connecting...";
 
 
-/*
-  JSONP LOGIN
-  This avoids the normal fetch/CORS problem
-*/
-function login() {
+  const callback =
+    "examPlusTest_" + Date.now();
 
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  if (!email || !password) {
-
-    showMessage(
-      "Please enter email and password.",
-      "error"
-    );
-
-    return;
-  }
-
-  showMessage("Connecting to ExamPlus...", "success");
-
-  const callbackName =
-    "examplusLogin_" + Date.now();
 
   const script =
     document.createElement("script");
 
-  const timeout =
+
+  let finished = false;
+
+
+  const timer =
     setTimeout(function() {
+
+      if (finished) return;
+
+      finished = true;
 
       cleanup();
 
-      showMessage(
-        "The server did not return a response.",
-        "error"
-      );
+      result.innerHTML =
+        "❌ FRONTEND CANNOT RECEIVE BACKEND RESPONSE";
 
     }, 15000);
 
 
-  window[callbackName] = function(data) {
+  window[callback] =
+    function(data) {
 
-    clearTimeout(timeout);
+      if (finished) return;
 
-    cleanup();
+      finished = true;
 
-    if (data && data.success) {
+      clearTimeout(timer);
 
-      localStorage.setItem(
-        "examplusUser",
-        JSON.stringify(data)
-      );
+      cleanup();
 
-      openDashboard(data);
 
-    } else {
+      if (data && data.success) {
 
-      showMessage(
-        data && data.message
-          ? data.message
-          : "Login failed.",
-        "error"
-      );
-    }
-  };
+        result.innerHTML =
+          "✅ FRONTEND → BACKEND WORKS<br><br>" +
+          "<pre>" +
+          JSON.stringify(
+            data,
+            null,
+            2
+          ) +
+          "</pre>";
+
+      } else {
+
+        result.innerHTML =
+          "⚠️ BACKEND RESPONDED<br><br>" +
+          "<pre>" +
+          JSON.stringify(
+            data,
+            null,
+            2
+          ) +
+          "</pre>";
+
+      }
+
+    };
+
+
+  script.onerror =
+    function() {
+
+      if (finished) return;
+
+      finished = true;
+
+      clearTimeout(timer);
+
+      cleanup();
+
+      result.innerHTML =
+        "❌ BROWSER BLOCKED THE BACKEND RESPONSE";
+
+    };
 
 
   function cleanup() {
 
     if (script.parentNode) {
 
-      script.parentNode.removeChild(script);
-
-    }
-
-    try {
-
-      delete window[callbackName];
-
-    } catch(e) {
-
-      window[callbackName] = undefined;
-
-    }
-  }
-
-
-  script.onerror = function() {
-
-    clearTimeout(timeout);
-
-    cleanup();
-
-    showMessage(
-      "Unable to receive response from ExamPlus server.",
-      "error"
-    );
-  };
-
-
-  const url =
-    API_URL +
-    "?action=login" +
-    "&email=" + encodeURIComponent(email) +
-    "&password=" + encodeURIComponent(password) +
-    "&callback=" + callbackName;
-
-
-  script.src = url;
-
-  document.body.appendChild(script);
-}
-
-
-function openDashboard(user) {
-
-  document.getElementById("loginPage").style.display =
-    "none";
-
-  document.getElementById("dashboard").style.display =
-    "block";
-
-  document.getElementById("welcome").innerText =
-    "Welcome, " + user.role;
-
-  const tiles =
-    document.getElementById("tiles");
-
-  tiles.innerHTML = "";
-
-
-  const role =
-    String(user.role || "").toLowerCase();
-
-
-  if (role === "super admin") {
-
-    addTile(
-      "🏫",
-      "Create School"
-    );
-
-    addTile(
-      "🏢",
-      "View Schools"
-    );
-
-    addTile(
-      "⚙️",
-      "System Settings"
-    );
-
-  }
-
-  else if (role === "admin") {
-
-    addTile(
-      "🏫",
-      "School Details"
-    );
-
-    addTile(
-      "👨‍🎓",
-      "Student Details"
-    );
-
-    addTile(
-      "📚",
-      "All Classes"
-    );
-
-    addTile(
-      "📖",
-      "All Subjects"
-    );
-
-    addTile(
-      "👥",
-      "Students in Bulk"
-    );
-
-    addTile(
-      "📄",
-      "Report Card"
-    );
-
-    addTile(
-      "⚙️",
-      "Settings"
-    );
-
-    addTile(
-      "📞",
-      "Contacts"
-    );
-
-    addTile(
-      "👨‍🏫",
-      "Teacher / Bursar"
-    );
-
-  }
-
-  else if (role === "teacher") {
-
-    addTile(
-      "📝",
-      "Add Score"
-    );
-
-    addTile(
-      "📊",
-      "View Record"
-    );
-
-  }
-
-  else if (role === "bursar") {
-
-    addTile(
-      "💰",
-      "Payment"
-    );
-
-    addTile(
-      "🧾",
-      "View Records"
-    );
-
-  }
-
-  else {
-
-    addTile(
-      "👤",
-      "Dashboard"
-    );
-
-  }
-}
-
-
-function addTile(icon, title) {
-
-  const tiles =
-    document.getElementById("tiles");
-
-  const div =
-    document.createElement("div");
-
-  div.className = "tile";
-
-  div.innerHTML =
-    '<span class="icon">' +
-    icon +
-    '</span>' +
-    title;
-
-  tiles.appendChild(div);
-}
-
-
-function logout() {
-
-  localStorage.removeItem(
-    "examplusUser"
-  );
-
-  location.reload();
-}
-
-
-/*
-  Automatically restore login
-*/
-window.onload = function() {
-
-  const saved =
-    localStorage.getItem("examplusUser");
-
-  if (saved) {
-
-    try {
-
-      const user =
-        JSON.parse(saved);
-
-      if (user && user.success) {
-
-        openDashboard(user);
-
-      }
-
-    } catch(e) {
-
-      localStorage.removeItem(
-        "examplusUser"
+      script.parentNode.removeChild(
+        script
       );
 
     }
+
+    try {
+
+      delete window[callback];
+
+    } catch (e) {
+
+      window[callback] = undefined;
+
+    }
+
   }
-};
+
+
+  script.src =
+    API +
+    "?action=getClasses" +
+    "&schoolId=SCH001" +
+    "&callback=" +
+    callback;
+
+
+  document.body.appendChild(
+    script
+  );
+
+}
 
 </script>
 
