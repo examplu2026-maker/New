@@ -3,25 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ExamPlus School Management System</title>
+<title>ExamPlus</title>
 
 <style>
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Arial,sans-serif;
 }
 
 body{
+  font-family:Arial, sans-serif;
   background:#f4f7fb;
-  color:#172033;
-  min-height:100vh;
+  color:#1f2937;
 }
 
-button{
-  border:none;
-  cursor:pointer;
+button,input,select,textarea{
+  font:inherit;
 }
 
 .hidden{
@@ -32,74 +30,87 @@ button{
 #loginPage{
   min-height:100vh;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   padding:20px;
-  background:linear-gradient(135deg,#0d47a1,#1976d2);
+  background:linear-gradient(135deg,#0b5ed7,#073b8f);
 }
 
 .login-box{
   width:100%;
-  max-width:420px;
+  max-width:400px;
   background:white;
-  padding:30px 25px;
-  border-radius:20px;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
+  padding:30px 24px;
+  border-radius:18px;
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
 }
 
-.logo{
-  text-align:center;
+.logo-circle{
+  width:75px;
+  height:75px;
+  margin:0 auto 15px;
+  border-radius:50%;
+  background:#0b5ed7;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:34px;
   font-weight:bold;
-  color:#0d47a1;
-  margin-bottom:8px;
 }
 
-.subtitle{
+.login-box h1{
+  text-align:center;
+  color:#0b5ed7;
+  margin-bottom:5px;
+}
+
+.login-box p{
   text-align:center;
   color:#777;
   margin-bottom:25px;
 }
 
-.input-group{
+.form-group{
   margin-bottom:16px;
 }
 
-.input-group label{
+.form-group label{
   display:block;
-  font-weight:bold;
   margin-bottom:7px;
+  font-weight:bold;
 }
 
-.input-group input,
-.input-group select,
-.input-group textarea{
+.form-group input,
+.form-group select,
+.form-group textarea{
   width:100%;
   padding:13px;
-  border:1px solid #ccd4df;
-  border-radius:10px;
+  border:1px solid #d1d5db;
+  border-radius:9px;
   outline:none;
-  font-size:15px;
+  background:white;
 }
 
-.input-group input:focus,
-.input-group select:focus,
-.input-group textarea:focus{
-  border-color:#1976d2;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:#0b5ed7;
 }
 
 .primary-btn{
   width:100%;
-  background:#1976d2;
-  color:white;
   padding:14px;
-  border-radius:10px;
-  font-size:16px;
+  border:0;
+  border-radius:9px;
+  background:#0b5ed7;
+  color:white;
   font-weight:bold;
+  cursor:pointer;
 }
 
 .primary-btn:hover{
-  background:#0d47a1;
+  background:#084db2;
 }
 
 .message{
@@ -110,14 +121,16 @@ button{
   display:none;
 }
 
-.error{
-  background:#ffebee;
-  color:#c62828;
+.message.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
 }
 
-.success{
-  background:#e8f5e9;
-  color:#2e7d32;
+.message.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
 }
 
 /* APP */
@@ -126,218 +139,228 @@ button{
 }
 
 .topbar{
-  background:#0d47a1;
+  background:#0b5ed7;
   color:white;
-  padding:14px 18px;
+  padding:13px 16px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:10px;
   position:sticky;
   top:0;
-  z-index:100;
+  z-index:20;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
 }
 
 .brand{
-  font-size:23px;
+  font-size:22px;
   font-weight:bold;
 }
 
 .user-info{
+  font-size:12px;
   text-align:right;
-  font-size:13px;
 }
 
 .logout-btn{
-  background:#e53935;
+  background:#dc3545;
   color:white;
-  padding:9px 13px;
-  border-radius:8px;
-  margin-left:8px;
+  border:0;
+  border-radius:7px;
+  padding:8px 11px;
+  cursor:pointer;
 }
 
 .content{
-  padding:20px;
   max-width:1200px;
   margin:auto;
+  padding:20px;
 }
 
-.dashboard-title{
-  font-size:24px;
-  font-weight:bold;
-  margin-bottom:18px;
+.welcome{
+  background:white;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
+.welcome h2{
+  margin-bottom:5px;
+}
+
+/* DASHBOARD */
 .dashboard-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
   gap:15px;
 }
 
 .tile{
   background:white;
-  border-radius:16px;
-  padding:22px 15px;
-  text-align:center;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
-  transition:.2s;
-  min-height:125px;
+  border-radius:14px;
+  min-height:130px;
+  padding:18px 10px;
   display:flex;
   flex-direction:column;
+  align-items:center;
   justify-content:center;
+  text-align:center;
+  cursor:pointer;
+  border:1px solid #e5e7eb;
+  box-shadow:0 2px 7px rgba(0,0,0,.06);
+  transition:.2s;
 }
 
 .tile:hover{
-  transform:translateY(-3px);
-  box-shadow:0 6px 18px rgba(0,0,0,.13);
+  transform:translateY(-2px);
+  box-shadow:0 5px 15px rgba(0,0,0,.1);
 }
 
-.tile-icon{
-  font-size:34px;
+.tile .icon{
+  font-size:38px;
   margin-bottom:10px;
 }
 
-.tile-title{
-  font-weight:bold;
+.tile strong{
   font-size:15px;
 }
 
-.page{
+/* SECTION */
+.section{
   background:white;
-  border-radius:16px;
+  border-radius:14px;
   padding:20px;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
-.page-header{
+.section-header{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:10px;
   margin-bottom:20px;
   flex-wrap:wrap;
 }
 
-.page-title{
-  font-size:22px;
-  font-weight:bold;
+.section-header h2{
+  color:#0b5ed7;
 }
 
 .back-btn{
-  background:#607d8b;
-  color:white;
-  padding:10px 15px;
-  border-radius:8px;
-}
-
-.save-btn{
-  background:#2e7d32;
-  color:white;
-  padding:12px 18px;
-  border-radius:9px;
-  font-weight:bold;
-}
-
-.delete-btn{
-  background:#e53935;
-  color:white;
-  padding:8px 12px;
-  border-radius:7px;
-}
-
-.small-btn{
-  background:#1976d2;
+  border:0;
+  background:#6c757d;
   color:white;
   padding:9px 13px;
-  border-radius:8px;
+  border-radius:7px;
+  cursor:pointer;
 }
 
-.form-grid{
+.card{
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.card h3{
+  margin-bottom:15px;
+  color:#374151;
+}
+
+.two-column{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns:repeat(2,1fr);
   gap:15px;
 }
 
-.section{
-  margin-top:20px;
-  padding-top:20px;
-  border-top:1px solid #e0e0e0;
-}
-
-.section h3{
-  margin-bottom:15px;
-}
-
-textarea{
-  resize:vertical;
-  min-height:120px;
-}
-
-.info-box{
-  background:#e3f2fd;
-  color:#0d47a1;
-  padding:12px;
-  border-radius:9px;
-  margin-bottom:15px;
-}
-
-.class-list{
-  margin-top:20px;
-}
-
-.class-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:13px;
-  background:#f7f9fc;
-  border:1px solid #e0e5eb;
-  border-radius:9px;
-  margin-bottom:8px;
-}
-
-.class-name{
-  font-weight:bold;
-}
-
-.empty{
-  text-align:center;
-  padding:25px;
-  color:#777;
-}
-
-/* MOBILE */
-@media(max-width:600px){
-  .topbar{
-    flex-wrap:wrap;
-  }
-
-  .user-info{
-    width:100%;
-    text-align:left;
+@media(max-width:650px){
+  .two-column{
+    grid-template-columns:1fr;
   }
 
   .content{
     padding:12px;
   }
 
-  .page{
-    padding:15px;
+  .topbar{
+    flex-wrap:wrap;
   }
+}
 
-  .dashboard-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-  }
+/* CLASS LIST */
+.class-list{
+  display:grid;
+  gap:10px;
+}
 
-  .tile{
-    min-height:115px;
-    padding:15px 8px;
-  }
+.class-item{
+  border:1px solid #ddd;
+  border-radius:9px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
 
-  .tile-icon{
-    font-size:29px;
-  }
+.delete-btn{
+  background:#dc3545;
+  color:white;
+  border:0;
+  border-radius:6px;
+  padding:7px 10px;
+  cursor:pointer;
+}
+
+.small-btn{
+  border:0;
+  border-radius:7px;
+  padding:9px 12px;
+  cursor:pointer;
+  background:#0b5ed7;
+  color:white;
+}
+
+/* INFO */
+.info-box{
+  padding:14px;
+  background:#eef5ff;
+  border-left:4px solid #0b5ed7;
+  border-radius:6px;
+  margin-bottom:15px;
+}
+
+.loading{
+  text-align:center;
+  padding:20px;
+  color:#666;
+}
+
+/* SCHOOL CARD */
+.school-card{
+  border:1px solid #ddd;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#dcfce7;
+  color:#166534;
+  font-size:12px;
+  margin-top:7px;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  color:#777;
+  font-size:12px;
+  padding:30px 10px;
 }
 </style>
 </head>
@@ -349,20 +372,27 @@ textarea{
 
   <div class="login-box">
 
-    <div class="logo">ExamPlus</div>
+    <div class="logo-circle">E+</div>
 
-    <div class="subtitle">
-      School Management System
-    </div>
+    <h1>ExamPlus</h1>
+    <p>School Management System</p>
 
-    <div class="input-group">
+    <div class="form-group">
       <label>Email</label>
-      <input type="email" id="loginEmail" placeholder="Enter email">
+      <input
+        type="email"
+        id="loginEmail"
+        placeholder="Enter your email"
+        autocomplete="username">
     </div>
 
-    <div class="input-group">
+    <div class="form-group">
       <label>Password</label>
-      <input type="password" id="loginPassword" placeholder="Enter password">
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Enter your password"
+        autocomplete="current-password">
     </div>
 
     <button class="primary-btn" onclick="login()">
@@ -376,7 +406,7 @@ textarea{
 </div>
 
 
-<!-- ================= APPLICATION ================= -->
+<!-- ================= MAIN APP ================= -->
 <div id="app" class="hidden">
 
   <div class="topbar">
@@ -386,11 +416,13 @@ textarea{
     </div>
 
     <div class="user-info">
-      <span id="userSchool"></span>
-      <br>
-      <span id="userRole"></span>
-      <button class="logout-btn" onclick="logout()">Logout</button>
+      <div id="topUser"></div>
+      <div id="topSchool"></div>
     </div>
+
+    <button class="logout-btn" onclick="logout()">
+      Logout
+    </button>
 
   </div>
 
@@ -399,25 +431,26 @@ textarea{
     <!-- SUPER ADMIN -->
     <div id="superAdminHome" class="hidden">
 
-      <div class="dashboard-title">
-        Super Admin Dashboard
+      <div class="welcome">
+        <h2>Super Admin Dashboard</h2>
+        <p>Manage schools and ExamPlus system settings.</p>
       </div>
 
       <div class="dashboard-grid">
 
-        <div class="tile" onclick="showPage('createSchoolPage')">
-          <div class="tile-icon">🏫</div>
-          <div class="tile-title">Create School</div>
+        <div class="tile" onclick="showSection('createSchoolSection')">
+          <div class="icon">🏫</div>
+          <strong>Create School</strong>
         </div>
 
-        <div class="tile" onclick="showPage('viewSchoolsPage')">
-          <div class="tile-icon">🏢</div>
-          <div class="tile-title">View Schools</div>
+        <div class="tile" onclick="showSection('viewSchoolsSection')">
+          <div class="icon">🏢</div>
+          <strong>View Schools</strong>
         </div>
 
-        <div class="tile" onclick="showPage('systemSettingsPage')">
-          <div class="tile-icon">⚙️</div>
-          <div class="tile-title">Settings</div>
+        <div class="tile" onclick="showSection('systemSettingsSection')">
+          <div class="icon">⚙️</div>
+          <strong>Settings</strong>
         </div>
 
       </div>
@@ -428,55 +461,56 @@ textarea{
     <!-- ADMIN -->
     <div id="adminHome" class="hidden">
 
-      <div class="dashboard-title">
-        School Admin Dashboard
+      <div class="welcome">
+        <h2>School Admin Dashboard</h2>
+        <p id="adminWelcome"></p>
       </div>
 
       <div class="dashboard-grid">
 
-        <div class="tile" onclick="showPage('schoolDetailsPage')">
-          <div class="tile-icon">🏫</div>
-          <div class="tile-title">School Details</div>
+        <div class="tile" onclick="showSection('schoolDetailsSection')">
+          <div class="icon">🏫</div>
+          <strong>School Details</strong>
         </div>
 
-        <div class="tile" onclick="showPage('studentsPage')">
-          <div class="tile-icon">👨‍🎓</div>
-          <div class="tile-title">Student Details</div>
+        <div class="tile" onclick="showSection('studentDetailsSection')">
+          <div class="icon">👨‍🎓</div>
+          <strong>Student Details</strong>
         </div>
 
-        <div class="tile" onclick="showPage('classesPage')">
-          <div class="tile-icon">📚</div>
-          <div class="tile-title">All Classes</div>
+        <div class="tile" onclick="showSection('classesSection')">
+          <div class="icon">📚</div>
+          <strong>All Classes</strong>
         </div>
 
-        <div class="tile" onclick="showPage('subjectsPage')">
-          <div class="tile-icon">📖</div>
-          <div class="tile-title">All Subjects</div>
+        <div class="tile" onclick="showSection('subjectsSection')">
+          <div class="icon">📖</div>
+          <strong>All Subjects</strong>
         </div>
 
-        <div class="tile" onclick="showPage('bulkStudentsPage')">
-          <div class="tile-icon">👥</div>
-          <div class="tile-title">Students in Bulk</div>
+        <div class="tile" onclick="showSection('bulkStudentsSection')">
+          <div class="icon">👥</div>
+          <strong>Students in Bulk</strong>
         </div>
 
-        <div class="tile" onclick="showPage('reportCardPage')">
-          <div class="tile-icon">📄</div>
-          <div class="tile-title">Report Card</div>
+        <div class="tile" onclick="showSection('reportCardSection')">
+          <div class="icon">📄</div>
+          <strong>Report Card</strong>
         </div>
 
-        <div class="tile" onclick="showPage('adminSettingsPage')">
-          <div class="tile-icon">⚙️</div>
-          <div class="tile-title">Settings</div>
+        <div class="tile" onclick="showSection('schoolSettingsSection')">
+          <div class="icon">⚙️</div>
+          <strong>Settings</strong>
         </div>
 
-        <div class="tile" onclick="showPage('contactsPage')">
-          <div class="tile-icon">📞</div>
-          <div class="tile-title">Contacts</div>
+        <div class="tile" onclick="showSection('contactsSection')">
+          <div class="icon">📞</div>
+          <strong>Contacts</strong>
         </div>
 
-        <div class="tile" onclick="showPage('staffPage')">
-          <div class="tile-icon">👨‍🏫</div>
-          <div class="tile-title">Teacher / Bursar</div>
+        <div class="tile" onclick="showSection('staffSection')">
+          <div class="icon">👨‍🏫</div>
+          <strong>Teacher / Bursar</strong>
         </div>
 
       </div>
@@ -487,20 +521,21 @@ textarea{
     <!-- TEACHER -->
     <div id="teacherHome" class="hidden">
 
-      <div class="dashboard-title">
-        Teacher Dashboard
+      <div class="welcome">
+        <h2>Teacher Dashboard</h2>
+        <p>Manage student scores and view academic records.</p>
       </div>
 
       <div class="dashboard-grid">
 
-        <div class="tile" onclick="showPage('addScorePage')">
-          <div class="tile-icon">📝</div>
-          <div class="tile-title">Add Score</div>
+        <div class="tile" onclick="showSection('addScoreSection')">
+          <div class="icon">📝</div>
+          <strong>Add Score</strong>
         </div>
 
-        <div class="tile" onclick="showPage('viewRecordPage')">
-          <div class="tile-icon">📊</div>
-          <div class="tile-title">View Record</div>
+        <div class="tile" onclick="showSection('viewRecordSection')">
+          <div class="icon">📊</div>
+          <strong>View Record</strong>
         </div>
 
       </div>
@@ -511,20 +546,21 @@ textarea{
     <!-- BURSAR -->
     <div id="bursarHome" class="hidden">
 
-      <div class="dashboard-title">
-        Bursar Dashboard
+      <div class="welcome">
+        <h2>Bursar Dashboard</h2>
+        <p>Manage school fee payments and receipts.</p>
       </div>
 
       <div class="dashboard-grid">
 
-        <div class="tile" onclick="showPage('paymentPage')">
-          <div class="tile-icon">💰</div>
-          <div class="tile-title">Payment</div>
+        <div class="tile" onclick="showSection('paymentSection')">
+          <div class="icon">💰</div>
+          <strong>Payment</strong>
         </div>
 
-        <div class="tile" onclick="showPage('paymentRecordsPage')">
-          <div class="tile-icon">🧾</div>
-          <div class="tile-title">View Records</div>
+        <div class="tile" onclick="showSection('paymentRecordsSection')">
+          <div class="icon">🧾</div>
+          <strong>View Records</strong>
         </div>
 
       </div>
@@ -532,34 +568,36 @@ textarea{
     </div>
 
 
-    <!-- ================= CREATE SCHOOL ================= -->
-    <div id="createSchoolPage" class="page hidden">
+    <!-- ================= SUPER ADMIN SECTIONS ================= -->
 
-      <div class="page-header">
-        <div class="page-title">Create School</div>
+    <div id="createSchoolSection" class="section hidden">
+
+      <div class="section-header">
+        <h2>🏫 Create School</h2>
         <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
-      <div class="form-grid">
-
-        <div class="input-group">
-          <label>School Name</label>
-          <input id="newSchoolName" type="text">
-        </div>
-
-        <div class="input-group">
-          <label>School Email</label>
-          <input id="newSchoolEmail" type="email">
-        </div>
-
-        <div class="input-group">
-          <label>School Login Password</label>
-          <input id="newSchoolPassword" type="password">
-        </div>
-
+      <div class="info-box">
+        Create a new school account. An Admin account will automatically
+        be created using the email and password supplied below.
       </div>
 
-      <button class="save-btn" onclick="createSchool()">
+      <div class="form-group">
+        <label>School Name</label>
+        <input id="newSchoolName" placeholder="Enter school name">
+      </div>
+
+      <div class="form-group">
+        <label>Admin Email</label>
+        <input id="newSchoolEmail" type="email" placeholder="Enter admin email">
+      </div>
+
+      <div class="form-group">
+        <label>Admin Password</label>
+        <input id="newSchoolPassword" type="password" placeholder="Enter password">
+      </div>
+
+      <button class="primary-btn" onclick="createSchool()">
         Create School
       </button>
 
@@ -568,234 +606,259 @@ textarea{
     </div>
 
 
-    <!-- ================= VIEW SCHOOLS ================= -->
-    <div id="viewSchoolsPage" class="page hidden">
+    <div id="viewSchoolsSection" class="section hidden">
 
-      <div class="page-header">
-        <div class="page-title">View Schools</div>
+      <div class="section-header">
+        <h2>🏢 View Schools</h2>
         <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
-      <div class="empty">
-        School list will appear here after the school records endpoint is enabled.
+      <div class="info-box">
+        School records will appear here when the school-list function is
+        connected to the backend.
+      </div>
+
+      <div id="schoolList">
+        <div class="loading">
+          Loading schools...
+        </div>
+      </div>
+
+      <button class="small-btn" onclick="loadSchools()">
+        Refresh
+      </button>
+
+    </div>
+
+
+    <div id="systemSettingsSection" class="section hidden">
+
+      <div class="section-header">
+        <h2>⚙️ System Settings</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
+      </div>
+
+      <div class="card">
+
+        <h3>Subscription Plans</h3>
+
+        <div class="two-column">
+
+          <div class="form-group">
+            <label>Free Trial</label>
+            <input value="7 Days" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>1 Term</label>
+            <input value="₦8,000" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>2 Terms</label>
+            <input value="₦14,000" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>1 Session</label>
+            <input value="₦20,000" readonly>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
 
 
-    <!-- ================= SYSTEM SETTINGS ================= -->
-    <div id="systemSettingsPage" class="page hidden">
+    <!-- ================= ADMIN SECTIONS ================= -->
 
-      <div class="page-header">
-        <div class="page-title">System Settings</div>
+    <div id="schoolDetailsSection" class="section hidden">
+
+      <div class="section-header">
+        <h2>🏫 School Details</h2>
         <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
-      <div class="form-grid">
+      <div class="card">
 
-        <div class="input-group">
-          <label>Free Trial Duration</label>
-          <input value="7 days">
-        </div>
-
-        <div class="input-group">
-          <label>1 Term</label>
-          <input value="8000">
-        </div>
-
-        <div class="input-group">
-          <label>2 Terms</label>
-          <input value="14000">
-        </div>
-
-        <div class="input-group">
-          <label>1 Session</label>
-          <input value="20000">
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= SCHOOL DETAILS ================= -->
-    <div id="schoolDetailsPage" class="page hidden">
-
-      <div class="page-header">
-        <div class="page-title">School Details</div>
-        <button class="back-btn" onclick="goHome()">Back</button>
-      </div>
-
-      <div class="form-grid">
-
-        <div class="input-group">
+        <div class="form-group">
           <label>School Name</label>
           <input id="schoolName">
         </div>
 
-        <div class="input-group">
+        <div class="form-group">
           <label>School Address</label>
-          <input id="schoolAddress">
+          <textarea id="schoolAddress" rows="3"></textarea>
         </div>
 
-        <div class="input-group">
-          <label>School Phone</label>
-          <input id="schoolPhone">
+        <div class="two-column">
+
+          <div class="form-group">
+            <label>School Phone</label>
+            <input id="schoolPhone">
+          </div>
+
+          <div class="form-group">
+            <label>School Email</label>
+            <input id="schoolContactEmail">
+          </div>
+
         </div>
 
-        <div class="input-group">
-          <label>School Email</label>
-          <input id="schoolEmail">
-        </div>
-
-        <div class="input-group">
+        <div class="form-group">
           <label>School Logo</label>
-          <input type="file" accept="image/*">
+          <input type="file" id="schoolLogo" accept="image/*">
         </div>
 
-        <div class="input-group">
-          <label>Resumption Date</label>
-          <input type="date">
-        </div>
+        <button class="primary-btn" onclick="saveSchoolDetails()">
+          Save School Details
+        </button>
+
+        <div id="schoolDetailsMessage" class="message"></div>
 
       </div>
-
-      <button class="save-btn">
-        Save School Details
-      </button>
 
     </div>
 
 
-    <!-- ================= STUDENTS ================= -->
-    <div id="studentsPage" class="page hidden">
+    <!-- STUDENT DETAILS -->
+    <div id="studentDetailsSection" class="section hidden">
 
-      <div class="page-header">
-        <div class="page-title">Student Details</div>
+      <div class="section-header">
+        <h2>👨‍🎓 Student Details</h2>
         <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
-      <div class="input-group">
-        <label>Select Class</label>
-        <select id="studentClassSelect">
-          <option value="">Loading classes...</option>
-        </select>
+      <div class="card">
+
+        <h3>Select Class</h3>
+
+        <div class="form-group">
+          <select id="studentClassSelect">
+            <option value="">Select Class</option>
+          </select>
+        </div>
+
       </div>
 
-      <div class="section">
+
+      <div class="card">
 
         <h3>Add Single Student</h3>
 
-        <div class="form-grid">
+        <div class="form-group">
+          <label>Student Name</label>
+          <input id="studentName" placeholder="Student full name">
+        </div>
 
-          <div class="input-group">
-            <label>Student Name</label>
-            <input id="studentName">
-          </div>
+        <div class="two-column">
 
-          <div class="input-group">
+          <div class="form-group">
             <label>Date of Birth</label>
-            <input type="date" id="studentDOB">
+            <input id="studentDOB" type="date">
           </div>
 
-          <div class="input-group">
+          <div class="form-group">
             <label>Date of Admission</label>
-            <input type="date" id="studentAdmission">
-          </div>
-
-          <div class="input-group">
-            <label>Parent / Guardian Name</label>
-            <input id="guardianName">
-          </div>
-
-          <div class="input-group">
-            <label>Parent / Guardian Address</label>
-            <input id="guardianAddress">
-          </div>
-
-          <div class="input-group">
-            <label>Parent / Guardian Phone</label>
-            <input id="guardianPhone">
+            <input id="studentAdmissionDate" type="date">
           </div>
 
         </div>
 
-        <div class="input-group">
-          <label>Camera — Capture Student Photo</label>
-          <input type="file" accept="image/*" capture="environment">
+        <div class="form-group">
+          <label>Parent / Guardian Name</label>
+          <input id="guardianName">
         </div>
 
-        <button class="save-btn">
+        <div class="form-group">
+          <label>Parent / Guardian Address</label>
+          <textarea id="guardianAddress" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Parent / Guardian Phone Number</label>
+          <input id="guardianPhone" type="tel">
+        </div>
+
+        <div class="form-group">
+          <label>📷 Capture Student Photo</label>
+          <input id="studentCamera"
+                 type="file"
+                 accept="image/*"
+                 capture="environment">
+        </div>
+
+        <button class="primary-btn" onclick="saveStudent()">
           Save Student
         </button>
 
+        <div id="studentMessage" class="message"></div>
+
       </div>
 
-      <div class="section">
+
+      <div class="card">
+
         <h3>Students in Selected Class</h3>
-        <div class="empty">
-          Select a class to view students.
+
+        <button class="small-btn" onclick="loadStudents()">
+          Load Students
+        </button>
+
+        <div id="studentsList" style="margin-top:15px;">
         </div>
+
       </div>
 
     </div>
 
 
-    <!-- ================= ALL CLASSES ================= -->
-    <div id="classesPage" class="page hidden">
+    <!-- ALL CLASSES -->
+    <div id="classesSection" class="section hidden">
 
-      <div class="page-header">
-
-        <div class="page-title">
-          All Classes
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
+      <div class="section-header">
+        <h2>📚 All Classes</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
       <div class="info-box">
-        Enter one class name per line. Example:
-        <br>
-        JSS 1
-        <br>
-        JSS 2
-        <br>
-        JSS 3
-        <br>
-        SS 1
-        <br>
-        SS 2
-        <br>
-        SS 3
+        Create the classes used by your school. These classes will
+        automatically appear in other class dropdowns.
       </div>
 
-      <div class="input-group">
+      <div class="card">
 
-        <label>Class Names</label>
+        <div class="form-group">
+          <label>Class Names</label>
+          <textarea id="classesText"
+                    rows="5"
+                    placeholder="Example:
+SS1
+SS2
+SS3
+JSS1
+JSS2
+JSS3"></textarea>
+        </div>
 
-        <textarea
-          id="classNames"
-          placeholder="Enter one class per line"></textarea>
+        <button class="primary-btn" onclick="saveClasses()">
+          Save Classes
+        </button>
+
+        <div id="classesMessage" class="message"></div>
 
       </div>
 
-      <button class="save-btn" onclick="saveClasses()">
-        Save Classes
-      </button>
-
-      <div id="classMessage" class="message"></div>
-
-      <div class="class-list">
+      <div class="card">
 
         <h3>Existing Classes</h3>
 
-        <div id="classList">
-          <div class="empty">
-            Loading classes...
-          </div>
+        <button class="small-btn" onclick="loadClasses()">
+          Refresh Classes
+        </button>
+
+        <div id="classList" class="class-list" style="margin-top:15px;">
         </div>
 
       </div>
@@ -803,436 +866,417 @@ textarea{
     </div>
 
 
-    <!-- ================= SUBJECTS ================= -->
-    <div id="subjectsPage" class="page hidden">
+    <!-- SUBJECTS -->
+    <div id="subjectsSection" class="section hidden">
 
-      <div class="page-header">
-
-        <div class="page-title">
-          All Subjects
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
+      <div class="section-header">
+        <h2>📖 All Subjects</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
-      <div class="input-group">
+      <div class="card">
 
-        <label>Select Class</label>
-
-        <select id="subjectClassSelect">
-          <option value="">Loading classes...</option>
-        </select>
-
-      </div>
-
-      <div class="input-group">
-
-        <label>Subjects — One Per Line</label>
-
-        <textarea
-          placeholder="Mathematics&#10;English Studies&#10;Physics"></textarea>
-
-      </div>
-
-      <button class="save-btn">
-        Save Subjects
-      </button>
-
-    </div>
-
-
-    <!-- ================= BULK STUDENTS ================= -->
-    <div id="bulkStudentsPage" class="page hidden">
-
-      <div class="page-header">
-
-        <div class="page-title">
-          Students in Bulk
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
-      </div>
-
-      <div class="input-group">
-
-        <label>Select Class</label>
-
-        <select id="bulkStudentClassSelect">
-          <option value="">Loading classes...</option>
-        </select>
-
-      </div>
-
-      <div class="input-group">
-
-        <label>Student Names — One Per Line</label>
-
-        <textarea
-          placeholder="Enter student names here"></textarea>
-
-      </div>
-
-      <button class="save-btn">
-        Save Students
-      </button>
-
-    </div>
-
-
-    <!-- ================= REPORT CARD ================= -->
-    <div id="reportCardPage" class="page hidden">
-
-      <div class="page-header">
-
-        <div class="page-title">
-          Report Card
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
-      </div>
-
-      <div class="info-box">
-        General report card generator.
-        Results and student records will be connected to this section.
-      </div>
-
-      <div class="input-group">
-        <label>Select Class</label>
-
-        <select id="reportClassSelect">
-          <option value="">Loading classes...</option>
-        </select>
-      </div>
-
-      <button class="save-btn">
-        Generate Report Card
-      </button>
-
-    </div>
-
-
-    <!-- ================= ADMIN SETTINGS ================= -->
-    <div id="adminSettingsPage" class="page hidden">
-
-      <div class="page-header">
-
-        <div class="page-title">
-          School Settings
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
-      </div>
-
-      <div class="form-grid">
-
-        <div class="input-group">
-          <label>Resumption Date</label>
-          <input type="date">
-        </div>
-
-        <div class="input-group">
-          <label>Term</label>
-          <select>
-            <option>First Term</option>
-            <option>Second Term</option>
-            <option>Third Term</option>
+        <div class="form-group">
+          <label>Select Class</label>
+          <select id="subjectClassSelect">
+            <option value="">Select Class</option>
           </select>
         </div>
 
-        <div class="input-group">
+        <div class="form-group">
+          <label>Subjects</label>
+          <textarea id="subjectsText"
+                    rows="7"
+                    placeholder="Example:
+English Studies
+Mathematics
+Basic Science
+Social Studies"></textarea>
+        </div>
+
+        <button class="primary-btn" onclick="saveSubjects()">
+          Save Subjects
+        </button>
+
+        <div id="subjectsMessage" class="message"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- BULK STUDENTS -->
+    <div id="bulkStudentsSection" class="section hidden">
+
+      <div class="section-header">
+        <h2>👥 Students in Bulk</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
+      </div>
+
+      <div class="card">
+
+        <div class="form-group">
+          <label>Select Class</label>
+          <select id="bulkStudentClassSelect">
+            <option value="">Select Class</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Student Names</label>
+          <textarea id="bulkStudentNames"
+                    rows="10"
+                    placeholder="Enter one student name per line"></textarea>
+        </div>
+
+        <button class="primary-btn" onclick="saveBulkStudents()">
+          Save Students
+        </button>
+
+        <div id="bulkStudentMessage" class="message"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- REPORT CARD -->
+    <div id="reportCardSection" class="section hidden">
+
+      <div class="section-header">
+        <h2>📄 General Report Card</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
+      </div>
+
+      <div class="info-box">
+        The report card module will use the students, subjects and scores
+        stored in the ExamPlus school database.
+      </div>
+
+      <div class="card">
+
+        <div class="form-group">
+          <label>Select Class</label>
+          <select id="reportClassSelect">
+            <option value="">Select Class</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Select Student</label>
+          <select id="reportStudentSelect">
+            <option value="">Select Student</option>
+          </select>
+        </div>
+
+        <button class="primary-btn" onclick="generateReport()">
+          Generate Report Card
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- SCHOOL SETTINGS -->
+    <div id="schoolSettingsSection" class="section hidden">
+
+      <div class="section-header">
+        <h2>⚙️ School Settings</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
+      </div>
+
+      <div class="card">
+
+        <div class="two-column">
+
+          <div class="form-group">
+            <label>Resumption Date</label>
+            <input type="date" id="resumptionDate">
+          </div>
+
+          <div class="form-group">
+            <label>Term</label>
+            <select id="term">
+              <option value="">Select Term</option>
+              <option>First Term</option>
+              <option>Second Term</option>
+              <option>Third Term</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-group">
           <label>Session</label>
-          <input placeholder="2026/2027">
+          <input id="session" placeholder="2026/2027">
         </div>
 
-        <div class="input-group">
-          <label>Test 1 Maximum</label>
-          <input value="15">
+        <h3 style="margin:20px 0 12px;">Assessment Maximum Scores</h3>
+
+        <div class="two-column">
+
+          <div class="form-group">
+            <label>Test 1 Maximum</label>
+            <input type="number" value="15" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Test 2 Maximum</label>
+            <input type="number" value="15" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Exam Maximum</label>
+            <input type="number" value="70" readonly>
+          </div>
+
         </div>
 
-        <div class="input-group">
-          <label>Test 2 Maximum</label>
-          <input value="15">
-        </div>
+        <h3 style="margin:20px 0 12px;">School Fees</h3>
 
-        <div class="input-group">
-          <label>Exam Maximum</label>
-          <input value="70">
-        </div>
+        <div class="two-column">
 
-      </div>
-
-      <div class="section">
-
-        <h3>School Fees</h3>
-
-        <div class="form-grid">
-
-          <div class="input-group">
+          <div class="form-group">
             <label>School Fee</label>
-            <input type="number">
+            <input type="number" id="schoolFee" placeholder="₦">
           </div>
 
-          <div class="input-group">
+          <div class="form-group">
             <label>Registration Fee</label>
-            <input type="number">
+            <input type="number" id="registrationFee" placeholder="₦">
           </div>
 
-          <div class="input-group">
+          <div class="form-group">
             <label>Books Fee</label>
-            <input type="number">
+            <input type="number" id="booksFee" placeholder="₦">
           </div>
 
         </div>
 
-      </div>
+        <button class="primary-btn" onclick="saveSchoolSettings()">
+          Save Settings
+        </button>
 
-      <button class="save-btn">
-        Save Settings
-      </button>
+        <div id="settingsMessage" class="message"></div>
+
+      </div>
 
     </div>
 
 
-    <!-- ================= CONTACTS ================= -->
-    <div id="contactsPage" class="page hidden">
+    <!-- CONTACTS -->
+    <div id="contactsSection" class="section hidden">
 
-      <div class="page-header">
-
-        <div class="page-title">
-          Contact Super Admin
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
+      <div class="section-header">
+        <h2>📞 Contacts</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
       <div class="info-box">
-        Contact information from ExamPlus Super Admin will appear here.
+        Contact the ExamPlus Super Admin for assistance with the system.
+      </div>
+
+      <div class="card">
+
+        <h3>ExamPlus Support</h3>
+
+        <p style="margin-bottom:10px;">
+          WhatsApp / Phone:
+        </p>
+
+        <p>
+          <strong>Contact will be provided by the Super Admin.</strong>
+        </p>
+
       </div>
 
     </div>
 
 
-    <!-- ================= STAFF ================= -->
-    <div id="staffPage" class="page hidden">
+    <!-- STAFF -->
+    <div id="staffSection" class="section hidden">
 
-      <div class="page-header">
-
-        <div class="page-title">
-          Teacher / Bursar
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
+      <div class="section-header">
+        <h2>👨‍🏫 Teacher / Bursar</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
-      <div class="form-grid">
+      <div class="info-box">
+        School Admin can create Teacher and Bursar accounts. Each account
+        belongs to this school.
+      </div>
 
-        <div class="input-group">
-          <label>Email</label>
-          <input type="email">
+      <div class="card">
+
+        <div class="form-group">
+          <label>Staff Email</label>
+          <input id="staffEmail" type="email">
         </div>
 
-        <div class="input-group">
+        <div class="form-group">
           <label>Password</label>
-          <input type="password">
+          <input id="staffPassword" type="password">
         </div>
 
-        <div class="input-group">
+        <div class="form-group">
           <label>Role</label>
-          <select>
-            <option>Teacher</option>
-            <option>Bursar</option>
+          <select id="staffRole">
+            <option value="">Select Role</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Bursar">Bursar</option>
           </select>
         </div>
 
-      </div>
+        <button class="primary-btn" onclick="createStaff()">
+          Create Account
+        </button>
 
-      <button class="save-btn">
-        Create Account
-      </button>
+        <div id="staffMessage" class="message"></div>
+
+      </div>
 
     </div>
 
 
-    <!-- ================= TEACHER ADD SCORE ================= -->
-    <div id="addScorePage" class="page hidden">
+    <!-- ================= TEACHER ================= -->
 
-      <div class="page-header">
+    <div id="addScoreSection" class="section hidden">
 
-        <div class="page-title">
-          Add Score
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
+      <div class="section-header">
+        <h2>📝 Add Score</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
-      <div class="form-grid">
+      <div class="card">
 
-        <div class="input-group">
+        <div class="form-group">
           <label>Class</label>
-          <select id="teacherClassSelect">
-            <option value="">Loading classes...</option>
+          <select id="scoreClassSelect">
+            <option value="">Select Class</option>
           </select>
         </div>
 
-        <div class="input-group">
+        <div class="form-group">
           <label>Subject</label>
-          <select>
-            <option>Select Subject</option>
+          <select id="scoreSubjectSelect">
+            <option value="">Select Subject</option>
           </select>
         </div>
 
+        <button class="primary-btn" onclick="loadScoreStudents()">
+          Load Students
+        </button>
+
       </div>
 
-      <button class="small-btn">
-        Load Students
-      </button>
+      <div id="scoreStudentsArea"></div>
 
     </div>
 
 
-    <!-- ================= TEACHER RECORD ================= -->
-    <div id="viewRecordPage" class="page hidden">
+    <div id="viewRecordSection" class="section hidden">
 
-      <div class="page-header">
+      <div class="section-header">
+        <h2>📊 View Record</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
+      </div>
 
-        <div class="page-title">
+      <div class="card">
+
+        <div class="form-group">
+          <label>Select Class</label>
+          <select id="recordClassSelect">
+            <option value="">Select Class</option>
+          </select>
+        </div>
+
+        <button class="primary-btn" onclick="viewRecords()">
           View Record
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
         </button>
 
       </div>
 
-      <div class="input-group">
-
-        <label>Class</label>
-
-        <select id="recordClassSelect">
-          <option value="">Loading classes...</option>
-        </select>
-
-      </div>
-
-      <button class="small-btn">
-        View
-      </button>
+      <div id="recordsArea"></div>
 
     </div>
 
 
-    <!-- ================= BURSAR PAYMENT ================= -->
-    <div id="paymentPage" class="page hidden">
+    <!-- ================= BURSAR ================= -->
 
-      <div class="page-header">
+    <div id="paymentSection" class="section hidden">
 
-        <div class="page-title">
-          Payment
+      <div class="section-header">
+        <h2>💰 Payment</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
+      </div>
+
+      <div class="card">
+
+        <div class="form-group">
+          <label>Select Class</label>
+          <select id="paymentClassSelect">
+            <option value="">Select Class</option>
+          </select>
         </div>
 
-        <button class="back-btn" onclick="goHome()">
-          Back
+        <div class="form-group">
+          <label>Select Student</label>
+          <select id="paymentStudentSelect">
+            <option value="">Select Student</option>
+          </select>
+        </div>
+
+        <h3 style="margin:20px 0 12px;">Fee Type</h3>
+
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="schoolFeeCheck">
+            School Fees
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="registrationFeeCheck">
+            Registration Fee
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="booksFeeCheck">
+            Books Fee
+          </label>
+        </div>
+
+        <button class="primary-btn" onclick="generateReceipt()">
+          Generate 58mm Receipt
         </button>
 
+      </div>
+
+    </div>
+
+
+    <div id="paymentRecordsSection" class="section hidden">
+
+      <div class="section-header">
+        <h2>🧾 Payment Records</h2>
+        <button class="back-btn" onclick="goHome()">Back</button>
       </div>
 
       <div class="info-box">
-        Payment amounts are controlled by the School Admin.
+        Payment records will be displayed here from the school database.
       </div>
 
-      <div class="input-group">
-
-        <label>Class</label>
-
-        <select id="paymentClassSelect">
-          <option value="">Loading classes...</option>
-        </select>
-
-      </div>
-
-      <div class="input-group">
-
-        <label>Student</label>
-
-        <select>
-          <option>Select Student</option>
-        </select>
-
-      </div>
-
-      <div class="section">
-
-        <label>
-          <input type="checkbox">
-          School Fees
-        </label>
-
-        <br><br>
-
-        <label>
-          <input type="checkbox">
-          Registration Fee
-        </label>
-
-        <br><br>
-
-        <label>
-          <input type="checkbox">
-          Books Fee
-        </label>
-
-      </div>
-
-      <br>
-
-      <button class="save-btn">
-        Generate 58mm Receipt
-      </button>
+      <div id="paymentRecordsArea"></div>
 
     </div>
 
 
-    <!-- ================= BURSAR RECORDS ================= -->
-    <div id="paymentRecordsPage" class="page hidden">
-
-      <div class="page-header">
-
-        <div class="page-title">
-          Payment Records
-        </div>
-
-        <button class="back-btn" onclick="goHome()">
-          Back
-        </button>
-
-      </div>
-
-      <div class="empty">
-        Payment records will appear here.
-      </div>
-
+    <div class="footer">
+      ExamPlus School Management System
     </div>
 
   </div>
@@ -1241,10 +1285,1092 @@ textarea{
 
 <script>
 
-/* =========================================================
-   EXAMPLUS GOOGLE APPS SCRIPT WEB APP
-   NEW DEPLOYED URL PROVIDED BY USER
-========================================================= */
+/* ============================================================
+   EXAMPLUS BACKEND
+   ============================================================ */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxcMui-9QoUd9643Lca7Ss3BGPc2PvUn2fnIh2mEfTM7
+"https://script.google.com/macros/s/AKfycbxcMui-9QoUd9643Lca7Ss3BGPc2PvUn2fnIh2mEfTM7DvTngo6eJkH3OuDrX1xxVEK4Q/exec";
+
+
+/* ============================================================
+   GLOBAL DATA
+   ============================================================ */
+
+let currentUser = null;
+let classes = [];
+
+
+/* ============================================================
+   JSONP API
+   ============================================================ */
+
+function api(action, params = {}){
+
+  return new Promise((resolve, reject) => {
+
+    const callbackName =
+      "examplusCallback_" +
+      Date.now() +
+      "_" +
+      Math.floor(Math.random() * 100000);
+
+    const script = document.createElement("script");
+
+    let url =
+      API_URL +
+      "?action=" +
+      encodeURIComponent(action) +
+      "&callback=" +
+      encodeURIComponent(callbackName);
+
+    Object.keys(params).forEach(key => {
+
+      if(params[key] !== undefined && params[key] !== null){
+
+        url +=
+          "&" +
+          encodeURIComponent(key) +
+          "=" +
+          encodeURIComponent(params[key]);
+
+      }
+
+    });
+
+    const timeout = setTimeout(() => {
+
+      cleanup();
+
+      reject(
+        new Error(
+          "Unable to connect to ExamPlus server."
+        )
+      );
+
+    },15000);
+
+
+    window[callbackName] = function(data){
+
+      clearTimeout(timeout);
+
+      cleanup();
+
+      resolve(data);
+
+    };
+
+
+    function cleanup(){
+
+      delete window[callbackName];
+
+      if(script.parentNode){
+        script.parentNode.removeChild(script);
+      }
+
+    }
+
+
+    script.onerror = function(){
+
+      clearTimeout(timeout);
+
+      cleanup();
+
+      reject(
+        new Error(
+          "Unable to connect to ExamPlus server."
+        )
+      );
+
+    };
+
+
+    script.src = url;
+
+    document.body.appendChild(script);
+
+  });
+
+}
+
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+
+async function login(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const message =
+    document.getElementById("loginMessage");
+
+
+  if(!email || !password){
+
+    showMessage(
+      message,
+      "Please enter your email and password.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    message,
+    "Logging in...",
+    "success"
+  );
+
+
+  try{
+
+    const result = await api(
+      "login",
+      {
+        email:email,
+        password:password
+      }
+    );
+
+
+    if(result && result.success){
+
+      currentUser = result;
+
+      localStorage.setItem(
+        "examplusUser",
+        JSON.stringify(result)
+      );
+
+      openDashboard();
+
+    }else{
+
+      showMessage(
+        message,
+        result && result.message
+          ? result.message
+          : "Login failed.",
+        "error"
+      );
+
+    }
+
+  }catch(error){
+
+    showMessage(
+      message,
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   OPEN DASHBOARD
+   ============================================================ */
+
+function openDashboard(){
+
+  document
+    .getElementById("loginPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+
+
+  document.getElementById("topUser").textContent =
+    currentUser.email || "";
+
+  document.getElementById("topSchool").textContent =
+    currentUser.schoolName || "";
+
+
+  hideAllDashboards();
+
+  const role =
+    String(currentUser.role || "")
+      .toLowerCase()
+      .trim();
+
+
+  if(role === "super admin"){
+
+    document
+      .getElementById("superAdminHome")
+      .classList.remove("hidden");
+
+  }
+  else if(role === "admin"){
+
+    document
+      .getElementById("adminHome")
+      .classList.remove("hidden");
+
+    document.getElementById("adminWelcome").textContent =
+      currentUser.schoolName || "Your School";
+
+  }
+  else if(role === "teacher"){
+
+    document
+      .getElementById("teacherHome")
+      .classList.remove("hidden");
+
+  }
+  else if(role === "bursar"){
+
+    document
+      .getElementById("bursarHome")
+      .classList.remove("hidden");
+
+  }
+  else{
+
+    alert("Unknown user role: " + currentUser.role);
+
+  }
+
+}
+
+
+/* ============================================================
+   AUTO LOGIN
+   ============================================================ */
+
+function checkSavedLogin(){
+
+  const saved =
+    localStorage.getItem("examplusUser");
+
+  if(!saved){
+    return;
+  }
+
+  try{
+
+    currentUser = JSON.parse(saved);
+
+    if(currentUser && currentUser.email){
+
+      openDashboard();
+
+    }
+
+  }catch(error){
+
+    localStorage.removeItem("examplusUser");
+
+  }
+
+}
+
+
+/* ============================================================
+   LOGOUT
+   ============================================================ */
+
+function logout(){
+
+  localStorage.removeItem("examplusUser");
+
+  currentUser = null;
+
+  document
+    .getElementById("app")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginPage")
+    .classList.remove("hidden");
+
+  document.getElementById("loginEmail").value = "";
+  document.getElementById("loginPassword").value = "";
+
+  hideAllSections();
+
+  hideAllDashboards();
+
+}
+
+
+/* ============================================================
+   DASHBOARD HELPERS
+   ============================================================ */
+
+function hideAllDashboards(){
+
+  [
+    "superAdminHome",
+    "adminHome",
+    "teacherHome",
+    "bursarHome"
+  ].forEach(id => {
+
+    document
+      .getElementById(id)
+      .classList.add("hidden");
+
+  });
+
+}
+
+
+function hideAllSections(){
+
+  document
+    .querySelectorAll(".section")
+    .forEach(section => {
+
+      section.classList.add("hidden");
+
+    });
+
+}
+
+
+function showSection(id){
+
+  hideAllDashboards();
+
+  hideAllSections();
+
+  document
+    .getElementById(id)
+    .classList.remove("hidden");
+
+
+  if(id === "classesSection"){
+    loadClasses();
+  }
+
+  if(id === "studentDetailsSection"){
+    loadClassesIntoDropdowns();
+  }
+
+  if(id === "subjectsSection"){
+    loadClassesIntoDropdowns();
+  }
+
+  if(id === "bulkStudentsSection"){
+    loadClassesIntoDropdowns();
+  }
+
+  if(id === "reportCardSection"){
+    loadClassesIntoDropdowns();
+  }
+
+  if(id === "addScoreSection"){
+    loadClassesIntoDropdowns();
+  }
+
+  if(id === "viewRecordSection"){
+    loadClassesIntoDropdowns();
+  }
+
+  if(id === "paymentSection"){
+    loadClassesIntoDropdowns();
+  }
+
+}
+
+
+function goHome(){
+
+  hideAllSections();
+
+  openDashboard();
+
+}
+
+
+/* ============================================================
+   CREATE SCHOOL
+   ============================================================ */
+
+async function createSchool(){
+
+  const schoolName =
+    document.getElementById("newSchoolName")
+      .value.trim();
+
+  const email =
+    document.getElementById("newSchoolEmail")
+      .value.trim();
+
+  const password =
+    document.getElementById("newSchoolPassword")
+      .value;
+
+  const message =
+    document.getElementById("createSchoolMessage");
+
+
+  if(!schoolName || !email || !password){
+
+    showMessage(
+      message,
+      "Please complete all fields.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    message,
+    "Creating school...",
+    "success"
+  );
+
+
+  try{
+
+    const result = await api(
+      "createSchool",
+      {
+        schoolName:schoolName,
+        email:email,
+        password:password
+      }
+    );
+
+
+    if(result && result.success){
+
+      showMessage(
+        message,
+        "School created successfully. School ID: " +
+        (result.schoolId || ""),
+        "success"
+      );
+
+      document.getElementById("newSchoolName").value = "";
+      document.getElementById("newSchoolEmail").value = "";
+      document.getElementById("newSchoolPassword").value = "";
+
+    }else{
+
+      showMessage(
+        message,
+        result && result.message
+          ? result.message
+          : "Unable to create school.",
+        "error"
+      );
+
+    }
+
+  }catch(error){
+
+    showMessage(
+      message,
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   CLASSES
+   ============================================================ */
+
+async function loadClasses(){
+
+  if(!currentUser || !currentUser.schoolId){
+    return;
+  }
+
+
+  const list =
+    document.getElementById("classList");
+
+  list.innerHTML =
+    '<div class="loading">Loading classes...</div>';
+
+
+  try{
+
+    const result = await api(
+      "getClasses",
+      {
+        schoolId:currentUser.schoolId
+      }
+    );
+
+
+    if(result && result.success){
+
+      classes = result.classes || [];
+
+      renderClasses();
+
+      loadClassesIntoDropdowns();
+
+    }else{
+
+      list.innerHTML =
+        "<p>Unable to load classes.</p>";
+
+    }
+
+  }catch(error){
+
+    list.innerHTML =
+      "<p>" +
+      escapeHtml(error.message) +
+      "</p>";
+
+  }
+
+}
+
+
+function renderClasses(){
+
+  const list =
+    document.getElementById("classList");
+
+  list.innerHTML = "";
+
+
+  if(!classes.length){
+
+    list.innerHTML =
+      "<p>No classes have been created yet.</p>";
+
+    return;
+
+  }
+
+
+  classes
+    .slice()
+    .sort((a,b) =>
+      String(a.className).localeCompare(
+        String(b.className)
+      )
+    )
+    .forEach(item => {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "class-item";
+
+      div.innerHTML =
+        "<strong>" +
+        escapeHtml(item.className) +
+        "</strong>" +
+
+        "<button class='delete-btn' " +
+        "onclick=\"deleteClass('" +
+        escapeJs(item.classId) +
+        "')\">" +
+        "Delete" +
+        "</button>";
+
+      list.appendChild(div);
+
+    });
+
+}
+
+
+async function saveClasses(){
+
+  const text =
+    document.getElementById("classesText")
+      .value.trim();
+
+  const message =
+    document.getElementById("classesMessage");
+
+
+  if(!text){
+
+    showMessage(
+      message,
+      "Enter at least one class.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    message,
+    "Saving classes...",
+    "success"
+  );
+
+
+  try{
+
+    const result = await api(
+      "addClasses",
+      {
+        schoolId:currentUser.schoolId,
+        classes:text
+      }
+    );
+
+
+    if(result && result.success){
+
+      showMessage(
+        message,
+        result.message || "Classes saved successfully.",
+        "success"
+      );
+
+      document.getElementById("classesText").value = "";
+
+      await loadClasses();
+
+    }else{
+
+      showMessage(
+        message,
+        result && result.message
+          ? result.message
+          : "Unable to save classes.",
+        "error"
+      );
+
+    }
+
+  }catch(error){
+
+    showMessage(
+      message,
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+async function deleteClass(classId){
+
+  if(!confirm("Delete this class?")){
+    return;
+  }
+
+
+  try{
+
+    const result = await api(
+      "deleteClass",
+      {
+        schoolId:currentUser.schoolId,
+        classId:classId
+      }
+    );
+
+
+    if(result && result.success){
+
+      await loadClasses();
+
+    }else{
+
+      alert(
+        result && result.message
+          ? result.message
+          : "Unable to delete class."
+      );
+
+    }
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
+
+}
+
+
+/* ============================================================
+   CLASS DROPDOWNS
+   ============================================================ */
+
+async function loadClassesIntoDropdowns(){
+
+  if(!currentUser || !currentUser.schoolId){
+    return;
+  }
+
+
+  try{
+
+    const result = await api(
+      "getClasses",
+      {
+        schoolId:currentUser.schoolId
+      }
+    );
+
+
+    if(result && result.success){
+
+      classes = result.classes || [];
+
+      const dropdowns = [
+
+        "studentClassSelect",
+        "subjectClassSelect",
+        "bulkStudentClassSelect",
+        "reportClassSelect",
+        "scoreClassSelect",
+        "recordClassSelect",
+        "paymentClassSelect"
+
+      ];
+
+
+      dropdowns.forEach(id => {
+
+        const select =
+          document.getElementById(id);
+
+        if(!select){
+          return;
+        }
+
+        const oldValue =
+          select.value;
+
+        select.innerHTML =
+          '<option value="">Select Class</option>';
+
+
+        classes
+          .slice()
+          .sort((a,b) =>
+            String(a.className).localeCompare(
+              String(b.className)
+            )
+          )
+          .forEach(item => {
+
+            const option =
+              document.createElement("option");
+
+            option.value =
+              item.classId;
+
+            option.textContent =
+              item.className;
+
+            select.appendChild(option);
+
+          });
+
+
+        if(oldValue){
+          select.value = oldValue;
+        }
+
+      });
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+/* ============================================================
+   PLACEHOLDER MODULES
+   ============================================================ */
+
+function saveSchoolDetails(){
+
+  alert(
+    "School Details interface is ready. " +
+    "The backend save function will be connected in the next module."
+  );
+
+}
+
+
+function saveStudent(){
+
+  const name =
+    document.getElementById("studentName").value.trim();
+
+  const classId =
+    document.getElementById("studentClassSelect").value;
+
+
+  if(!name || !classId){
+
+    showMessage(
+      document.getElementById("studentMessage"),
+      "Please select a class and enter the student's name.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  alert(
+    "Student registration interface is ready. " +
+    "The student-save backend action will be connected next."
+  );
+
+}
+
+
+function loadStudents(){
+
+  alert(
+    "Student loading will be connected to the school database next."
+  );
+
+}
+
+
+function saveSubjects(){
+
+  const classId =
+    document.getElementById("subjectClassSelect").value;
+
+  const subjects =
+    document.getElementById("subjectsText").value.trim();
+
+
+  if(!classId || !subjects){
+
+    showMessage(
+      document.getElementById("subjectsMessage"),
+      "Select a class and enter subjects.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  alert(
+    "Subject interface is ready. " +
+    "The subject-save backend action will be connected next."
+  );
+
+}
+
+
+function saveBulkStudents(){
+
+  const classId =
+    document.getElementById("bulkStudentClassSelect").value;
+
+  const names =
+    document.getElementById("bulkStudentNames").value.trim();
+
+
+  if(!classId || !names){
+
+    showMessage(
+      document.getElementById("bulkStudentMessage"),
+      "Select a class and enter student names.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  alert(
+    "Bulk student interface is ready. " +
+    "The bulk-student backend action will be connected next."
+  );
+
+}
+
+
+function generateReport(){
+
+  alert(
+    "Report Card interface is ready. " +
+    "The report generation and PDF function will be connected next."
+  );
+
+}
+
+
+function saveSchoolSettings(){
+
+  alert(
+    "School Settings interface is ready. " +
+    "The settings-save backend action will be connected next."
+  );
+
+}
+
+
+function createStaff(){
+
+  const email =
+    document.getElementById("staffEmail").value.trim();
+
+  const password =
+    document.getElementById("staffPassword").value;
+
+  const role =
+    document.getElementById("staffRole").value;
+
+
+  if(!email || !password || !role){
+
+    showMessage(
+      document.getElementById("staffMessage"),
+      "Please complete all fields.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  alert(
+    "Teacher/Bursar account interface is ready. " +
+    "The staff account backend action will be connected next."
+  );
+
+}
+
+
+function loadScoreStudents(){
+
+  alert(
+    "Score entry interface is ready. " +
+    "Student score loading will be connected next."
+  );
+
+}
+
+
+function viewRecords(){
+
+  alert(
+    "Record viewing interface is ready. " +
+    "The result-record backend action will be connected next."
+  );
+
+}
+
+
+function generateReceipt(){
+
+  alert(
+    "Bursar receipt interface is ready. " +
+    "The payment and 58mm POS receipt backend will be connected next."
+  );
+
+}
+
+
+/* ============================================================
+   VIEW SCHOOLS
+   ============================================================ */
+
+function loadSchools(){
+
+  const list =
+    document.getElementById("schoolList");
+
+  list.innerHTML =
+    '<div class="loading">' +
+    "The current backend does not yet have a getSchools action." +
+    "</div>";
+
+}
+
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+
+function showMessage(element,text,type){
+
+  if(!element){
+    return;
+  }
+
+  element.textContent = text;
+
+  element.className =
+    "message " + type;
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeJs(value){
+
+  return String(value || "")
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'")
+    .replace(/"/g,'\\"');
+
+}
+
+
+/* ============================================================
+   START
+   ============================================================ */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    checkSavedLogin();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
