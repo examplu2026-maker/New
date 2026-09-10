@@ -7,742 +7,1254 @@
 <title>ExamPlus</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
 
-    body {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #eef4ff, #ffffff);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .container {
-        width: 100%;
-        max-width: 420px;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+  color: #222;
+}
 
-    .login-card {
-        background: white;
-        border-radius: 22px;
-        padding: 30px 25px;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.10);
-    }
+.hidden {
+  display: none !important;
+}
 
-    .logo {
-        width: 75px;
-        height: 75px;
-        margin: 0 auto 15px;
-        border-radius: 20px;
-        background: #1769e0;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 30px;
-        font-weight: bold;
-    }
 
-    h1 {
-        text-align: center;
-        color: #1769e0;
-        font-size: 30px;
-        margin-bottom: 6px;
-    }
+/* LOGIN */
 
-    .subtitle {
-        text-align: center;
-        color: #777;
-        font-size: 14px;
-        margin-bottom: 28px;
-    }
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
-    label {
-        display: block;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 8px;
-        font-size: 14px;
-    }
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 18px;
+  padding: 30px 24px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+}
 
-    .input-group {
-        margin-bottom: 18px;
-    }
+.logo {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto 15px;
+  border-radius: 20px;
+  background: #1769aa;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+}
 
-    input {
-        width: 100%;
-        padding: 14px;
-        border: 1px solid #d7dce5;
-        border-radius: 12px;
-        outline: none;
-        font-size: 16px;
-        background: #fafbfc;
-    }
+.login-title {
+  text-align: center;
+  font-size: 28px;
+  margin: 0;
+}
 
-    input:focus {
-        border-color: #1769e0;
-        background: white;
-    }
+.login-subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+}
 
-    .password-box {
-        position: relative;
-    }
+label {
+  display: block;
+  font-weight: bold;
+  margin: 15px 0 7px;
+}
 
-    .password-box input {
-        padding-right: 55px;
-    }
+input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  font-size: 16px;
+}
 
-    .show-password {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        font-size: 13px;
-        color: #1769e0;
-        font-weight: bold;
-    }
+.password-box {
+  position: relative;
+}
 
-    .login-button {
-        width: 100%;
-        border: none;
-        border-radius: 12px;
-        padding: 15px;
-        background: #1769e0;
-        color: white;
-        font-size: 17px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 5px;
-    }
+.password-box input {
+  padding-right: 75px;
+}
 
-    .login-button:disabled {
-        opacity: 0.65;
-        cursor: not-allowed;
-    }
+.show-password {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  border: none;
+  background: transparent;
+  color: #1769aa;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .message {
-        margin-top: 18px;
-        padding: 12px;
-        border-radius: 10px;
-        display: none;
-        text-align: center;
-        font-size: 14px;
-        line-height: 1.4;
-    }
+button {
+  border: none;
+  cursor: pointer;
+}
 
-    .error {
-        display: block;
-        background: #ffe9e9;
-        color: #b00020;
-    }
+.login-button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 9px;
+  background: #1769aa;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+}
 
-    .success {
-        display: block;
-        background: #e8f8ed;
-        color: #137333;
-    }
+.login-button:disabled {
+  opacity: 0.6;
+}
 
-    .dashboard {
-        display: none;
-        background: white;
-        border-radius: 22px;
-        padding: 25px;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.10);
-    }
+.message {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  display: none;
+  text-align: center;
+}
 
-    .top {
-        text-align: center;
-        margin-bottom: 25px;
-    }
 
-    .top h2 {
-        color: #1769e0;
-        margin-bottom: 7px;
-    }
+/* DASHBOARD */
 
-    .welcome {
-        color: #555;
-        font-size: 14px;
-    }
+.dashboard {
+  min-height: 100vh;
+}
 
-    .role-box {
-        background: #eef4ff;
-        border-radius: 15px;
-        padding: 18px;
-        margin-bottom: 18px;
-    }
+.topbar {
+  background: #1769aa;
+  color: white;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    .role-box strong {
-        color: #1769e0;
-    }
+.topbar-title {
+  font-size: 21px;
+  font-weight: bold;
+}
 
-    .dashboard-button {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 12px;
-        background: #1769e0;
-        color: white;
-        font-size: 15px;
-        font-weight: bold;
-        margin-top: 10px;
-        cursor: pointer;
-    }
+.logout-button {
+  background: white;
+  color: #1769aa;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+}
 
-    .logout {
-        background: #555;
-    }
+.dashboard-content {
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
 
-    .footer {
-        text-align: center;
-        color: #999;
-        font-size: 12px;
-        margin-top: 20px;
-    }
+.welcome {
+  margin-bottom: 20px;
+}
 
-    @media (max-width: 400px) {
-        .login-card,
-        .dashboard {
-            padding: 23px 18px;
-        }
+.welcome h2 {
+  margin-bottom: 5px;
+}
 
-        h1 {
-            font-size: 27px;
-        }
-    }
+.welcome p {
+  color: #666;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+}
+
+.tile {
+  background: white;
+  border-radius: 15px;
+  padding: 22px 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tile:hover {
+  transform: translateY(-2px);
+}
+
+.tile-icon {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.tile-title {
+  font-weight: bold;
+}
+
+
+/* MODAL */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 1000;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.close-button {
+  background: #eee;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.create-button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  background: #1769aa;
+  color: white;
+  border-radius: 9px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.create-button:disabled {
+  opacity: 0.6;
+}
+
+.result-box {
+  margin-top: 18px;
+  padding: 15px;
+  background: #eef7ee;
+  border-radius: 10px;
+  display: none;
+}
+
+.result-box strong {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.school-list {
+  margin-top: 15px;
+}
+
+.school-item {
+  background: #f5f7fa;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.school-item strong {
+  font-size: 17px;
+}
+
+.school-item small {
+  display: block;
+  margin-top: 5px;
+  color: #666;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
 
-    <!-- LOGIN -->
-    <div class="login-card" id="loginCard">
+<!-- ================= LOGIN ================= -->
 
-        <div class="logo">EP</div>
+<div id="loginPage" class="login-page">
 
-        <h1>ExamPlus</h1>
+  <div class="login-card">
 
-        <div class="subtitle">
-            School Management System
-        </div>
+    <div class="logo">EP</div>
 
-        <div class="input-group">
-            <label for="email">Email Address</label>
+    <h1 class="login-title">ExamPlus</h1>
 
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                autocomplete="username"
-            >
-        </div>
+    <div class="login-subtitle">
+      School Management System
+    </div>
 
-        <div class="input-group">
+    <label>Email</label>
 
-            <label for="password">Password</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="Enter your email"
+      autocomplete="username"
+    >
 
-            <div class="password-box">
+    <label>Password</label>
 
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    autocomplete="current-password"
-                >
+    <div class="password-box">
 
-                <button
-                    type="button"
-                    class="show-password"
-                    onclick="togglePassword()"
-                    id="showPasswordButton"
-                >
-                    Show
-                </button>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+      >
 
-            </div>
-        </div>
-
-        <button
-            class="login-button"
-            id="loginButton"
-            onclick="login()"
-        >
-            Login
-        </button>
-
-        <div id="message" class="message"></div>
-
-        <div class="footer">
-            © 2026 ExamPlus
-        </div>
+      <button
+        class="show-password"
+        onclick="togglePassword()"
+        type="button"
+      >
+        Show
+      </button>
 
     </div>
 
+    <button
+      id="loginButton"
+      class="login-button"
+      onclick="login()"
+    >
+      Login
+    </button>
 
-    <!-- DASHBOARD -->
-    <div class="dashboard" id="dashboard">
+    <div id="loginMessage" class="message"></div>
 
-        <div class="top">
-
-            <div class="logo">EP</div>
-
-            <h2>Welcome to ExamPlus</h2>
-
-            <div class="welcome" id="welcomeText"></div>
-
-        </div>
-
-        <div class="role-box">
-
-            <div>
-                <strong>Role:</strong>
-                <span id="userRole"></span>
-            </div>
-
-            <div style="margin-top:8px;">
-                <strong>School:</strong>
-                <span id="userSchool"></span>
-            </div>
-
-        </div>
-
-        <div id="dashboardContent"></div>
-
-        <button
-            class="dashboard-button logout"
-            onclick="logout()"
-        >
-            Logout
-        </button>
-
-    </div>
+  </div>
 
 </div>
 
 
+
+<!-- ================= DASHBOARD ================= -->
+
+<div id="dashboardPage" class="dashboard hidden">
+
+  <div class="topbar">
+
+    <div class="topbar-title">
+      ExamPlus
+    </div>
+
+    <button
+      class="logout-button"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+
+  <div class="dashboard-content">
+
+    <div class="welcome">
+
+      <h2 id="dashboardTitle">
+        Dashboard
+      </h2>
+
+      <p id="dashboardUser"></p>
+
+    </div>
+
+
+    <!-- SUPER ADMIN -->
+
+    <div id="superAdminDashboard" class="hidden">
+
+      <div class="tiles">
+
+        <div
+          class="tile"
+          onclick="openCreateSchool()"
+        >
+          <div class="tile-icon">🏫</div>
+          <div class="tile-title">
+            Create School
+          </div>
+        </div>
+
+
+        <div
+          class="tile"
+          onclick="viewSchools()"
+        >
+          <div class="tile-icon">🏢</div>
+          <div class="tile-title">
+            View Schools
+          </div>
+        </div>
+
+
+        <div
+          class="tile"
+          onclick="comingSoon('System Settings')"
+        >
+          <div class="tile-icon">⚙️</div>
+          <div class="tile-title">
+            System Settings
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ADMIN -->
+
+    <div id="adminDashboard" class="hidden">
+
+      <div class="tiles">
+
+        <div class="tile" onclick="comingSoon('School Details')">
+          <div class="tile-icon">🏫</div>
+          <div class="tile-title">School Details</div>
+        </div>
+
+        <div class="tile" onclick="comingSoon('Students')">
+          <div class="tile-icon">👨‍🎓</div>
+          <div class="tile-title">Students</div>
+        </div>
+
+        <div class="tile" onclick="comingSoon('Classes')">
+          <div class="tile-icon">🏢</div>
+          <div class="tile-title">Classes</div>
+        </div>
+
+        <div class="tile" onclick="comingSoon('Subjects')">
+          <div class="tile-icon">📚</div>
+          <div class="tile-title">Subjects</div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TEACHER -->
+
+    <div id="teacherDashboard" class="hidden">
+
+      <div class="tiles">
+
+        <div class="tile" onclick="comingSoon('Add Score')">
+          <div class="tile-icon">📝</div>
+          <div class="tile-title">Add Score</div>
+        </div>
+
+        <div class="tile" onclick="comingSoon('View Record')">
+          <div class="tile-icon">📊</div>
+          <div class="tile-title">View Record</div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- BURSAR -->
+
+    <div id="bursarDashboard" class="hidden">
+
+      <div class="tiles">
+
+        <div class="tile" onclick="comingSoon('Payment')">
+          <div class="tile-icon">💰</div>
+          <div class="tile-title">Payment</div>
+        </div>
+
+        <div class="tile" onclick="comingSoon('View Records')">
+          <div class="tile-icon">🧾</div>
+          <div class="tile-title">View Records</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ================= CREATE SCHOOL MODAL ================= -->
+
+<div id="createSchoolModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>Create School</h2>
+
+      <button
+        class="close-button"
+        onclick="closeCreateSchool()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <label>School Name</label>
+
+    <input
+      type="text"
+      id="schoolName"
+      placeholder="Enter school name"
+    >
+
+
+    <label>School Admin Email</label>
+
+    <input
+      type="email"
+      id="adminEmail"
+      placeholder="Enter School Admin email"
+    >
+
+
+    <label>School Admin Password</label>
+
+    <input
+      type="password"
+      id="adminPassword"
+      placeholder="Minimum 6 characters"
+    >
+
+
+    <button
+      id="createSchoolButton"
+      class="create-button"
+      onclick="createSchool()"
+    >
+      Create School
+    </button>
+
+
+    <div
+      id="createSchoolResult"
+      class="result-box"
+    ></div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ================= VIEW SCHOOLS MODAL ================= -->
+
+<div id="schoolsModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>Schools</h2>
+
+      <button
+        class="close-button"
+        onclick="closeSchools()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div id="schoolsList" class="school-list">
+      Loading...
+    </div>
+
+  </div>
+
+</div>
+
+
+
 <script>
 
-/* =========================================================
-   EXAMPLUS BACKEND
-   ========================================================= */
+/****************************************************
+ * BACKEND URL
+ ****************************************************/
 
-const API =
+const API_URL =
 "https://script.google.com/macros/s/AKfycby_vtghiScwJGAUXhfBdf9vMiFrKMexW4sjln0Vk6IjfxjBr0rDx-5MBtv4Pc25eeENEw/exec";
 
 
-/* =========================================================
-   PASSWORD SHOW / HIDE
-   ========================================================= */
+/****************************************************
+ * CURRENT USER
+ ****************************************************/
 
-function togglePassword() {
-
-    const password =
-        document.getElementById("password");
-
-    const button =
-        document.getElementById("showPasswordButton");
+let currentUser = null;
 
 
-    if (password.type === "password") {
+/****************************************************
+ * JSONP
+ ****************************************************/
 
-        password.type = "text";
-        button.textContent = "Hide";
+function jsonp(action, params, callback) {
 
-    } else {
+  const callbackName =
+    "examplusCallback_" +
+    Date.now() +
+    "_" +
+    Math.floor(Math.random() * 100000);
 
-        password.type = "password";
-        button.textContent = "Show";
+  const script = document.createElement("script");
+
+  const query = new URLSearchParams();
+
+  query.append("action", action);
+
+  query.append("callback", callbackName);
+
+
+  Object.keys(params || {}).forEach(function(key) {
+
+    query.append(
+      key,
+      params[key]
+    );
+
+  });
+
+
+  window[callbackName] = function(data) {
+
+    try {
+      callback(data);
+    } finally {
+
+      delete window[callbackName];
+
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+
     }
+
+  };
+
+
+  script.src =
+    API_URL +
+    "?" +
+    query.toString();
+
+  script.onerror = function() {
+
+    delete window[callbackName];
+
+    if (script.parentNode) {
+      script.parentNode.removeChild(script);
+    }
+
+    callback({
+      success: false,
+      message: "Unable to connect to ExamPlus backend."
+    });
+
+  };
+
+
+  document.body.appendChild(script);
 }
 
 
-/* =========================================================
-   MESSAGE
-   ========================================================= */
-
-function showMessage(text, type) {
-
-    const box =
-        document.getElementById("message");
-
-    box.textContent = text;
-
-    box.className =
-        "message " + type;
-}
-
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
+/****************************************************
+ * LOGIN
+ ****************************************************/
 
 function login() {
 
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
+  const email =
+    document.getElementById("email")
+      .value
+      .trim();
 
-    const password =
-        document.getElementById("password")
-        .value;
+  const password =
+    document.getElementById("password")
+      .value;
 
+  const button =
+    document.getElementById("loginButton");
 
-    if (!email) {
-
-        showMessage(
-            "Please enter your email address.",
-            "error"
-        );
-
-        return;
-    }
+  const message =
+    document.getElementById("loginMessage");
 
 
-    if (!password) {
+  if (!email || !password) {
 
-        showMessage(
-            "Please enter your password.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const button =
-        document.getElementById("loginButton");
-
-
-    button.disabled = true;
-    button.textContent = "Logging in...";
-
-
-    showMessage(
-        "Connecting to ExamPlus server...",
-        "success"
+    showLoginMessage(
+      "Please enter email and password.",
+      false
     );
 
+    return;
 
-    const callbackName =
-        "examPlusLogin_" + Date.now();
-
-
-    window[callbackName] =
-        function(response) {
-
-            try {
-
-                if (
-                    response &&
-                    response.success === true
-                ) {
-
-                    showMessage(
-                        "Login successful.",
-                        "success"
-                    );
-
-                    setTimeout(function() {
-
-                        showDashboard(
-                            response.user
-                        );
-
-                    }, 500);
-
-                } else {
-
-                    showMessage(
-                        response &&
-                        response.message
-                            ? response.message
-                            : "Login failed.",
-                        "error"
-                    );
-                }
-
-            } finally {
-
-                button.disabled = false;
-                button.textContent = "Login";
-
-                delete window[callbackName];
-
-                if (script.parentNode) {
-                    script.parentNode.removeChild(script);
-                }
-            }
-        };
+  }
 
 
-    const script =
-        document.createElement("script");
+  button.disabled = true;
+  button.textContent = "Logging in...";
 
 
-    script.src =
-        API +
-        "?action=login" +
-        "&email=" +
-        encodeURIComponent(email) +
-        "&password=" +
-        encodeURIComponent(password) +
-        "&callback=" +
-        callbackName;
+  jsonp(
+    "login",
+    {
+      email: email,
+      password: password
+    },
+    function(data) {
+
+      button.disabled = false;
+      button.textContent = "Login";
 
 
-    script.onerror =
-        function() {
+      if (!data.success) {
 
-            showMessage(
-                "Unable to connect to the ExamPlus server.",
-                "error"
-            );
-
-            button.disabled = false;
-            button.textContent = "Login";
-
-            delete window[callbackName];
-
-            if (script.parentNode) {
-                script.parentNode.removeChild(script);
-            }
-        };
-
-
-    document.body.appendChild(script);
-
-
-    setTimeout(function() {
-
-        if (
-            typeof window[callbackName] ===
-            "function"
-        ) {
-
-            showMessage(
-                "The server did not respond. Please try again.",
-                "error"
-            );
-
-            button.disabled = false;
-            button.textContent = "Login";
-
-            delete window[callbackName];
-
-            if (script.parentNode) {
-                script.parentNode.removeChild(script);
-            }
-        }
-
-    }, 15000);
-}
-
-
-/* =========================================================
-   SHOW DASHBOARD
-   ========================================================= */
-
-function showDashboard(user) {
-
-    document.getElementById("loginCard")
-        .style.display = "none";
-
-
-    document.getElementById("dashboard")
-        .style.display = "block";
-
-
-    document.getElementById("welcomeText")
-        .textContent =
-        user.email;
-
-
-    document.getElementById("userRole")
-        .textContent =
-        user.role;
-
-
-    document.getElementById("userSchool")
-        .textContent =
-        user.schoolName || "ExamPlus";
-
-
-    const content =
-        document.getElementById(
-            "dashboardContent"
+        showLoginMessage(
+          data.message ||
+          "Login failed.",
+          false
         );
 
+        return;
 
-    const role =
-        String(user.role || "")
-        .toLowerCase();
+      }
 
 
-    if (role === "super admin") {
+      currentUser = data.user;
 
-        content.innerHTML = `
+      showDashboard();
 
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('Create School')"
-            >
-                🏫 Create School
-            </button>
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('View Schools')"
-            >
-                🏢 View Schools
-            </button>
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('System Settings')"
-            >
-                ⚙️ System Settings
-            </button>
-
-        `;
-
-    } else if (role === "admin") {
-
-        content.innerHTML = `
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('School Details')"
-            >
-                🏫 School Details
-            </button>
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('Students')"
-            >
-                👨‍🎓 Students
-            </button>
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('Classes')"
-            >
-                📚 Classes
-            </button>
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('Subjects')"
-            >
-                📖 Subjects
-            </button>
-
-        `;
-
-    } else if (role === "teacher") {
-
-        content.innerHTML = `
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('Add Score')"
-            >
-                📝 Add Score
-            </button>
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('View Record')"
-            >
-                📊 View Record
-            </button>
-
-        `;
-
-    } else if (role === "bursar") {
-
-        content.innerHTML = `
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('Payment')"
-            >
-                💰 Payment
-            </button>
-
-            <button
-                class="dashboard-button"
-                onclick="comingSoon('View Records')"
-            >
-                🧾 View Records
-            </button>
-
-        `;
-
-    } else {
-
-        content.innerHTML = `
-            <p style="text-align:center;color:#777;">
-                Dashboard for this role is not yet configured.
-            </p>
-        `;
     }
+  );
+
 }
 
 
-/* =========================================================
-   TEMPORARY BUTTON MESSAGE
-   ========================================================= */
+/****************************************************
+ * LOGIN MESSAGE
+ ****************************************************/
 
-function comingSoon(name) {
+function showLoginMessage(text, success) {
+
+  const box =
+    document.getElementById("loginMessage");
+
+  box.style.display = "block";
+
+  box.style.background =
+    success ? "#e8f5e9" : "#ffebee";
+
+  box.style.color =
+    success ? "#2e7d32" : "#c62828";
+
+  box.textContent = text;
+
+}
+
+
+/****************************************************
+ * SHOW DASHBOARD
+ ****************************************************/
+
+function showDashboard() {
+
+  document
+    .getElementById("loginPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("dashboardPage")
+    .classList.remove("hidden");
+
+
+  document.getElementById("dashboardUser")
+    .textContent =
+      currentUser.email +
+      " • " +
+      currentUser.role;
+
+
+  document.getElementById("dashboardTitle")
+    .textContent =
+      currentUser.role +
+      " Dashboard";
+
+
+  hideAllDashboards();
+
+
+  const role =
+    String(currentUser.role || "")
+      .toLowerCase();
+
+
+  if (role === "super admin") {
+
+    document
+      .getElementById("superAdminDashboard")
+      .classList.remove("hidden");
+
+  }
+
+  else if (role === "admin") {
+
+    document
+      .getElementById("adminDashboard")
+      .classList.remove("hidden");
+
+  }
+
+  else if (role === "teacher") {
+
+    document
+      .getElementById("teacherDashboard")
+      .classList.remove("hidden");
+
+  }
+
+  else if (role === "bursar") {
+
+    document
+      .getElementById("bursarDashboard")
+      .classList.remove("hidden");
+
+  }
+
+}
+
+
+/****************************************************
+ * HIDE DASHBOARDS
+ ****************************************************/
+
+function hideAllDashboards() {
+
+  [
+    "superAdminDashboard",
+    "adminDashboard",
+    "teacherDashboard",
+    "bursarDashboard"
+  ].forEach(function(id) {
+
+    document
+      .getElementById(id)
+      .classList.add("hidden");
+
+  });
+
+}
+
+
+/****************************************************
+ * CREATE SCHOOL WINDOW
+ ****************************************************/
+
+function openCreateSchool() {
+
+  document
+    .getElementById("createSchoolModal")
+    .style.display = "flex";
+
+  document
+    .getElementById("createSchoolResult")
+    .style.display = "none";
+
+}
+
+
+function closeCreateSchool() {
+
+  document
+    .getElementById("createSchoolModal")
+    .style.display = "none";
+
+}
+
+
+/****************************************************
+ * CREATE SCHOOL
+ ****************************************************/
+
+function createSchool() {
+
+  const schoolName =
+    document.getElementById("schoolName")
+      .value
+      .trim();
+
+  const adminEmail =
+    document.getElementById("adminEmail")
+      .value
+      .trim();
+
+  const adminPassword =
+    document.getElementById("adminPassword")
+      .value;
+
+
+  const button =
+    document.getElementById("createSchoolButton");
+
+  const result =
+    document.getElementById("createSchoolResult");
+
+
+  if (!schoolName) {
+
+    alert("Please enter the school name.");
+
+    return;
+
+  }
+
+
+  if (!adminEmail) {
+
+    alert("Please enter the School Admin email.");
+
+    return;
+
+  }
+
+
+  if (!adminPassword) {
+
+    alert("Please enter the School Admin password.");
+
+    return;
+
+  }
+
+
+  if (adminPassword.length < 6) {
 
     alert(
-        name +
-        " will be connected next."
+      "Password must contain at least 6 characters."
     );
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+  button.textContent = "Creating School...";
+
+  result.style.display = "none";
+
+
+  jsonp(
+    "createSchool",
+    {
+      schoolName: schoolName,
+      adminEmail: adminEmail,
+      adminPassword: adminPassword,
+      creatorEmail: currentUser.email
+    },
+    function(data) {
+
+      button.disabled = false;
+      button.textContent = "Create School";
+
+
+      if (!data.success) {
+
+        alert(
+          data.message ||
+          "School creation failed."
+        );
+
+        return;
+
+      }
+
+
+      const school =
+        data.school;
+
+
+      result.style.display = "block";
+
+
+      result.innerHTML =
+
+        "<strong>School Created Successfully!</strong>" +
+
+        "School ID: <b>" +
+        school.schoolId +
+        "</b><br>" +
+
+        "School Name: <b>" +
+        escapeHtml(school.schoolName) +
+        "</b><br>" +
+
+        "Admin Email: <b>" +
+        escapeHtml(school.adminEmail) +
+        "</b><br>" +
+
+        "Admin Password: <b>" +
+        escapeHtml(school.adminPassword) +
+        "</b><br>" +
+
+        "Free Trial: <b>7 days</b><br>" +
+
+        "Trial Ends: <b>" +
+        school.trialEndDate +
+        "</b>";
+
+
+
+      document
+        .getElementById("schoolName")
+        .value = "";
+
+      document
+        .getElementById("adminEmail")
+        .value = "";
+
+      document
+        .getElementById("adminPassword")
+        .value = "";
+
+    }
+  );
+
 }
 
 
-/* =========================================================
-   LOGOUT
-   ========================================================= */
+/****************************************************
+ * VIEW SCHOOLS
+ ****************************************************/
+
+function viewSchools() {
+
+  document
+    .getElementById("schoolsModal")
+    .style.display = "flex";
+
+  document
+    .getElementById("schoolsList")
+    .innerHTML =
+      "Loading schools...";
+
+
+  jsonp(
+    "getSchools",
+    {},
+    function(data) {
+
+      if (!data.success) {
+
+        document
+          .getElementById("schoolsList")
+          .innerHTML =
+            "<p>" +
+            escapeHtml(
+              data.message ||
+              "Unable to load schools."
+            ) +
+            "</p>";
+
+        return;
+
+      }
+
+
+      const schools =
+        data.schools || [];
+
+
+      if (schools.length === 0) {
+
+        document
+          .getElementById("schoolsList")
+          .innerHTML =
+            "<p>No schools have been created yet.</p>";
+
+        return;
+
+      }
+
+
+      let html = "";
+
+
+      schools.forEach(function(school) {
+
+        html +=
+
+          '<div class="school-item">' +
+
+          "<strong>" +
+          escapeHtml(school.schoolName) +
+          "</strong>" +
+
+          "<small>School ID: " +
+          escapeHtml(school.schoolId) +
+          "</small>" +
+
+          "<small>Admin: " +
+          escapeHtml(school.adminEmail) +
+          "</small>" +
+
+          "<small>Status: " +
+          escapeHtml(school.status) +
+          "</small>" +
+
+          "<small>Trial Ends: " +
+          escapeHtml(school.trialEndDate) +
+          "</small>" +
+
+          "</div>";
+
+      });
+
+
+      document
+        .getElementById("schoolsList")
+        .innerHTML = html;
+
+    }
+  );
+
+}
+
+
+function closeSchools() {
+
+  document
+    .getElementById("schoolsModal")
+    .style.display = "none";
+
+}
+
+
+/****************************************************
+ * LOGOUT
+ ****************************************************/
 
 function logout() {
 
-    document.getElementById("dashboard")
-        .style.display = "none";
+  currentUser = null;
+
+  document
+    .getElementById("dashboardPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginPage")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("password")
+    .value = "";
+
+}
 
 
-    document.getElementById("loginCard")
-        .style.display = "block";
+/****************************************************
+ * PASSWORD SHOW/HIDE
+ ****************************************************/
+
+function togglePassword() {
+
+  const input =
+    document.getElementById("password");
+
+  const button =
+    document.querySelector(".show-password");
 
 
-    document.getElementById("email")
-        .value = "";
+  if (input.type === "password") {
+
+    input.type = "text";
+
+    button.textContent = "Hide";
+
+  } else {
+
+    input.type = "password";
+
+    button.textContent = "Show";
+
+  }
+
+}
 
 
-    document.getElementById("password")
-        .value = "";
+/****************************************************
+ * COMING SOON
+ ****************************************************/
+
+function comingSoon(name) {
+
+  alert(
+    name +
+    " will be connected in the next step."
+  );
+
+}
 
 
-    document.getElementById("message")
-        .className = "message";
+/****************************************************
+ * HTML SAFETY
+ ****************************************************/
 
+function escapeHtml(value) {
 
-    document.getElementById("message")
-        .textContent = "";
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
 }
 
 </script>
