@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamPlus School Portal</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0b5ed7, #063970);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.logo-box {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.logo-box .logo {
+  width: 75px;
+  height: 75px;
+  background: white;
+  color: #0b5ed7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-size: 32px;
+  font-weight: bold;
+  box-shadow: 0 5px 20px rgba(0,0,0,.2);
+}
+
+.logo-box h1 {
+  margin-top: 12px;
+  font-size: 28px;
+}
+
+.logo-box p {
+  margin-top: 5px;
+  opacity: .9;
+}
+
+.login-card {
+  background: white;
+  border-radius: 18px;
+  padding: 28px 22px;
+  box-shadow: 0 10px 35px rgba(0,0,0,.25);
+}
+
+.login-card h2 {
+  text-align: center;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #0b5ed7;
+  box-shadow: 0 0 0 3px rgba(11,94,215,.1);
+}
+
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  padding-right: 50px;
+}
+
+.show-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #0b5ed7;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-btn:active {
+  transform: scale(.98);
+}
+
+.login-btn:disabled {
+  opacity: .6;
+}
+
+.message {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.error {
+  display: block;
+  background: #ffe5e5;
+  color: #b00020;
+}
+
+.success {
+  display: block;
+  background: #e4f8e9;
+  color: #08752b;
+}
+
+.footer {
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  margin-top: 18px;
+  opacity: .85;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo-box">
+    <div class="logo">EP</div>
+    <h1>ExamPlus</h1>
+    <p>School Management Portal</p>
+  </div>
+
+  <div class="login-card">
+
+    <h2>School Portal</h2>
+    <p class="subtitle">Login to your school account</p>
+
+    <form id="loginForm">
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          autocomplete="username"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <div class="password-box">
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword()"
+            id="eyeButton"
+          >👁️</button>
+        </div>
+      </div>
+
+      <button type="submit" class="login-btn" id="loginButton">
+        Login
+      </button>
+
+      <div id="message" class="message"></div>
+
+    </form>
+
+  </div>
+
+  <div class="footer">
+    © 2026 ExamPlus School Management System
+  </div>
+
+</div>
+
+<script>
+
+/*
+====================================================
+EXAMPLUS SCHOOL PORTAL LOGIN
+====================================================
+*/
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwRhE5rppFgPd6PmH0GtGLFgUjRjajurCFLjSFjQmdW_9P0wSVrzNfCgKwwilCsir9QXQ/exec";
+
+
+function showMessage(text, type) {
+
+  const message = document.getElementById("message");
+
+  message.textContent = text;
+
+  message.className = "message " + type;
+}
+
+
+function togglePassword() {
+
+  const password = document.getElementById("password");
+  const eye = document.getElementById("eyeButton");
+
+  if (password.type === "password") {
+
+    password.type = "text";
+    eye.textContent = "🙈";
+
+  } else {
+
+    password.type = "password";
+    eye.textContent = "👁️";
+
+  }
+}
+
+
+function loginUser(email, password) {
+
+  return new Promise(function(resolve, reject) {
+
+    const callbackName =
+      "examplusSchoolLogin_" +
+      Date.now() +
+      "_" +
+      Math.floor(Math.random() * 100000);
+
+    const script = document.createElement("script");
+
+    const timeout = setTimeout(function() {
+
+      cleanup();
+
+      reject(
+        new Error("Connection timeout. Please check your internet connection.")
+      );
+
+    }, 15000);
+
+
+    function cleanup() {
+
+      clearTimeout(timeout);
+
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+
+      try {
+        delete window[callbackName];
+      } catch (e) {
+        window[callbackName] = undefined;
+      }
+    }
+
+
+    window[callbackName] = function(response) {
+
+      cleanup();
+
+      resolve(response);
+
+    };
+
+
+    script.onerror = function() {
+
+      cleanup();
+
+      reject(
+        new Error("Unable to connect to ExamPlus server.")
+      );
+
+    };
+
+
+    const url =
+      API_URL +
+      "?action=login" +
+      "&email=" + encodeURIComponent(email) +
+      "&password=" + encodeURIComponent(password) +
+      "&callback=" + encodeURIComponent(callbackName);
+
+    script.src = url;
+
+    document.body.appendChild(script);
+
+  });
+
+}
+
+
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+
+  e.preventDefault();
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const loginButton =
+    document.getElementById("loginButton");
+
+
+  if (!email || !password) {
+
+    showMessage(
+      "Please enter your email and password.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  loginButton.disabled = true;
+
+  loginButton.textContent = "Logging in...";
+
+  showMessage(
+    "Connecting to ExamPlus...",
+    "success"
+  );
+
+
+  try {
+
+    const result =
+      await loginUser(email, password);
+
+
+    if (!result || result.success !== true) {
+
+      showMessage(
+        result && result.message
+          ? result.message
+          : "Invalid email or password.",
+        "error"
+      );
+
+      loginButton.disabled = false;
+
+      loginButton.textContent = "Login";
+
+      return;
+    }
+
+
+    /*
+    ----------------------------------------------
+    CHECK THAT THE ACCOUNT IS A SCHOOL ADMIN
+    ----------------------------------------------
+    */
+
+    const role =
+      String(result.role || "").toLowerCase().replace(/\s+/g, "");
+
+
+    if (
+      role !== "admin" &&
+      role !== "schooladmin" &&
+      role !== "school_admin"
+    ) {
+
+      showMessage(
+        "This account is not a School Admin account.",
+        "error"
+      );
+
+      loginButton.disabled = false;
+
+      loginButton.textContent = "Login";
+
+      return;
+    }
+
+
+    /*
+    ----------------------------------------------
+    SAVE LOGIN INFORMATION
+    ----------------------------------------------
+    */
+
+    localStorage.setItem(
+      "examplusSchoolAdmin",
+      JSON.stringify(result)
+    );
+
+
+    showMessage(
+      "Login successful. Opening School Portal...",
+      "success"
+    );
+
+
+    /*
+    ----------------------------------------------
+    TEMPORARY DASHBOARD MESSAGE
+    ----------------------------------------------
+
+    The School Admin dashboard will be connected
+    here after we finish the separate dashboard.
+    ----------------------------------------------
+    */
+
+    setTimeout(function() {
+
+      window.location.href = "schooladmin.html";
+
+    }, 800);
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    showMessage(
+      error.message ||
+      "Unable to connect to the server.",
+      "error"
+    );
+
+    loginButton.disabled = false;
+
+    loginButton.textContent = "Login";
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
