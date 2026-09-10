@@ -1,78 +1,674 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EXAMPLUS — Sign in</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body class="login-body">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <main class="login-wrap">
-    <div class="login-mark">
-      <span class="login-mark-glyph">E</span>
-      <span class="login-mark-text">EXAMPLUS</span>
+  <title>ExamPlus - Login</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0b5ed7, #073b8f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .logo {
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
+      background: #0b5ed7;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0b5ed7;
+      margin-bottom: 5px;
+      font-size: 30px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: #333;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 18px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #0b5ed7;
+      box-shadow: 0 0 0 2px rgba(11, 94, 215, 0.12);
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .password-box input {
+      padding-right: 50px;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      border: none;
+      background: none;
+      color: #0b5ed7;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #0b5ed7;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-btn:disabled {
+      background: #8aaee3;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .error {
+      background: #ffe5e5;
+      color: #b00020;
+    }
+
+    .success {
+      background: #e5f8eb;
+      color: #08752d;
+    }
+
+    .loading {
+      text-align: center;
+      color: #0b5ed7;
+      margin-top: 15px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #888;
+      font-size: 12px;
+    }
+
+    /* Dashboard */
+
+    #dashboard {
+      display: none;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .dashboard-card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+    }
+
+    .dashboard-title {
+      text-align: center;
+      color: #0b5ed7;
+      margin-bottom: 10px;
+    }
+
+    .user-info {
+      text-align: center;
+      background: #f1f6ff;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .user-info p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .role-box {
+      background: #0b5ed7;
+      color: white;
+      padding: 20px 10px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .logout-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: #dc3545;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    @media (max-width: 380px) {
+      .login-card {
+        padding: 25px 18px;
+      }
+
+      .role-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div class="container" id="loginContainer">
+
+    <div class="login-card">
+
+      <div class="logo">EP</div>
+
+      <h1>ExamPlus</h1>
+
+      <div class="subtitle">
+        School Management System
+      </div>
+
+      <div id="message" class="message"></div>
+
+      <form id="loginForm">
+
+        <label for="email">Email Address</label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          autocomplete="username"
+          required
+        >
+
+        <label for="password">Password</label>
+
+        <div class="password-box">
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+
+          <button
+            type="button"
+            class="show-password"
+            id="showPassword"
+          >
+            Show
+          </button>
+
+        </div>
+
+        <button
+          type="submit"
+          class="login-btn"
+          id="loginBtn"
+        >
+          Login
+        </button>
+
+        <div class="loading" id="loading">
+          Logging in, please wait...
+        </div>
+
+      </form>
+
+      <div class="footer">
+        © 2026 ExamPlus
+      </div>
+
     </div>
 
-    <form class="login-card" id="loginForm" autocomplete="off">
-      <h1>Sign in</h1>
-      <p class="login-sub">Enter your school-issued username and password.</p>
+  </div>
 
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required placeholder="e.g. john.teacher">
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required placeholder="••••••••">
+  <!-- TEMPORARY ROLE DASHBOARD -->
+  <div id="dashboard">
 
-      <button type="submit" id="loginBtn">Sign in</button>
+    <div class="dashboard-card">
 
-      <p class="login-error" id="loginError" role="alert" hidden></p>
-    </form>
+      <h2 class="dashboard-title">
+        ExamPlus Dashboard
+      </h2>
 
-    <p class="login-footnote">Trouble signing in? Ask your school administrator to check your account status.</p>
-  </main>
+      <div class="user-info">
 
-  <script src="config.js"></script>
-  <script src="app.js"></script>
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
-      const btn = document.getElementById('loginBtn');
-      const errorEl = document.getElementById('loginError');
+        <p>
+          <strong>Role:</strong>
+          <span id="dashboardRole"></span>
+        </p>
 
-      errorEl.hidden = true;
-      btn.disabled = true;
-      btn.textContent = 'Signing in…';
+        <p>
+          <strong>Email:</strong>
+          <span id="dashboardEmail"></span>
+        </p>
+
+        <p>
+          <strong>School:</strong>
+          <span id="dashboardSchool"></span>
+        </p>
+
+      </div>
+
+      <div class="role-grid">
+
+        <div class="role-box">
+          🏫<br>
+          School Management
+        </div>
+
+        <div class="role-box">
+          👨‍🎓<br>
+          Students
+        </div>
+
+        <div class="role-box">
+          📊<br>
+          Results
+        </div>
+
+        <div class="role-box">
+          ⚙️<br>
+          Settings
+        </div>
+
+      </div>
+
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+
+<script>
+
+  /* ==========================================
+     EXAMPLUS BACKEND URL
+     ========================================== */
+
+  const BACKEND_URL =
+    "https://script.google.com/macros/s/AKfycbwENOjw2BKVWHxsAXNFokNenNMu5-pA57HRW0C5vnnnq5Cji2jLzxS75DlOGrWPUViwwg/exec";
+
+
+  /* ==========================================
+     ELEMENTS
+     ========================================== */
+
+  const loginForm =
+    document.getElementById("loginForm");
+
+  const emailInput =
+    document.getElementById("email");
+
+  const passwordInput =
+    document.getElementById("password");
+
+  const loginBtn =
+    document.getElementById("loginBtn");
+
+  const loading =
+    document.getElementById("loading");
+
+  const message =
+    document.getElementById("message");
+
+  const showPassword =
+    document.getElementById("showPassword");
+
+
+  /* ==========================================
+     SHOW / HIDE PASSWORD
+     ========================================== */
+
+  showPassword.addEventListener("click", function () {
+
+    if (passwordInput.type === "password") {
+
+      passwordInput.type = "text";
+
+      showPassword.textContent = "Hide";
+
+    } else {
+
+      passwordInput.type = "password";
+
+      showPassword.textContent = "Show";
+
+    }
+
+  });
+
+
+  /* ==========================================
+     MESSAGE FUNCTION
+     ========================================== */
+
+  function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className =
+      "message " + type;
+
+    message.style.display = "block";
+
+  }
+
+
+  /* ==========================================
+     LOGIN
+     ========================================== */
+
+  loginForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const email =
+      emailInput.value.trim();
+
+    const password =
+      passwordInput.value;
+
+    if (!email || !password) {
+
+      showMessage(
+        "Please enter your email and password.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    loginBtn.disabled = true;
+
+    loginBtn.textContent = "Logging in...";
+
+    loading.style.display = "block";
+
+    message.style.display = "none";
+
+
+    try {
+
+      const url =
+        BACKEND_URL +
+        "?action=login" +
+        "&email=" +
+        encodeURIComponent(email) +
+        "&password=" +
+        encodeURIComponent(password);
+
+
+      const response =
+        await fetch(url, {
+          method: "GET"
+        });
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Unable to connect to ExamPlus backend."
+        );
+
+      }
+
+
+      const result =
+        await response.json();
+
+
+      console.log("ExamPlus login response:", result);
+
+
+      if (result.success) {
+
+        /*
+          Save login information temporarily.
+        */
+
+        localStorage.setItem(
+          "examplusUser",
+          JSON.stringify(result)
+        );
+
+
+        showMessage(
+          "Login successful.",
+          "success"
+        );
+
+
+        setTimeout(function() {
+
+          openDashboard(result);
+
+        }, 500);
+
+
+      } else {
+
+        showMessage(
+          result.message ||
+          "Login failed. Please check your details.",
+          "error"
+        );
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        "Unable to connect to the ExamPlus server. Please check your internet connection and try again.",
+        "error"
+      );
+
+    }
+
+
+    loginBtn.disabled = false;
+
+    loginBtn.textContent = "Login";
+
+    loading.style.display = "none";
+
+  });
+
+
+  /* ==========================================
+     OPEN DASHBOARD
+     ========================================== */
+
+  function openDashboard(user) {
+
+    document.getElementById(
+      "loginContainer"
+    ).style.display = "none";
+
+
+    document.getElementById(
+      "dashboard"
+    ).style.display = "block";
+
+
+    document.getElementById(
+      "dashboardRole"
+    ).textContent =
+      user.role || "";
+
+
+    document.getElementById(
+      "dashboardEmail"
+    ).textContent =
+      user.email || "";
+
+
+    document.getElementById(
+      "dashboardSchool"
+    ).textContent =
+      user.schoolName || "ExamPlus";
+
+  }
+
+
+  /* ==========================================
+     LOGOUT
+     ========================================== */
+
+  function logout() {
+
+    localStorage.removeItem(
+      "examplusUser"
+    );
+
+    document.getElementById(
+      "dashboard"
+    ).style.display = "none";
+
+
+    document.getElementById(
+      "loginContainer"
+    ).style.display = "block";
+
+
+    emailInput.value = "";
+
+    passwordInput.value = "";
+
+    message.style.display = "none";
+
+  }
+
+
+  /* ==========================================
+     CHECK EXISTING LOGIN
+     ========================================== */
+
+  window.addEventListener("load", function() {
+
+    const savedUser =
+      localStorage.getItem(
+        "examplusUser"
+      );
+
+
+    if (savedUser) {
 
       try {
-        const res = await apiCall({ action: 'login', username, password });
-        if (res.status === 'ok') {
-          saveSession({
-            username,
-            name: res.name,
-            role: res.role,
-            school: res.school
-          });
-          window.location.href = 'dashboard.html';
-        } else {
-          errorEl.textContent = res.message || 'Sign in failed. Check your details and try again.';
-          errorEl.hidden = false;
-        }
-      } catch (err) {
-        errorEl.textContent = 'Could not reach the server. Check your connection and try again.';
-        errorEl.hidden = false;
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Sign in';
-      }
-    });
 
-    // If already signed in, skip straight to dashboard
-    if (getSession()) {
-      window.location.href = 'dashboard.html';
+        const user =
+          JSON.parse(savedUser);
+
+        if (user.success) {
+
+          openDashboard(user);
+
+        }
+
+      } catch (error) {
+
+        localStorage.removeItem(
+          "examplusUser"
+        );
+
+      }
+
     }
-  </script>
+
+  });
+
+</script>
+
 </body>
 </html>
