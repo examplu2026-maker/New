@@ -1,26 +1,6 @@
-function loginUser(email, password) {
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwReh0vtqm65Dxm4RRc40kDINJ1WDcs9UHMzMk1vHFeOUwG-ZHLuTCMMdhFIdhiEOzc5g/exec';
-  const callbackName = 'loginCallback_' + Date.now();
-
-  window[callbackName] = function (response) {
-    if (response.success) {
-      console.log('Login success:', response);
-      // TODO: route to the correct dashboard based on response.role
-    } else {
-      console.log('Login failed:', response.message);
-      alert(response.message);
-    }
-    document.body.removeChild(script);
-    delete window[callbackName];
-  };
-
-  const url = APPS_SCRIPT_URL +
-    '?action=login' +
-    '&email=' + encodeURIComponent(email) +
-    '&password=' + encodeURIComponent(password) +
-    '&callback=' + callbackName;
-
-  const script = document.createElement('script');
-  script.src = url;
-  document.body.appendChild(script);
-}
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value;
+  const password = document.getElementById('passwordInput').value;
+  loginUser(email, password);
+});
