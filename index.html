@@ -1,6 +1,79 @@
-document.getElementById('loginForm').addEventListener('submit', function(e) {
+<!-- ===================== LOGIN SECTION ===================== -->
+<div id="loginSection">
+  <h2>ExamPlus Login</h2>
+  <form id="loginForm">
+    <div>
+      <label for="emailInput">Email</label>
+      <input id="emailInput" type="email" required placeholder="you@example.com">
+    </div>
+    <div>
+      <label for="passwordInput">Password</label>
+      <input id="passwordInput" type="password" required placeholder="Password">
+    </div>
+    <button type="submit">Log In</button>
+  </form>
+  <p id="loginMessage" style="color:red;"></p>
+</div>
+
+<!-- Dashboards will go here later, hidden until login succeeds -->
+<div id="superAdminDashboard" style="display:none;"></div>
+<div id="schoolAdminDashboard" style="display:none;"></div>
+<div id="teacherDashboard" style="display:none;"></div>
+<div id="bursarDashboard" style="display:none;"></div>
+
+<script>
+function loginUser(email, password) {
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwReh0vtqm65Dxm4RRc40kDINJ1WDcs9UHMzMk1vHFeOUwG-ZHLuTCMMdhFIdhiEOzc5g/exec';
+  const callbackName = 'loginCallback_' + Date.now();
+
+  window[callbackName] = function (response) {
+    document.body.removeChild(script);
+    delete window[callbackName];
+
+    if (response.success) {
+      console.log('Login success:', response);
+      document.getElementById('loginMessage').textContent = '';
+
+      // Save session info for later use
+      window.currentUser = response;
+
+      // Hide login, show correct dashboard
+      document.getElementById('loginSection').style.display = 'none';
+
+      const role = String(response.role).toLowerCase();
+      if (role === 'superadmin') {
+        document.getElementById('superAdminDashboard').style.display = 'block';
+      } else if (role === 'admin') {
+        document.getElementById('schoolAdminDashboard').style.display = 'block';
+      } else if (role === 'teacher') {
+        document.getElementById('teacherDashboard').style.display = 'block';
+      } else if (role === 'bursar') {
+        document.getElementById('bursarDashboard').style.display = 'block';
+      } else {
+        document.getElementById('loginMessage').textContent = 'Unknown role: ' + response.role;
+      }
+
+    } else {
+      document.getElementById('loginMessage').textContent = response.message;
+    }
+  };
+
+  const url = APPS_SCRIPT_URL +
+    '?action=login' +
+    '&email=' + encodeURIComponent(email) +
+    '&password=' + encodeURIComponent(password) +
+    '&callback=' + callbackName;
+
+  const script = document.createElement('script');
+  script.src = url;
+  document.body.appendChild(script);
+}
+
+document.getElementById('loginForm').addEventListener('submit', function (e) {
   e.preventDefault();
   const email = document.getElementById('emailInput').value;
   const password = document.getElementById('passwordInput').value;
   loginUser(email, password);
 });
+</script>
+<!-- ===================== END LOGIN SECTION ===================== -->
