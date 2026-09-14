@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ExamPlus</title>
+<meta name="theme-color" content="#2563eb">
+<title>ExamPlus - School Management System</title>
 
 <style>
 *{
@@ -14,8 +15,8 @@
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  background:#f4f7fb;
-  color:#172033;
+  background:#f1f5f9;
+  color:#0f172a;
 }
 
 button,
@@ -30,53 +31,50 @@ button{
 }
 
 .hidden{
-  display:none!important;
+  display:none !important;
 }
 
-/* =========================
-   LOGIN
-========================= */
-
+/* LOGIN */
 #loginPage{
   min-height:100vh;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   padding:20px;
-  background:linear-gradient(135deg,#0d47a1,#1565c0,#42a5f5);
+  background:linear-gradient(135deg,#1d4ed8,#2563eb,#0f172a);
 }
 
-.login-card{
+.login-box{
   width:100%;
   max-width:420px;
-  background:#fff;
-  border-radius:24px;
+  background:white;
+  border-radius:20px;
   padding:30px 24px;
-  box-shadow:0 20px 60px rgba(0,0,0,.20);
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-.logo-box{
+.logo-circle{
   width:75px;
   height:75px;
-  border-radius:20px;
-  background:#1565c0;
+  margin:0 auto 15px;
+  border-radius:50%;
+  background:#2563eb;
   color:white;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:38px;
-  margin:0 auto 15px;
+  font-size:35px;
 }
 
-.login-card h1{
+.login-box h1{
   text-align:center;
   font-size:28px;
-  margin-bottom:6px;
+  margin-bottom:5px;
 }
 
-.login-card .subtitle{
+.login-subtitle{
   text-align:center;
-  color:#718096;
+  color:#64748b;
   margin-bottom:25px;
 }
 
@@ -88,177 +86,223 @@ button{
   display:block;
   font-weight:600;
   margin-bottom:7px;
-  font-size:14px;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea{
   width:100%;
-  border:1px solid #d7dee8;
-  border-radius:12px;
-  padding:12px 14px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  padding:12px;
   outline:none;
-  background:#fff;
-}
-
-.form-group textarea{
-  min-height:100px;
-  resize:vertical;
+  background:white;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus{
-  border-color:#1976d2;
-  box-shadow:0 0 0 3px rgba(25,118,210,.10);
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.1);
 }
 
-.primary-btn{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  background:#1565c0;
-  color:white;
-  padding:13px;
-  font-weight:bold;
-  transition:.2s;
-}
-
-.primary-btn:hover{
-  background:#0d47a1;
-}
-
-.secondary-btn{
-  border:0;
-  border-radius:10px;
-  background:#edf2f7;
-  color:#243447;
-  padding:10px 15px;
-  font-weight:600;
-}
-
+.primary-btn,
+.secondary-btn,
 .danger-btn{
   border:0;
   border-radius:10px;
-  background:#e53935;
-  color:white;
-  padding:9px 13px;
-  font-weight:600;
+  padding:12px 16px;
+  font-weight:700;
+  width:100%;
 }
 
-.success-btn{
-  border:0;
+.primary-btn{
+  background:#2563eb;
+  color:white;
+}
+
+.primary-btn:hover{
+  background:#1d4ed8;
+}
+
+.secondary-btn{
+  background:#e2e8f0;
+  color:#0f172a;
+}
+
+.danger-btn{
+  background:#dc2626;
+  color:white;
+}
+
+.message{
+  padding:11px 13px;
   border-radius:10px;
-  background:#2e7d32;
-  color:white;
-  padding:10px 15px;
-  font-weight:600;
-}
-
-.warning-btn{
-  border:0;
-  border-radius:10px;
-  background:#ef6c00;
-  color:white;
-  padding:10px 15px;
-  font-weight:600;
-}
-
-#loginMessage{
-  margin-top:15px;
-  text-align:center;
+  margin-bottom:15px;
   font-size:14px;
 }
 
-/* =========================
-   APP
-========================= */
+.error-message{
+  background:#fee2e2;
+  color:#991b1b;
+}
 
+.success-message{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.loading{
+  opacity:.65;
+  pointer-events:none;
+}
+
+/* APP */
 #appPage{
   min-height:100vh;
 }
 
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  height:65px;
-  background:#1565c0;
+  height:64px;
+  background:#0f172a;
   color:white;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 15px;
-  box-shadow:0 2px 10px rgba(0,0,0,.12);
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
 
-.brand{
+.topbar-left{
   display:flex;
   align-items:center;
   gap:10px;
-  font-weight:bold;
 }
 
-.brand-icon{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  background:rgba(255,255,255,.18);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:21px;
-}
-
-.topbar-right{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.role-badge{
-  background:rgba(255,255,255,.15);
-  border-radius:20px;
-  padding:7px 10px;
-  font-size:12px;
-}
-
-.logout-btn{
+.menu-button{
+  width:42px;
+  height:42px;
   border:0;
-  background:#fff;
-  color:#1565c0;
-  border-radius:9px;
-  padding:8px 10px;
-  font-weight:bold;
+  border-radius:10px;
+  background:#1e293b;
+  color:white;
+  font-size:22px;
 }
 
-/* =========================
-   DASHBOARD
-========================= */
+.topbar-title{
+  font-weight:800;
+  font-size:18px;
+}
 
-.dashboard{
-  padding:18px 15px 100px;
-  max-width:1200px;
+.user-info{
+  font-size:12px;
+  text-align:right;
+}
+
+.sidebar{
+  position:fixed;
+  top:64px;
+  left:-290px;
+  width:275px;
+  height:calc(100vh - 64px);
+  background:white;
+  box-shadow:5px 0 25px rgba(0,0,0,.12);
+  z-index:999;
+  transition:.25s;
+  overflow-y:auto;
+  padding:15px;
+}
+
+.sidebar.open{
+  left:0;
+}
+
+.sidebar-overlay{
+  position:fixed;
+  inset:64px 0 0 0;
+  background:rgba(0,0,0,.4);
+  z-index:998;
+}
+
+.nav-section{
+  margin-bottom:20px;
+}
+
+.nav-title{
+  font-size:11px;
+  text-transform:uppercase;
+  color:#94a3b8;
+  font-weight:800;
+  margin:10px 8px;
+}
+
+.nav-item{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:0;
+  background:transparent;
+  padding:12px;
+  border-radius:10px;
+  color:#334155;
+  text-align:left;
+  margin-bottom:4px;
+  font-weight:600;
+}
+
+.nav-item:hover,
+.nav-item.active{
+  background:#eff6ff;
+  color:#2563eb;
+}
+
+.nav-icon{
+  width:25px;
+  text-align:center;
+  font-size:19px;
+}
+
+.content{
+  padding:20px;
+  max-width:1400px;
   margin:auto;
 }
 
-.welcome-card{
-  background:#fff;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:18px;
-  box-shadow:0 4px 15px rgba(0,0,0,.05);
+.page{
+  display:none;
 }
 
-.welcome-card h2{
-  font-size:21px;
+.page.active{
+  display:block;
+}
+
+.page-header{
+  margin-bottom:20px;
+}
+
+.page-header h2{
+  font-size:25px;
   margin-bottom:5px;
 }
 
-.welcome-card p{
-  color:#718096;
-  font-size:14px;
+.page-header p{
+  color:#64748b;
+}
+
+/* DASHBOARD */
+.welcome-card{
+  background:linear-gradient(135deg,#2563eb,#1e40af);
+  color:white;
+  border-radius:18px;
+  padding:24px;
+  margin-bottom:20px;
+}
+
+.welcome-card h2{
+  margin-bottom:7px;
 }
 
 .stats-grid{
@@ -269,34 +313,25 @@ button{
 }
 
 .stat-card{
-  background:#fff;
-  border-radius:16px;
-  padding:17px;
-  box-shadow:0 4px 15px rgba(0,0,0,.05);
+  background:white;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 2px 8px rgba(15,23,42,.06);
 }
 
 .stat-icon{
-  font-size:26px;
+  font-size:28px;
   margin-bottom:8px;
 }
 
-.stat-card strong{
-  display:block;
-  font-size:22px;
+.stat-value{
+  font-size:25px;
+  font-weight:800;
 }
 
-.stat-card span{
-  color:#718096;
-  font-size:12px;
-}
-
-/* =========================
-   MENU
-========================= */
-
-.section-title{
-  margin:22px 0 12px;
-  font-size:17px;
+.stat-label{
+  color:#64748b;
+  font-size:13px;
 }
 
 .menu-grid{
@@ -306,264 +341,258 @@ button{
 }
 
 .menu-card{
+  background:white;
   border:0;
-  background:#fff;
-  border-radius:17px;
-  padding:18px 10px;
+  border-radius:15px;
+  padding:20px 12px;
+  min-height:125px;
+  box-shadow:0 2px 8px rgba(15,23,42,.06);
   text-align:center;
-  box-shadow:0 4px 15px rgba(0,0,0,.05);
-  color:#172033;
-  transition:.2s;
 }
 
 .menu-card:hover{
   transform:translateY(-2px);
-  box-shadow:0 7px 20px rgba(0,0,0,.08);
+  box-shadow:0 5px 15px rgba(15,23,42,.1);
 }
 
-.menu-icon{
-  width:48px;
-  height:48px;
-  border-radius:14px;
-  margin:0 auto 9px;
-  background:#e3f2fd;
-  color:#1565c0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:23px;
+.menu-card-icon{
+  font-size:32px;
+  margin-bottom:10px;
 }
 
-.menu-card strong{
-  display:block;
-  font-size:13px;
+.menu-card-title{
+  font-weight:800;
+  font-size:14px;
 }
 
-.menu-card small{
-  display:block;
-  color:#718096;
+.menu-card-text{
+  color:#64748b;
+  font-size:11px;
   margin-top:4px;
-  font-size:10px;
 }
 
-/* =========================
-   CONTENT PANEL
-========================= */
-
-.panel{
-  background:#fff;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 4px 15px rgba(0,0,0,.05);
-  margin-top:15px;
-}
-
-.panel-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+/* CARDS */
+.card{
+  background:white;
+  border-radius:15px;
+  padding:20px;
+  box-shadow:0 2px 8px rgba(15,23,42,.06);
   margin-bottom:18px;
 }
 
-.panel-header h3{
-  font-size:19px;
+.card h3{
+  margin-bottom:15px;
 }
 
-.back-btn{
-  border:0;
-  background:#edf2f7;
-  border-radius:10px;
-  padding:9px 12px;
-  font-weight:bold;
-}
-
-.form-grid{
+.grid-2,
+.grid-3{
   display:grid;
-  grid-template-columns:1fr;
-  gap:0 15px;
+  gap:15px;
 }
 
-.action-row{
+.grid-2{
+  grid-template-columns:1fr;
+}
+
+.grid-3{
+  grid-template-columns:1fr;
+}
+
+.form-actions{
   display:flex;
-  gap:8px;
+  gap:10px;
   flex-wrap:wrap;
-  margin-top:10px;
+}
+
+.form-actions button{
+  width:auto;
 }
 
 .table-wrap{
+  width:100%;
   overflow-x:auto;
-  margin-top:15px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:700px;
+  min-width:650px;
 }
 
 th,
 td{
-  padding:10px;
-  border-bottom:1px solid #edf0f4;
+  border-bottom:1px solid #e2e8f0;
+  padding:11px 9px;
   text-align:left;
   font-size:13px;
 }
 
 th{
-  background:#f7f9fc;
-  font-weight:bold;
+  background:#f8fafc;
+  font-weight:800;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.photo-preview{
+  width:100px;
+  height:100px;
+  border-radius:12px;
+  object-fit:cover;
+  background:#e2e8f0;
+  display:block;
+  margin-bottom:10px;
+}
+
+.student-photo{
+  width:50px;
+  height:50px;
+  border-radius:8px;
+  object-fit:cover;
 }
 
 .empty{
   text-align:center;
-  padding:30px 10px;
-  color:#718096;
+  padding:30px;
+  color:#64748b;
 }
 
-/* =========================
-   PHOTO
-========================= */
+.list-item{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  padding:13px;
+  border-radius:10px;
+  margin-bottom:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
 
-.photo-area{
-  border:2px dashed #cbd5e0;
-  border-radius:15px;
+.small-btn{
+  border:0;
+  border-radius:7px;
+  padding:7px 10px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.small-danger{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.small-primary{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.camera-box{
+  border:2px dashed #cbd5e1;
+  border-radius:12px;
   padding:15px;
   text-align:center;
-  margin-bottom:15px;
 }
 
-#studentPhotoPreview{
-  width:120px;
-  height:120px;
-  border-radius:15px;
-  object-fit:cover;
-  display:none;
-  margin:12px auto;
-}
-
-.camera-btn{
-  display:inline-block;
-  border:0;
-  background:#1565c0;
-  color:#fff;
-  padding:11px 15px;
-  border-radius:10px;
-  font-weight:bold;
-}
-
-#cameraInput{
-  display:none;
-}
-
-/* =========================
-   TOAST
-========================= */
-
-#toast{
-  position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%);
-  background:#172033;
-  color:#fff;
-  padding:12px 18px;
+video{
+  width:100%;
+  max-width:350px;
   border-radius:12px;
-  font-size:13px;
-  z-index:9999;
-  display:none;
-  max-width:90%;
-  text-align:center;
+  background:#0f172a;
 }
 
-/* =========================
-   LOADING
-========================= */
-
-#loading{
+.modal{
   position:fixed;
   inset:0;
-  background:rgba(255,255,255,.82);
-  z-index:9998;
-  display:none;
+  background:rgba(15,23,42,.6);
+  z-index:2000;
+  display:flex;
   align-items:center;
   justify-content:center;
+  padding:15px;
 }
 
-.loading-box{
-  background:#fff;
-  border-radius:18px;
-  padding:25px;
-  text-align:center;
-  box-shadow:0 10px 40px rgba(0,0,0,.15);
+.modal-box{
+  width:100%;
+  max-width:600px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:white;
+  border-radius:16px;
+  padding:20px;
 }
 
-.spinner{
+.close-btn{
+  float:right;
+  border:0;
+  background:#e2e8f0;
   width:35px;
   height:35px;
-  border:4px solid #e3f2fd;
-  border-top-color:#1565c0;
   border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:0 auto 12px;
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg);}
+.toast{
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  max-width:330px;
+  background:#0f172a;
+  color:white;
+  padding:13px 16px;
+  border-radius:10px;
+  z-index:5000;
+  box-shadow:0 5px 20px rgba(0,0,0,.25);
 }
-
-/* =========================
-   DESKTOP
-========================= */
 
 @media(min-width:700px){
-
   .stats-grid{
     grid-template-columns:repeat(4,1fr);
   }
 
   .menu-grid{
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
   }
 
-  .form-grid{
+  .grid-2{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .form-full{
-    grid-column:1/-1;
+  .grid-3{
+    grid-template-columns:repeat(3,1fr);
   }
 
-  .dashboard{
-    padding:25px;
-  }
-
-  .panel{
-    padding:25px;
+  .content{
+    padding:30px;
   }
 }
 
-/* =========================
-   PRINT
-========================= */
-
-@media print{
-
-  .topbar,
-  .menu-grid,
-  .welcome-card,
-  .stats-grid,
-  .back-btn,
-  button{
-    display:none!important;
+@media(min-width:1000px){
+  .sidebar{
+    left:0;
   }
 
-  .dashboard{
-    padding:0;
+  .sidebar-overlay{
+    display:none !important;
   }
 
-  .panel{
-    box-shadow:none;
+  .menu-button{
+    display:none;
+  }
+
+  .content{
+    margin-left:275px;
+  }
+
+  .topbar-title{
+    margin-left:275px;
   }
 }
 </style>
@@ -571,5274 +600,892 @@ th{
 
 <body>
 
-<!-- =========================
-     LOGIN PAGE
-========================= -->
+<!-- LOGIN PAGE -->
+<section id="loginPage">
 
-<div id="loginPage">
+  <div class="login-box">
 
-  <div class="login-card">
-
-    <div class="logo-box">🎓</div>
+    <div class="logo-circle">🎓</div>
 
     <h1>ExamPlus</h1>
+    <div class="login-subtitle">School Management System</div>
 
-    <div class="subtitle">
-      School Management System
-    </div>
+    <div id="loginMessage" class="hidden"></div>
 
-    <div class="form-group">
-      <label>Email</label>
-      <input
-        type="email"
-        id="loginEmail"
-        placeholder="Enter your email"
-        autocomplete="username"
+    <!-- IMPORTANT: FORM SUBMIT FIX -->
+    <form id="loginForm">
+
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input
+          type="email"
+          id="loginEmail"
+          autocomplete="username"
+          placeholder="Enter your email"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input
+          type="password"
+          id="loginPassword"
+          autocomplete="current-password"
+          placeholder="Enter your password"
+          required
+        >
+      </div>
+
+      <button
+        type="submit"
+        id="loginButton"
+        class="primary-btn"
       >
-    </div>
-
-    <div class="form-group">
-      <label>Password</label>
-      <input
-        type="password"
-        id="loginPassword"
-        placeholder="Enter your password"
-        autocomplete="current-password"
-      >
-    </div>
-
-    <button class="primary-btn" onclick="login()">
-      🔐 Login
-    </button>
-
-    <div id="loginMessage"></div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     APPLICATION
-========================= -->
-
-<div id="appPage" class="hidden">
-
-  <div class="topbar">
-
-    <div class="brand">
-      <div class="brand-icon">🎓</div>
-      <span>ExamPlus</span>
-    </div>
-
-    <div class="topbar-right">
-
-      <span id="roleBadge" class="role-badge">
-        User
-      </span>
-
-      <button class="logout-btn" onclick="logout()">
-        Logout
+        🔐 Login
       </button>
 
-    </div>
+    </form>
 
   </div>
 
-  <main class="dashboard">
+</section>
 
-    <!-- =====================
-         MAIN DASHBOARD
-    ====================== -->
 
-    <div id="homeView">
+<!-- APPLICATION -->
+<section id="appPage" class="hidden">
+
+  <header class="topbar">
+
+    <div class="topbar-left">
+      <button
+        type="button"
+        class="menu-button"
+        id="menuButton"
+      >☰</button>
+
+      <div class="topbar-title">ExamPlus</div>
+    </div>
+
+    <div class="user-info">
+      <div id="topUserName">User</div>
+      <div id="topUserRole">Role</div>
+    </div>
+
+  </header>
+
+
+  <div
+    id="sidebarOverlay"
+    class="sidebar-overlay hidden"
+  ></div>
+
+
+  <aside id="sidebar" class="sidebar">
+
+    <div id="navigation"></div>
+
+    <button
+      type="button"
+      class="nav-item"
+      id="logoutButton"
+      style="color:#dc2626;margin-top:15px;"
+    >
+      <span class="nav-icon">🚪</span>
+      <span>Logout</span>
+    </button>
+
+  </aside>
+
+
+  <main class="content">
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page active">
 
       <div class="welcome-card">
-
-        <h2 id="welcomeTitle">
-          Welcome to ExamPlus
-        </h2>
-
+        <h2 id="welcomeTitle">Welcome to ExamPlus</h2>
         <p id="welcomeText">
-          School Management System
+          Manage your school from one place.
         </p>
-
       </div>
 
       <div class="stats-grid">
 
         <div class="stat-card">
           <div class="stat-icon">🏫</div>
-          <strong id="statSchool">-</strong>
-          <span>School</span>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">👨‍🎓</div>
-          <strong id="statStudents">-</strong>
-          <span>Students</span>
+          <div class="stat-value" id="statSchools">0</div>
+          <div class="stat-label">Schools</div>
         </div>
 
         <div class="stat-card">
           <div class="stat-icon">📚</div>
-          <strong id="statClasses">-</strong>
-          <span>Classes</span>
+          <div class="stat-value" id="statClasses">0</div>
+          <div class="stat-label">Classes</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">👨‍🎓</div>
+          <div class="stat-value" id="statStudents">0</div>
+          <div class="stat-label">Students</div>
         </div>
 
         <div class="stat-card">
           <div class="stat-icon">📖</div>
-          <strong id="statSubjects">-</strong>
-          <span>Subjects</span>
+          <div class="stat-value" id="statSubjects">0</div>
+          <div class="stat-label">Subjects</div>
         </div>
 
       </div>
 
-      <h3 class="section-title">
-        Main Menu
-      </h3>
-
-      <div id="mainMenu" class="menu-grid"></div>
-
-    </div>
-
-
-    <!-- =====================
-         CONTENT
-    ====================== -->
-
-    <div id="contentView" class="hidden"></div>
-
-  </main>
-
-</div>
-
-
-<!-- =========================
-     LOADING
-========================= -->
-
-<div id="loading">
-
-  <div class="loading-box">
-
-    <div class="spinner"></div>
-
-    <div>
-      Please wait...
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     TOAST
-========================= -->
-
-<div id="toast"></div>
-
-
-<script>
-
-/* =====================================================
-   EXAMPLUS CONFIGURATION
-===================================================== */
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycbw5tDT-kSTpiKdFiKCClSfoLef2goIwGmiarmqWLbA3nyf1qqvf-y7g90f7d-A5nKwE4g/exec";
-
-
-/* =====================================================
-   GLOBAL STATE
-===================================================== */
-
-let currentUser = null;
-let currentClasses = [];
-let currentSubjects = {};
-let currentStudents = [];
-let currentResults = [];
-let currentPayments = [];
-let currentPhoto = "";
-
-let academicSettings = {
-  session:"",
-  term:"",
-  resumptionDate:"",
-  test1Max:15,
-  test2Max:15,
-  examMax:70
-};
-
-
-/* =====================================================
-   BASIC HELPERS
-===================================================== */
-
-function showLoading(show=true){
-
-  document.getElementById("loading").style.display =
-    show ? "flex" : "none";
-
-}
-
-
-function toast(message){
-
-  const el = document.getElementById("toast");
-
-  el.textContent = message;
-  el.style.display = "block";
-
-  setTimeout(()=>{
-    el.style.display = "none";
-  },3000);
-
-}
-
-
-function escapeHTML(value){
-
-  if(value === null || value === undefined){
-    return "";
-  }
-
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-
-function normalizeRole(role){
-
-  const r = String(role || "")
-    .trim()
-    .toLowerCase();
-
-  if(r === "super admin" || r === "superadmin"){
-    return "superadmin";
-  }
-
-  if(r === "school admin" || r === "admin"){
-    return "admin";
-  }
-
-  if(r === "teacher"){
-    return "teacher";
-  }
-
-  if(r === "bursar"){
-    return "bursar";
-  }
-
-  return r;
-}
-
-
-function api(action,data={}){
-
-  return new Promise((resolve,reject)=>{
-
-    const callbackName =
-      "examplusCallback_" +
-      Date.now() +
-      "_" +
-      Math.floor(Math.random()*100000);
-
-    const params = new URLSearchParams();
-
-    params.append("action",action);
-    params.append("callback",callbackName);
-
-    Object.keys(data).forEach(key=>{
-
-      let value = data[key];
-
-      if(value === undefined || value === null){
-        value = "";
-      }
-
-      if(typeof value === "object"){
-        value = JSON.stringify(value);
-      }
-
-      params.append(key,value);
-
-    });
-
-    const script = document.createElement("script");
-
-    const timeout = setTimeout(()=>{
-
-      cleanup();
-
-      reject(new Error(
-        "Request timed out. Please check the Apps Script deployment."
-      ));
-
-    },30000);
-
-
-    window[callbackName] = function(response){
-
-      clearTimeout(timeout);
-      cleanup();
-
-      if(response && response.success === false){
-
-        reject(new Error(
-          response.message || "Request failed."
-        ));
-
-        return;
-      }
-
-      resolve(response);
-
-    };
-
-
-    function cleanup(){
-
-      try{
-        delete window[callbackName];
-      }catch(e){}
-
-      if(script.parentNode){
-        script.parentNode.removeChild(script);
-      }
-
-    }
-
-
-    script.onerror = function(){
-
-      clearTimeout(timeout);
-      cleanup();
-
-      reject(new Error(
-        "Could not connect to ExamPlus server."
-      ));
-
-    };
-
-
-    script.src =
-      API_URL +
-      "?" +
-      params.toString();
-
-    document.body.appendChild(script);
-
-  });
-
-}
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-async function login(){
-
-  const email =
-    document.getElementById("loginEmail").value.trim();
-
-  const password =
-    document.getElementById("loginPassword").value;
-
-  const message =
-    document.getElementById("loginMessage");
-
-
-  if(!email || !password){
-
-    message.style.color = "#e53935";
-    message.textContent =
-      "Please enter email and password.";
-
-    return;
-  }
-
-
-  showLoading(true);
-
-  message.textContent = "";
-
-
-  try{
-
-    const response =
-      await api("login",{
-        email:email,
-        password:password
-      });
-
-
-    if(!response || !response.user){
-
-      throw new Error(
-        response?.message || "Invalid login details."
-      );
-
-    }
-
-
-    currentUser = response.user;
-
-    currentUser.role =
-      normalizeRole(currentUser.role);
-
-
-    sessionStorage.setItem(
-      "examplusUser",
-      JSON.stringify(currentUser)
-    );
-
-
-    document.getElementById("loginPage")
-      .classList.add("hidden");
-
-    document.getElementById("appPage")
-      .classList.remove("hidden");
-
-
-    setupDashboard();
-
-
-  }catch(error){
-
-    message.style.color = "#e53935";
-    message.textContent =
-      error.message || "Login failed.";
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-document.getElementById("loginPassword")
-  .addEventListener("keydown",function(e){
-
-    if(e.key === "Enter"){
-      login();
-    }
-
-  });
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-function logout(){
-
-  currentUser = null;
-
-  sessionStorage.removeItem("examplusUser");
-
-  document.getElementById("appPage")
-    .classList.add("hidden");
-
-  document.getElementById("loginPage")
-    .classList.remove("hidden");
-
-  document.getElementById("loginEmail").value = "";
-  document.getElementById("loginPassword").value = "";
-
-}
-
-
-/* =====================================================
-   RESTORE SESSION
-===================================================== */
-
-window.addEventListener("load",async function(){
-
-  const saved =
-    sessionStorage.getItem("examplusUser");
-
-  if(saved){
-
-    try{
-
-      currentUser = JSON.parse(saved);
-
-      currentUser.role =
-        normalizeRole(currentUser.role);
-
-      document.getElementById("loginPage")
-        .classList.add("hidden");
-
-      document.getElementById("appPage")
-        .classList.remove("hidden");
-
-      setupDashboard();
-
-    }catch(e){
-
-      sessionStorage.removeItem("examplusUser");
-
-    }
-
-  }
-
-});
-
-
-/* =====================================================
-   DASHBOARD
-===================================================== */
-
-function setupDashboard(){
-
-  const role = normalizeRole(currentUser.role);
-
-  document.getElementById("roleBadge").textContent =
-    currentUser.role || "User";
-
-
-  let title = "Welcome to ExamPlus";
-  let text = "School Management System";
-
-
-  if(role === "superadmin"){
-
-    title = "Welcome, Super Admin";
-    text = "Manage schools and the ExamPlus system.";
-
-  }
-
-  else if(role === "admin"){
-
-    title = "Welcome, School Admin";
-    text =
-      currentUser.schoolName ||
-      "Manage your school.";
-
-  }
-
-  else if(role === "teacher"){
-
-    title = "Welcome, Teacher";
-    text =
-      currentUser.schoolName ||
-      "Manage student results.";
-
-  }
-
-  else if(role === "bursar"){
-
-    title = "Welcome, Bursar";
-    text =
-      currentUser.schoolName ||
-      "Manage school payments and receipts.";
-
-  }
-
-
-  document.getElementById("welcomeTitle")
-    .textContent = title;
-
-  document.getElementById("welcomeText")
-    .textContent = text;
-
-
-  buildMenu(role);
-
-  loadDashboardStats();
-
-}
-
-
-function buildMenu(role){
-
-  const menu =
-    document.getElementById("mainMenu");
-
-  menu.innerHTML = "";
-
-
-  if(role === "superadmin"){
-
-    addMenu(
-      "🏫",
-      "Create School",
-      "Register a new school.",
-      "createSchoolView"
-    );
-
-    addMenu(
-      "📋",
-      "View Schools",
-      "View registered schools.",
-      "schoolsView"
-    );
-
-    addMenu(
-      "⚙️",
-      "System Settings",
-      "Configure ExamPlus system.",
-      "systemSettingsView"
-    );
-
-  }
-
-
-  if(role === "admin"){
-
-    addMenu(
-      "🏫",
-      "School Details",
-      "Manage school information.",
-      "schoolDetailsView"
-    );
-
-    addMenu(
-      "📚",
-      "All Classes",
-      "Create and manage classes.",
-      "classesView"
-    );
-
-    addMenu(
-      "📖",
-      "All Subjects",
-      "Manage subjects by class.",
-      "subjectsView"
-    );
-
-    addMenu(
-      "👨‍🎓",
-      "Students Details",
-      "Register and view students.",
-      "studentsView"
-    );
-
-    addMenu(
-      "📝",
-      "Students in Bulk",
-      "Add many students at once.",
-      "bulkStudentsView"
-    );
-
-    addMenu(
-      "📊",
-      "Report Card",
-      "Generate student report cards.",
-      "reportCardView"
-    );
-
-    addMenu(
-      "⚙️",
-      "Academic Settings",
-      "Session, term and scores.",
-      "academicSettingsView"
-    );
-
-    addMenu(
-      "👨‍🏫",
-      "Staff",
-      "Create teacher and bursar accounts.",
-      "staffView"
-    );
-
-    addMenu(
-      "☎️",
-      "Contact Us",
-      "Contact ExamPlus Super Admin.",
-      "contactView"
-    );
-
-  }
-
-
-  if(role === "teacher"){
-
-    addMenu(
-      "📤",
-      "Upload Result",
-      "Enter student scores.",
-      "uploadResultView"
-    );
-
-    addMenu(
-      "📊",
-      "View Results",
-      "View uploaded results.",
-      "resultsView"
-    );
-
-  }
-
-
-  if(role === "bursar"){
-
-    addMenu(
-      "🧾",
-      "Generate Receipt",
-      "Record a student payment.",
-      "paymentView"
-    );
-
-    addMenu(
-      "📜",
-      "Receipt History",
-      "View previous receipts.",
-      "receiptHistoryView"
-    );
-
-  }
-
-}
-
-
-function addMenu(icon,title,description,view){
-
-  const menu =
-    document.getElementById("mainMenu");
-
-  const button =
-    document.createElement("button");
-
-  button.className = "menu-card";
-
-  button.innerHTML = `
-    <div class="menu-icon">${icon}</div>
-    <strong>${escapeHTML(title)}</strong>
-    <small>${escapeHTML(description)}</small>
-  `;
-
-  button.onclick = ()=>{
-    window[view]();
-  };
-
-  menu.appendChild(button);
-
-}
-
-
-/* =====================================================
-   DASHBOARD STATS
-===================================================== */
-
-async function loadDashboardStats(){
-
-  const role =
-    normalizeRole(currentUser.role);
-
-
-  if(role === "superadmin"){
-
-    try{
-
-      const result =
-        await api("getSchools",{
-          email:currentUser.email
-        });
-
-      const schools =
-        result.schools || result.data || [];
-
-      document.getElementById("statSchool")
-        .textContent = schools.length;
-
-      document.getElementById("statStudents")
-        .textContent = "-";
-
-      document.getElementById("statClasses")
-        .textContent = "-";
-
-      document.getElementById("statSubjects")
-        .textContent = "-";
-
-    }catch(e){
-
-      console.log(e);
-
-    }
-
-    return;
-  }
-
-
-  if(!currentUser.schoolID){
-    return;
-  }
-
-
-  try{
-
-    const classes =
-      await api("getClasses",{
-        schoolID:currentUser.schoolID,
-        email:currentUser.email
-      });
-
-    currentClasses =
-      classes.classes ||
-      classes.data ||
-      [];
-
-    document.getElementById("statClasses")
-      .textContent = currentClasses.length;
-
-
-  }catch(e){
-
-    document.getElementById("statClasses")
-      .textContent = "-";
-
-  }
-
-
-  try{
-
-    const students =
-      await api("getStudents",{
-        schoolID:currentUser.schoolID,
-        email:currentUser.email
-      });
-
-    currentStudents =
-      students.students ||
-      students.data ||
-      [];
-
-    document.getElementById("statStudents")
-      .textContent = currentStudents.length;
-
-
-  }catch(e){
-
-    document.getElementById("statStudents")
-      .textContent = "-";
-
-  }
-
-
-  let subjectCount = 0;
-
-  try{
-
-    const result =
-      await api("getSubjects",{
-        schoolID:currentUser.schoolID,
-        email:currentUser.email
-      });
-
-    const subjects =
-      result.subjects ||
-      result.data ||
-      {};
-
-    currentSubjects = subjects;
-
-    Object.keys(subjects).forEach(cls=>{
-
-      if(Array.isArray(subjects[cls])){
-        subjectCount += subjects[cls].length;
-      }
-
-    });
-
-    document.getElementById("statSubjects")
-      .textContent = subjectCount;
-
-  }catch(e){
-
-    document.getElementById("statSubjects")
-      .textContent = "-";
-
-  }
-
-
-  document.getElementById("statSchool")
-    .textContent =
-      currentUser.schoolName || "School";
-
-}
-
-
-/* =====================================================
-   CONTENT FRAME
-===================================================== */
-
-function openPanel(title,html){
-
-  document.getElementById("homeView")
-    .classList.add("hidden");
-
-  const content =
-    document.getElementById("contentView");
-
-  content.classList.remove("hidden");
-
-  content.innerHTML = `
-    <div class="panel">
-
-      <div class="panel-header">
-
-        <h3>${escapeHTML(title)}</h3>
-
-        <button
-          class="back-btn"
-          onclick="goHome()"
-        >
-          ← Back
-        </button>
-
+      <div class="card">
+        <h3>Quick Access</h3>
+        <div id="dashboardMenus" class="menu-grid"></div>
       </div>
 
-      ${html}
-
-    </div>
-  `;
-
-}
+    </section>
 
 
-function goHome(){
+    <!-- SUPER ADMIN -->
+    <section id="page-create-school" class="page">
 
-  document.getElementById("contentView")
-    .classList.add("hidden");
-
-  document.getElementById("homeView")
-    .classList.remove("hidden");
-
-  loadDashboardStats();
-
-}
-
-
-/* =====================================================
-   SUPER ADMIN — CREATE SCHOOL
-===================================================== */
-
-function createSchoolView(){
-
-  openPanel(
-    "Create School",
-    `
-    <form onsubmit="createSchool(event)">
-
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label>School Name</label>
-          <input id="newSchoolName" required>
-        </div>
-
-        <div class="form-group">
-          <label>School Admin Email</label>
-          <input
-            id="newSchoolEmail"
-            type="email"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label>School Admin Password</label>
-          <input
-            id="newSchoolPassword"
-            type="password"
-            required
-          >
-        </div>
-
+      <div class="page-header">
+        <h2>🏫 Create School</h2>
+        <p>Create a new school in ExamPlus.</p>
       </div>
 
-      <button class="primary-btn" type="submit">
-        🏫 Create School
-      </button>
+      <div class="card">
 
-    </form>
-    `
-  );
+        <div id="createSchoolMessage" class="hidden"></div>
 
-}
+        <form id="createSchoolForm">
 
-
-async function createSchool(event){
-
-  event.preventDefault();
-
-  const schoolName =
-    document.getElementById("newSchoolName").value.trim();
-
-  const email =
-    document.getElementById("newSchoolEmail").value.trim();
-
-  const password =
-    document.getElementById("newSchoolPassword").value;
-
-
-  if(!schoolName || !email || !password){
-    toast("Please complete all fields.");
-    return;
-  }
-
-
-  showLoading(true);
-
-  try{
-
-    const result =
-      await api("createSchool",{
-
-        email:currentUser.email,
-
-        schoolName:schoolName,
-
-        adminEmail:email,
-
-        adminPassword:password
-
-      });
-
-
-    toast(
-      result.message ||
-      "School created successfully."
-    );
-
-    createSchoolView();
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   SUPER ADMIN — VIEW SCHOOLS
-===================================================== */
-
-async function schoolsView(){
-
-  openPanel(
-    "View Schools",
-    `<div class="empty">Loading schools...</div>`
-  );
-
-
-  showLoading(true);
-
-  try{
-
-    const result =
-      await api("getSchools",{
-        email:currentUser.email
-      });
-
-
-    const schools =
-      result.schools ||
-      result.data ||
-      [];
-
-
-    let html = "";
-
-
-    if(!schools.length){
-
-      html =
-        `<div class="empty">
-          No schools have been created yet.
-        </div>`;
-
-    }else{
-
-      html = `
-        <div class="table-wrap">
-
-          <table>
-
-            <thead>
-              <tr>
-                <th>School ID</th>
-                <th>School Name</th>
-                <th>Admin Email</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-
-            <tbody>
-
-              ${schools.map(s=>`
-
-                <tr>
-
-                  <td>
-                    ${escapeHTML(
-                      s.schoolID ||
-                      s.id ||
-                      ""
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      s.schoolName ||
-                      s.name ||
-                      ""
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      s.adminEmail ||
-                      s.email ||
-                      ""
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      s.status ||
-                      "Active"
-                    )}
-                  </td>
-
-                </tr>
-
-              `).join("")}
-
-            </tbody>
-
-          </table>
-
-        </div>
-      `;
-
-    }
-
-
-    document.querySelector("#contentView .panel")
-      .insertAdjacentHTML(
-        "beforeend",
-        html
-      );
-
-
-  }catch(error){
-
-    document.querySelector("#contentView .panel")
-      .insertAdjacentHTML(
-        "beforeend",
-        `<div class="empty">
-          ${escapeHTML(error.message)}
-        </div>`
-      );
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   SYSTEM SETTINGS
-===================================================== */
-
-async function systemSettingsView(){
-
-  openPanel(
-    "System Settings",
-    `
-      <div class="form-group">
-        <label>ExamPlus System Name</label>
-        <input id="systemName" value="ExamPlus">
-      </div>
-
-      <div class="form-group">
-        <label>Default Trial Days</label>
-        <input
-          id="trialDays"
-          type="number"
-          min="0"
-          value="7"
-        >
-      </div>
-
-      <button
-        class="primary-btn"
-        onclick="saveSystemSettings()"
-      >
-        💾 Save System Settings
-      </button>
-    `
-  );
-
-
-  try{
-
-    const result =
-      await api("getSystemSettings",{
-        email:currentUser.email
-      });
-
-
-    const settings =
-      result.settings ||
-      result.data ||
-      {};
-
-
-    if(settings.systemName){
-      document.getElementById("systemName")
-        .value = settings.systemName;
-    }
-
-    if(settings.trialDays !== undefined){
-      document.getElementById("trialDays")
-        .value = settings.trialDays;
-    }
-
-  }catch(e){
-
-    console.log(e);
-
-  }
-
-}
-
-
-async function saveSystemSettings(){
-
-  showLoading(true);
-
-  try{
-
-    await api("saveSystemSettings",{
-
-      email:currentUser.email,
-
-      settings:{
-        systemName:
-          document.getElementById("systemName").value.trim(),
-
-        trialDays:
-          Number(
-            document.getElementById("trialDays").value
-          )
-
-      }
-
-    });
-
-
-    toast("System settings saved.");
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   SCHOOL ADMIN — SCHOOL DETAILS
-===================================================== */
-
-async function schoolDetailsView(){
-
-  openPanel(
-    "School Details",
-    `<div class="empty">Loading school details...</div>`
-  );
-
-
-  showLoading(true);
-
-
-  try{
-
-    const result =
-      await api("getSchool",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    const school =
-      result.school ||
-      result.data ||
-      {};
-
-
-    document.querySelector("#contentView .panel")
-      .insertAdjacentHTML(
-        "beforeend",
-        `
-        <form onsubmit="saveSchoolDetails(event)">
-
-          <div class="form-grid">
+          <div class="grid-2">
 
             <div class="form-group">
               <label>School Name</label>
+              <input id="schoolName" required>
+            </div>
+
+            <div class="form-group">
+              <label>School Admin Email</label>
               <input
-                id="schoolName"
-                value="${escapeHTML(
-                  school.schoolName || ""
-                )}"
+                id="schoolAdminEmail"
+                type="email"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label>School Admin Password</label>
+              <input
+                id="schoolAdminPassword"
+                type="password"
                 required
               >
             </div>
 
             <div class="form-group">
               <label>Contact Number</label>
-              <input
-                id="schoolContact"
-                value="${escapeHTML(
-                  school.contactNumber || ""
-                )}"
-              >
+              <input id="schoolContact">
             </div>
 
-            <div class="form-group form-full">
-              <label>School Address</label>
-              <textarea
-                id="schoolAddress"
-              >${escapeHTML(
-                school.address || ""
-              )}</textarea>
+            <div class="form-group">
+              <label>Address</label>
+              <input id="schoolAddress">
+            </div>
+
+          </div>
+
+          <button class="primary-btn" type="submit">
+            🏫 Create School
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+    <!-- VIEW SCHOOLS -->
+    <section id="page-schools" class="page">
+
+      <div class="page-header">
+        <h2>🏫 View Schools</h2>
+        <p>Schools registered in ExamPlus.</p>
+      </div>
+
+      <div class="card">
+        <div id="schoolsList">
+          <div class="empty">Loading schools...</div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- SYSTEM SETTINGS -->
+    <section id="page-system-settings" class="page">
+
+      <div class="page-header">
+        <h2>⚙️ System Settings</h2>
+        <p>Manage ExamPlus system settings.</p>
+      </div>
+
+      <div class="card">
+
+        <form id="systemSettingsForm">
+
+          <div class="form-group">
+            <label>Super Admin WhatsApp / Contact</label>
+            <input id="systemContact">
+          </div>
+
+          <button class="primary-btn">
+            💾 Save Settings
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+    <!-- SCHOOL DETAILS -->
+    <section id="page-school-details" class="page">
+
+      <div class="page-header">
+        <h2>🏫 School Details</h2>
+        <p>Manage your school's information.</p>
+      </div>
+
+      <div class="card">
+
+        <form id="schoolDetailsForm">
+
+          <div class="grid-2">
+
+            <div class="form-group">
+              <label>School Name</label>
+              <input id="detailSchoolName">
+            </div>
+
+            <div class="form-group">
+              <label>Contact Number</label>
+              <input id="detailContact">
             </div>
 
             <div class="form-group">
               <label>School Email</label>
-              <input
-                id="schoolEmail"
-                type="email"
-                value="${escapeHTML(
-                  school.schoolEmail || ""
-                )}"
-              >
+              <input id="detailEmail" type="email">
             </div>
 
             <div class="form-group">
               <label>Resumption Date</label>
-              <input
-                id="schoolResumption"
-                type="date"
-                value="${escapeHTML(
-                  school.resumptionDate || ""
-                )}"
-              >
+              <input id="detailResumptionDate" type="date">
             </div>
 
-            <div class="form-group form-full">
+            <div class="form-group">
+              <label>Address</label>
+              <textarea id="detailAddress"></textarea>
+            </div>
+
+            <div class="form-group">
               <label>School Logo</label>
-
-              <input
-                id="schoolLogo"
-                type="file"
-                accept="image/*"
-              >
-
-              <small>
-                Logo will be used on school documents.
-              </small>
-
+              <input id="schoolLogo" type="file" accept="image/*">
             </div>
 
           </div>
 
-          <button
-            class="primary-btn"
-            type="submit"
+          <img
+            id="logoPreview"
+            class="photo-preview hidden"
+            alt="School logo"
           >
+
+          <button class="primary-btn">
             💾 Save School Details
           </button>
 
         </form>
-        `
-      );
-
-
-  }catch(error){
-
-    document.querySelector("#contentView .panel")
-      .insertAdjacentHTML(
-        "beforeend",
-        `<div class="empty">
-          ${escapeHTML(error.message)}
-        </div>`
-      );
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-async function saveSchoolDetails(event){
-
-  event.preventDefault();
-
-  showLoading(true);
-
-
-  try{
-
-    let logo = "";
-
-
-    const file =
-      document.getElementById("schoolLogo").files[0];
-
-
-    if(file){
-
-      logo =
-        await fileToDataURL(file);
-
-    }
-
-
-    await api("saveSchoolDetails",{
-
-      email:currentUser.email,
-
-      schoolID:currentUser.schoolID,
-
-      schoolName:
-        document.getElementById("schoolName").value.trim(),
-
-      address:
-        document.getElementById("schoolAddress").value.trim(),
-
-      contactNumber:
-        document.getElementById("schoolContact").value.trim(),
-
-      schoolEmail:
-        document.getElementById("schoolEmail").value.trim(),
-
-      resumptionDate:
-        document.getElementById("schoolResumption").value,
-
-      logo:logo
-
-    });
-
-
-    currentUser.schoolName =
-      document.getElementById("schoolName").value.trim();
-
-    sessionStorage.setItem(
-      "examplusUser",
-      JSON.stringify(currentUser)
-    );
-
-
-    toast("School details saved.");
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   FILE TO DATA URL
-===================================================== */
-
-function fileToDataURL(file){
-
-  return new Promise((resolve,reject)=>{
-
-    const reader = new FileReader();
-
-    reader.onload =
-      ()=>resolve(reader.result);
-
-    reader.onerror =
-      ()=>reject(
-        new Error("Could not read image.")
-      );
-
-    reader.readAsDataURL(file);
-
-  });
-
-}
-
-
-/* =====================================================
-   CLASSES
-===================================================== */
-
-async function classesView(){
-
-  openPanel(
-    "All Classes",
-    `
-      <form onsubmit="saveClass(event)">
-
-        <div class="form-group">
-
-          <label>Class Name</label>
-
-          <input
-            id="className"
-            placeholder="Example: SS1"
-            required
-          >
-
-        </div>
-
-        <button
-          class="success-btn"
-          type="submit"
-        >
-          ➕ Create Class
-        </button>
-
-      </form>
-
-      <div id="classesList">
-        <div class="empty">
-          Loading classes...
-        </div>
-      </div>
-    `
-  );
-
-
-  await loadClassesList();
-
-}
-
-
-async function loadClassesList(){
-
-  try{
-
-    const result =
-      await api("getClasses",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    currentClasses =
-      result.classes ||
-      result.data ||
-      [];
-
-
-    const container =
-      document.getElementById("classesList");
-
-
-    if(!currentClasses.length){
-
-      container.innerHTML =
-        `<div class="empty">
-          No classes created yet.
-        </div>`;
-
-      return;
-
-    }
-
-
-    container.innerHTML = `
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Class</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            ${currentClasses.map(cls=>{
-
-              const name =
-                typeof cls === "string"
-                  ? cls
-                  : cls.className || cls.name || "";
-
-              return `
-
-                <tr>
-
-                  <td>
-                    ${escapeHTML(name)}
-                  </td>
-
-                  <td>
-
-                    <button
-                      class="danger-btn"
-                      onclick="deleteClassItem('${encodeURIComponent(name)}')"
-                    >
-                      Delete
-                    </button>
-
-                  </td>
-
-                </tr>
-
-              `;
-
-            }).join("")}
-
-          </tbody>
-
-        </table>
 
       </div>
 
-    `;
-
-  }catch(error){
-
-    document.getElementById("classesList")
-      .innerHTML =
-      `<div class="empty">
-        ${escapeHTML(error.message)}
-      </div>`;
-
-  }
-
-}
+    </section>
 
 
-async function saveClass(event){
+    <!-- CLASSES -->
+    <section id="page-classes" class="page">
 
-  event.preventDefault();
-
-  const name =
-    document.getElementById("className")
-      .value.trim();
-
-
-  if(!name){
-    return;
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("saveClass",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      className:name
-
-    });
-
-
-    toast("Class created.");
-
-    classesView();
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-async function deleteClassItem(encoded){
-
-  const className =
-    decodeURIComponent(encoded);
-
-
-  if(!confirm(
-    `Delete class "${className}"?`
-  )){
-    return;
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("deleteClass",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      className:className
-
-    });
-
-
-    toast("Class deleted.");
-
-    classesView();
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   SUBJECTS
-===================================================== */
-
-async function subjectsView(){
-
-  openPanel(
-    "All Subjects",
-    `
-      <div class="form-group">
-
-        <label>Select Class</label>
-
-        <select
-          id="subjectClass"
-          onchange="showSubjectsForSelectedClass()"
-        >
-          <option value="">
-            Select class
-          </option>
-        </select>
-
+      <div class="page-header">
+        <h2>📚 All Classes</h2>
+        <p>Create and manage school classes.</p>
       </div>
 
-      <div class="form-group">
+      <div class="card">
 
-        <label>
-          Subjects in Bulk
-        </label>
-
-        <textarea
-          id="bulkSubjects"
-          placeholder="English&#10;Mathematics&#10;Biology"
-        ></textarea>
-
-        <small>
-          Enter one subject per line.
-        </small>
-
-      </div>
-
-      <button
-        class="success-btn"
-        onclick="saveSubjects()"
-      >
-        💾 Save Subjects
-      </button>
-
-      <div id="subjectList"></div>
-    `
-  );
-
-
-  await populateClassSelect(
-    "subjectClass"
-  );
-
-  await loadSubjects();
-
-}
-
-
-async function loadSubjects(){
-
-  try{
-
-    const result =
-      await api("getSubjects",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    currentSubjects =
-      result.subjects ||
-      result.data ||
-      {};
-
-
-    showSubjectsForSelectedClass();
-
-  }catch(error){
-
-    toast(error.message);
-
-  }
-
-}
-
-
-function showSubjectsForSelectedClass(){
-
-  const className =
-    document.getElementById("subjectClass")
-      ?.value;
-
-
-  const list =
-    document.getElementById("subjectList");
-
-
-  if(!list){
-    return;
-  }
-
-
-  if(!className){
-
-    list.innerHTML = "";
-
-    return;
-
-  }
-
-
-  const subjects =
-    Array.isArray(currentSubjects[className])
-      ? currentSubjects[className]
-      : [];
-
-
-  document.getElementById("bulkSubjects")
-    .value = "";
-
-
-  list.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Subject</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          ${
-            subjects.length
-            ?
-            subjects.map(subject=>`
-
-              <tr>
-
-                <td>
-                  ${escapeHTML(subject)}
-                </td>
-
-                <td>
-
-                  <button
-                    class="danger-btn"
-                    onclick="deleteSubjectItem('${encodeURIComponent(className)}','${encodeURIComponent(subject)}')"
-                  >
-                    Delete
-                  </button>
-
-                </td>
-
-              </tr>
-
-            `).join("")
-            :
-            `
-              <tr>
-                <td colspan="2">
-                  No subjects for this class.
-                </td>
-              </tr>
-            `
-          }
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-async function saveSubjects(){
-
-  const className =
-    document.getElementById("subjectClass").value;
-
-
-  if(!className){
-
-    toast("Select a class first.");
-
-    return;
-
-  }
-
-
-  const text =
-    document.getElementById("bulkSubjects")
-      .value;
-
-
-  const subjects =
-    text
-      .split(/\r?\n/)
-      .map(x=>x.trim())
-      .filter(Boolean);
-
-
-  if(!subjects.length){
-
-    toast("Enter at least one subject.");
-
-    return;
-
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("saveSubjects",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      className:className,
-
-      subjects:subjects
-
-    });
-
-
-    toast("Subjects saved.");
-
-    subjectsView();
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-async function deleteSubjectItem(
-  encodedClass,
-  encodedSubject
-){
-
-  const className =
-    decodeURIComponent(encodedClass);
-
-  const subject =
-    decodeURIComponent(encodedSubject);
-
-
-  if(!confirm(
-    `Delete ${subject}?`
-  )){
-    return;
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("deleteSubject",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      className:className,
-
-      subject:subject
-
-    });
-
-
-    toast("Subject deleted.");
-
-    subjectsView();
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   GENERIC CLASS SELECT
-===================================================== */
-
-async function populateClassSelect(
-  selectId,
-  selectedValue=""
-){
-
-  const select =
-    document.getElementById(selectId);
-
-
-  if(!select){
-    return;
-  }
-
-
-  try{
-
-    if(!currentClasses.length){
-
-      const result =
-        await api("getClasses",{
-
-          schoolID:currentUser.schoolID,
-
-          email:currentUser.email
-
-        });
-
-
-      currentClasses =
-        result.classes ||
-        result.data ||
-        [];
-
-    }
-
-
-    select.innerHTML =
-      `<option value="">
-        Select class
-      </option>`;
-
-
-    currentClasses.forEach(cls=>{
-
-      const name =
-        typeof cls === "string"
-          ? cls
-          : cls.className || cls.name || "";
-
-
-      const option =
-        document.createElement("option");
-
-      option.value = name;
-      option.textContent = name;
-
-      if(name === selectedValue){
-        option.selected = true;
-      }
-
-      select.appendChild(option);
-
-    });
-
-  }catch(error){
-
-    toast(error.message);
-
-  }
-
-}
-
-
-/* =====================================================
-   STUDENTS DETAILS
-===================================================== */
-
-async function studentsView(){
-
-  openPanel(
-    "Students Details",
-    `
-      <div class="form-group">
-
-        <label>Select Class</label>
-
-        <select
-          id="studentClass"
-          onchange="loadStudentsForClass()"
-        >
-          <option value="">
-            Select class
-          </option>
-        </select>
-
-      </div>
-
-      <h4 style="margin:20px 0 12px;">
-        Add Single Student
-      </h4>
-
-      <form onsubmit="saveSingleStudent(event)">
-
-        <div class="form-grid">
+        <form id="classForm">
 
           <div class="form-group">
-            <label>Student Name</label>
-            <input id="studentName" required>
-          </div>
-
-          <div class="form-group">
-            <label>Date of Birth</label>
-            <input id="studentDOB" type="date">
-          </div>
-
-          <div class="form-group">
-            <label>Date of Admission</label>
-            <input id="studentAdmission" type="date">
-          </div>
-
-          <div class="form-group">
-            <label>Parent/Guardian Name</label>
-            <input id="guardianName">
-          </div>
-
-          <div class="form-group form-full">
-            <label>Parent/Guardian Address</label>
-            <textarea id="guardianAddress"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>Parent/Guardian Phone Number</label>
-            <input id="guardianPhone" type="tel">
-          </div>
-
-        </div>
-
-
-        <div class="photo-area">
-
-          <strong>Student Photo</strong>
-
-          <p style="margin:8px 0;color:#718096;font-size:13px;">
-            Student photo is required.
-          </p>
-
-          <label class="camera-btn">
-            📷 Capture Student Photo
+            <label>Class Name</label>
             <input
-              id="cameraInput"
-              type="file"
-              accept="image/*"
-              capture="environment"
-              onchange="captureStudentPhoto(event)"
+              id="classNameInput"
+              placeholder="Example: SS1"
+              required
             >
-          </label>
-
-          <img
-            id="studentPhotoPreview"
-            alt="Student Photo"
-          >
-
-        </div>
-
-
-        <button
-          class="primary-btn"
-          type="submit"
-        >
-          💾 Save Student
-        </button>
-
-      </form>
-
-      <div id="studentsClassList">
-        <div class="empty">
-          Select a class to view students.
-        </div>
-      </div>
-    `
-  );
-
-
-  await populateClassSelect(
-    "studentClass"
-  );
-
-
-  await loadAllStudents();
-
-}
-
-
-async function captureStudentPhoto(event){
-
-  const file =
-    event.target.files[0];
-
-
-  if(!file){
-    return;
-  }
-
-
-  try{
-
-    currentPhoto =
-      await fileToDataURL(file);
-
-
-    const preview =
-      document.getElementById(
-        "studentPhotoPreview"
-      );
-
-
-    preview.src = currentPhoto;
-
-    preview.style.display = "block";
-
-
-  }catch(error){
-
-    toast("Unable to load photo.");
-
-  }
-
-}
-
-
-async function loadAllStudents(){
-
-  try{
-
-    const result =
-      await api("getStudents",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    currentStudents =
-      result.students ||
-      result.data ||
-      [];
-
-
-  }catch(error){
-
-    console.log(error);
-
-  }
-
-}
-
-
-async function loadStudentsForClass(){
-
-  const className =
-    document.getElementById("studentClass")
-      .value;
-
-
-  const container =
-    document.getElementById(
-      "studentsClassList"
-    );
-
-
-  if(!className){
-
-    container.innerHTML =
-      `<div class="empty">
-        Select a class to view students.
-      </div>`;
-
-    return;
-
-  }
-
-
-  if(!currentStudents.length){
-
-    await loadAllStudents();
-
-  }
-
-
-  const students =
-    currentStudents
-      .filter(student=>{
-
-        return String(
-          student.Class ||
-          student.className ||
-          student.class ||
-          ""
-        ).trim() === className;
-
-      })
-      .sort((a,b)=>{
-
-        const aa =
-          String(
-            a.StudentName ||
-            a.studentName ||
-            a.name ||
-            ""
-          ).toLowerCase();
-
-        const bb =
-          String(
-            b.StudentName ||
-            b.studentName ||
-            b.name ||
-            ""
-          ).toLowerCase();
-
-        return aa.localeCompare(bb);
-
-      });
-
-
-  if(!students.length){
-
-    container.innerHTML =
-      `<div class="empty">
-        No students found in ${escapeHTML(className)}.
-      </div>`;
-
-    return;
-
-  }
-
-
-  container.innerHTML = `
-
-    <h4 style="margin:25px 0 10px;">
-      Students in ${escapeHTML(className)}
-    </h4>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>Photo</th>
-            <th>Student Name</th>
-            <th>Student ID</th>
-            <th>Date of Birth</th>
-            <th>Guardian</th>
-            <th>Phone</th>
-            <th>Action</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${students.map(student=>{
-
-            const id =
-              student.StudentID ||
-              student.studentID ||
-              student.id ||
-              "";
-
-            const name =
-              student.StudentName ||
-              student.studentName ||
-              student.name ||
-              "";
-
-            const photo =
-              student.Photo ||
-              student.photo ||
-              "";
-
-            return `
-
-              <tr>
-
-                <td>
-
-                  ${
-                    photo
-                    ?
-                    `<img
-                      src="${photo}"
-                      style="
-                        width:45px;
-                        height:45px;
-                        border-radius:8px;
-                        object-fit:cover;
-                      "
-                    >`
-                    :
-                    "📷"
-                  }
-
-                </td>
-
-                <td>
-                  ${escapeHTML(name)}
-                </td>
-
-                <td>
-                  ${escapeHTML(id)}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    student.DateOfBirth ||
-                    student.dateOfBirth ||
-                    ""
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    student.ParentGuardianName ||
-                    student.parentGuardianName ||
-                    ""
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    student.ParentGuardianPhone ||
-                    student.parentGuardianPhone ||
-                    ""
-                  )}
-                </td>
-
-                <td>
-
-                  <button
-                    class="danger-btn"
-                    onclick="deleteStudentItem('${encodeURIComponent(id)}')"
-                  >
-                    Delete
-                  </button>
-
-                </td>
-
-              </tr>
-
-            `;
-
-          }).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-async function saveSingleStudent(event){
-
-  event.preventDefault();
-
-
-  const className =
-    document.getElementById("studentClass")
-      .value;
-
-
-  if(!className){
-
-    toast("Please select a class.");
-
-    return;
-
-  }
-
-
-  if(!currentPhoto){
-
-    toast(
-      "Student photo is required."
-    );
-
-    return;
-
-  }
-
-
-  const student = {
-
-    StudentName:
-      document.getElementById("studentName")
-        .value.trim(),
-
-    DateOfBirth:
-      document.getElementById("studentDOB").value,
-
-    DateOfAdmission:
-      document.getElementById("studentAdmission").value,
-
-    ParentGuardianName:
-      document.getElementById("guardianName")
-        .value.trim(),
-
-    ParentGuardianAddress:
-      document.getElementById("guardianAddress")
-        .value.trim(),
-
-    ParentGuardianPhone:
-      document.getElementById("guardianPhone")
-        .value.trim(),
-
-    Photo:currentPhoto,
-
-    Class:className
-
-  };
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("saveStudent",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      student:student
-
-    });
-
-
-    toast("Student saved successfully.");
-
-
-    document.getElementById("studentName").value = "";
-    document.getElementById("studentDOB").value = "";
-    document.getElementById("studentAdmission").value = "";
-    document.getElementById("guardianName").value = "";
-    document.getElementById("guardianAddress").value = "";
-    document.getElementById("guardianPhone").value = "";
-
-    currentPhoto = "";
-
-    document.getElementById(
-      "studentPhotoPreview"
-    ).style.display = "none";
-
-    document.getElementById(
-      "cameraInput"
-    ).value = "";
-
-
-    await loadAllStudents();
-
-    await loadStudentsForClass();
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-async function deleteStudentItem(encodedID){
-
-  const studentID =
-    decodeURIComponent(encodedID);
-
-
-  if(!confirm(
-    "Delete this student?"
-  )){
-    return;
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("deleteStudent",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      studentID:studentID
-
-    });
-
-
-    toast("Student deleted.");
-
-    await loadAllStudents();
-
-    await loadStudentsForClass();
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   BULK STUDENTS
-===================================================== */
-
-function bulkStudentsView(){
-
-  openPanel(
-    "Students in Bulk",
-    `
-      <div class="form-group">
-
-        <label>Select Class</label>
-
-        <select id="bulkStudentClass">
-          <option value="">
-            Select class
-          </option>
-        </select>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>
-          Student Names
-        </label>
-
-        <textarea
-          id="bulkStudentNames"
-          style="min-height:250px;"
-          placeholder="Ahmed Musa&#10;Fatima Bello&#10;Ibrahim Ali"
-        ></textarea>
-
-        <small>
-          Enter one student name per line.
-        </small>
-
-      </div>
-
-      <button
-        class="primary-btn"
-        onclick="saveBulkStudents()"
-      >
-        👨‍🎓 Save Students
-      </button>
-    `
-  );
-
-
-  populateClassSelect(
-    "bulkStudentClass"
-  );
-
-}
-
-
-async function saveBulkStudents(){
-
-  const className =
-    document.getElementById(
-      "bulkStudentClass"
-    ).value;
-
-
-  const text =
-    document.getElementById(
-      "bulkStudentNames"
-    ).value;
-
-
-  if(!className){
-
-    toast("Select a class.");
-
-    return;
-
-  }
-
-
-  const names =
-    text
-      .split(/\r?\n/)
-      .map(x=>x.trim())
-      .filter(Boolean);
-
-
-  if(!names.length){
-
-    toast("Enter student names.");
-
-    return;
-
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("saveStudentsBulk",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      className:className,
-
-      names:names
-
-    });
-
-
-    toast(
-      `${names.length} student(s) saved.`
-    );
-
-
-    document.getElementById(
-      "bulkStudentNames"
-    ).value = "";
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   ACADEMIC SETTINGS
-===================================================== */
-
-async function academicSettingsView(){
-
-  openPanel(
-    "Academic Settings",
-    `
-      <form onsubmit="saveAcademicSettings(event)">
-
-        <div class="form-grid">
-
-          <div class="form-group">
-
-            <label>Session</label>
-
-            <input
-              id="academicSession"
-              placeholder="2026/2027"
-            >
-
           </div>
 
+          <button class="primary-btn">
+            ➕ Add Class
+          </button>
+
+        </form>
+
+      </div>
+
+      <div class="card">
+        <h3>Classes</h3>
+        <div id="classesList"></div>
+      </div>
+
+    </section>
+
+
+    <!-- SUBJECTS -->
+    <section id="page-subjects" class="page">
+
+      <div class="page-header">
+        <h2>📖 All Subjects</h2>
+        <p>Set different subjects for each class.</p>
+      </div>
+
+      <div class="card">
+
+        <form id="subjectsForm">
+
           <div class="form-group">
-
-            <label>Term</label>
-
-            <select id="academicTerm">
-
-              <option value="">
-                Select Term
-              </option>
-
-              <option value="First Term">
-                First Term
-              </option>
-
-              <option value="Second Term">
-                Second Term
-              </option>
-
-              <option value="Third Term">
-                Third Term
-              </option>
-
+            <label>Select Class</label>
+            <select id="subjectClassSelect" required>
+              <option value="">Select class</option>
             </select>
-
           </div>
 
           <div class="form-group">
-
-            <label>Resumption Date</label>
-
-            <input
-              id="academicResumption"
-              type="date"
-            >
-
+            <label>Subjects — one subject per line</label>
+            <textarea
+              id="subjectsInput"
+              rows="8"
+              placeholder="English Language&#10;Mathematics&#10;Biology"
+            ></textarea>
           </div>
 
-          <div class="form-group">
-
-            <label>Test 1 Maximum</label>
-
-            <input
-              id="test1Max"
-              type="number"
-              value="15"
-              readonly
-            >
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Test 2 Maximum</label>
-
-            <input
-              id="test2Max"
-              type="number"
-              value="15"
-              readonly
-            >
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Exam Maximum</label>
-
-            <input
-              id="examMax"
-              type="number"
-              value="70"
-              readonly
-            >
-
-          </div>
-
-        </div>
-
-        <p style="
-          background:#f7f9fc;
-          padding:12px;
-          border-radius:10px;
-          margin-bottom:15px;
-          font-size:13px;
-        ">
-          Total maximum score:
-          <strong>100</strong>
-          (15 + 15 + 70)
-        </p>
-
-        <button
-          class="primary-btn"
-          type="submit"
-        >
-          💾 Save Academic Settings
-        </button>
-
-      </form>
-    `
-  );
-
-
-  try{
-
-    const result =
-      await api("getAcademicSettings",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    academicSettings =
-      result.settings ||
-      result.data ||
-      academicSettings;
-
-
-    document.getElementById(
-      "academicSession"
-    ).value =
-      academicSettings.session || "";
-
-
-    document.getElementById(
-      "academicTerm"
-    ).value =
-      academicSettings.term || "";
-
-
-    document.getElementById(
-      "academicResumption"
-    ).value =
-      academicSettings.resumptionDate || "";
-
-
-  }catch(error){
-
-    console.log(error);
-
-  }
-
-}
-
-
-async function saveAcademicSettings(event){
-
-  event.preventDefault();
-
-
-  academicSettings = {
-
-    session:
-      document.getElementById(
-        "academicSession"
-      ).value.trim(),
-
-    term:
-      document.getElementById(
-        "academicTerm"
-      ).value,
-
-    resumptionDate:
-      document.getElementById(
-        "academicResumption"
-      ).value,
-
-    test1Max:15,
-
-    test2Max:15,
-
-    examMax:70
-
-  };
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("saveAcademicSettings",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      settings:academicSettings
-
-    });
-
-
-    toast(
-      "Academic settings saved."
-    );
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   STAFF
-===================================================== */
-
-function staffView(){
-
-  openPanel(
-    "Staff",
-    `
-      <form onsubmit="createStaffAccount(event)">
-
-        <div class="form-grid">
-
-          <div class="form-group">
-
-            <label>Staff Name</label>
-
-            <input
-              id="staffName"
-              required
-            >
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Email</label>
-
-            <input
-              id="staffEmail"
-              type="email"
-              required
-            >
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Password</label>
-
-            <input
-              id="staffPassword"
-              type="password"
-              required
-            >
-
-          </div>
-
-          <div class="form-group">
-
-            <label>Role</label>
-
-            <select id="staffRole">
-
-              <option value="Teacher">
-                Teacher
-              </option>
-
-              <option value="Bursar">
-                Bursar
-              </option>
-
-            </select>
-
-          </div>
-
-        </div>
-
-        <button
-          class="primary-btn"
-          type="submit"
-        >
-          👨‍💼 Create Staff Account
-        </button>
-
-      </form>
-
-      <div style="
-        margin-top:20px;
-        padding:14px;
-        background:#f7f9fc;
-        border-radius:12px;
-        font-size:13px;
-      ">
-        Staff accounts created here will belong to
-        this school.
-      </div>
-    `
-  );
-
-}
-
-
-async function createStaffAccount(event){
-
-  event.preventDefault();
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("createStaff",{
-
-      email:currentUser.email,
-
-      schoolID:currentUser.schoolID,
-
-      staffName:
-        document.getElementById("staffName")
-          .value.trim(),
-
-      staffEmail:
-        document.getElementById("staffEmail")
-          .value.trim(),
-
-      staffPassword:
-        document.getElementById("staffPassword")
-          .value,
-
-      role:
-        document.getElementById("staffRole")
-          .value
-
-    });
-
-
-    toast(
-      "Staff account created."
-    );
-
-
-    document.getElementById("staffName").value = "";
-    document.getElementById("staffEmail").value = "";
-    document.getElementById("staffPassword").value = "";
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   CONTACT US
-===================================================== */
-
-async function contactView(){
-
-  openPanel(
-    "Contact Us",
-    `<div class="empty">
-      Loading contact information...
-    </div>`
-  );
-
-
-  showLoading(true);
-
-
-  try{
-
-    const result =
-      await api("getContact",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    const contact =
-      result.contact ||
-      result.data ||
-      {};
-
-
-    document.querySelector("#contentView .panel")
-      .insertAdjacentHTML(
-        "beforeend",
-        `
-        <div style="
-          background:#f7f9fc;
-          border-radius:15px;
-          padding:20px;
-        ">
-
-          <h4 style="margin-bottom:10px;">
-            ExamPlus Super Admin
-          </h4>
-
-          <p style="
-            color:#718096;
-            margin-bottom:15px;
-          ">
-            Use the contact details below
-            for ExamPlus support.
-          </p>
-
-          <p>
-            <strong>WhatsApp:</strong>
-            ${escapeHTML(
-              contact.whatsapp ||
-              contact.phone ||
-              "Not available"
-            )}
-          </p>
-
-          <p style="margin-top:8px;">
-            <strong>Email:</strong>
-            ${escapeHTML(
-              contact.email ||
-              "Not available"
-            )}
-          </p>
-
-        </div>
-        `
-      );
-
-
-  }catch(error){
-
-    document.querySelector("#contentView .panel")
-      .insertAdjacentHTML(
-        "beforeend",
-        `<div class="empty">
-          ${escapeHTML(error.message)}
-        </div>`
-      );
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   TEACHER — UPLOAD RESULT
-===================================================== */
-
-async function uploadResultView(){
-
-  openPanel(
-    "Upload Result",
-    `
-      <div class="form-group">
-
-        <label>Class</label>
-
-        <select
-          id="resultClass"
-          onchange="loadResultSubjects()"
-        >
-          <option value="">
-            Select class
-          </option>
-        </select>
+          <button class="primary-btn">
+            💾 Save Subjects
+          </button>
+
+        </form>
 
       </div>
 
-      <div class="form-group">
-
-        <label>Subject</label>
-
-        <select id="resultSubject">
-
-          <option value="">
-            Select subject
-          </option>
-
-        </select>
-
+      <div class="card">
+        <h3>Current Subjects</h3>
+        <div id="subjectsList"></div>
       </div>
 
-      <div class="form-grid">
+    </section>
+
+
+    <!-- STUDENTS -->
+    <section id="page-students" class="page">
+
+      <div class="page-header">
+        <h2>👨‍🎓 Students Details</h2>
+        <p>Register students with their details and photograph.</p>
+      </div>
+
+      <div class="card">
 
         <div class="form-group">
-
-          <label>Session</label>
-
-          <input
-            id="resultSession"
-            placeholder="2026/2027"
-          >
-
-        </div>
-
-        <div class="form-group">
-
-          <label>Term</label>
-
-          <select id="resultTerm">
-
-            <option value="First Term">
-              First Term
-            </option>
-
-            <option value="Second Term">
-              Second Term
-            </option>
-
-            <option value="Third Term">
-              Third Term
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-      <div id="resultStudents">
-        <div class="empty">
-          Select class and subject.
-        </div>
-      </div>
-
-      <button
-        class="primary-btn"
-        onclick="saveResults()"
-        style="margin-top:15px;"
-      >
-        💾 Save Results
-      </button>
-    `
-  );
-
-
-  await populateClassSelect(
-    "resultClass"
-  );
-
-
-  try{
-
-    const result =
-      await api("getAcademicSettings",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    const settings =
-      result.settings ||
-      result.data ||
-      {};
-
-
-    document.getElementById(
-      "resultSession"
-    ).value =
-      settings.session || "";
-
-
-    document.getElementById(
-      "resultTerm"
-    ).value =
-      settings.term || "First Term";
-
-
-  }catch(e){}
-
-}
-
-
-async function loadResultSubjects(){
-
-  const className =
-    document.getElementById("resultClass")
-      .value;
-
-
-  const subjectSelect =
-    document.getElementById("resultSubject");
-
-
-  subjectSelect.innerHTML =
-    `<option value="">
-      Select subject
-    </option>`;
-
-
-  document.getElementById(
-    "resultStudents"
-  ).innerHTML =
-    `<div class="empty">
-      Select a subject.
-    </div>`;
-
-
-  if(!className){
-    return;
-  }
-
-
-  try{
-
-    const result =
-      await api("getSubjects",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    currentSubjects =
-      result.subjects ||
-      result.data ||
-      {};
-
-
-    const subjects =
-      Array.isArray(
-        currentSubjects[className]
-      )
-      ?
-      currentSubjects[className]
-      :
-      [];
-
-
-    subjects.forEach(subject=>{
-
-      const option =
-        document.createElement("option");
-
-      option.value = subject;
-      option.textContent = subject;
-
-      subjectSelect.appendChild(option);
-
-    });
-
-
-    subjectSelect.onchange =
-      loadResultStudents;
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }
-
-}
-
-
-async function loadResultStudents(){
-
-  const className =
-    document.getElementById("resultClass")
-      .value;
-
-
-  if(!className){
-    return;
-  }
-
-
-  if(!currentStudents.length){
-
-    await loadAllStudents();
-
-  }
-
-
-  const students =
-    currentStudents.filter(student=>{
-
-      return String(
-        student.Class ||
-        student.className ||
-        student.class ||
-        ""
-      ).trim() === className;
-
-    });
-
-
-  const container =
-    document.getElementById(
-      "resultStudents"
-    );
-
-
-  if(!students.length){
-
-    container.innerHTML =
-      `<div class="empty">
-        No students found.
-      </div>`;
-
-    return;
-
-  }
-
-
-  container.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>Student</th>
-            <th>Test 1 / 15</th>
-            <th>Test 2 / 15</th>
-            <th>Exam / 70</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${students.map((student,index)=>{
-
-            const id =
-              student.StudentID ||
-              student.studentID ||
-              student.id ||
-              index;
-
-
-            const name =
-              student.StudentName ||
-              student.studentName ||
-              student.name ||
-              "";
-
-
-            return `
-
-              <tr>
-
-                <td>
-                  ${escapeHTML(name)}
-                  <input
-                    type="hidden"
-                    class="result-student-id"
-                    value="${escapeHTML(id)}"
-                  >
-                </td>
-
-                <td>
-
-                  <input
-                    class="result-test1"
-                    type="number"
-                    min="0"
-                    max="15"
-                    step="0.01"
-                    style="width:90px;"
-                  >
-
-                </td>
-
-                <td>
-
-                  <input
-                    class="result-test2"
-                    type="number"
-                    min="0"
-                    max="15"
-                    step="0.01"
-                    style="width:90px;"
-                  >
-
-                </td>
-
-                <td>
-
-                  <input
-                    class="result-exam"
-                    type="number"
-                    min="0"
-                    max="70"
-                    step="0.01"
-                    style="width:90px;"
-                  >
-
-                </td>
-
-              </tr>
-
-            `;
-
-          }).join("")}
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-async function saveResults(){
-
-  const className =
-    document.getElementById("resultClass")
-      .value;
-
-  const subject =
-    document.getElementById("resultSubject")
-      .value;
-
-  const session =
-    document.getElementById("resultSession")
-      .value.trim();
-
-  const term =
-    document.getElementById("resultTerm")
-      .value;
-
-
-  if(!className ||
-     !subject ||
-     !session ||
-     !term){
-
-    toast(
-      "Complete class, subject, session and term."
-    );
-
-    return;
-
-  }
-
-
-  const rows =
-    document.querySelectorAll(
-      "#resultStudents tbody tr"
-    );
-
-
-  const results = [];
-
-
-  rows.forEach(row=>{
-
-    const studentID =
-      row.querySelector(
-        ".result-student-id"
-      )?.value;
-
-
-    const test1 =
-      Number(
-        row.querySelector(
-          ".result-test1"
-        )?.value || 0
-      );
-
-
-    const test2 =
-      Number(
-        row.querySelector(
-          ".result-test2"
-        )?.value || 0
-      );
-
-
-    const exam =
-      Number(
-        row.querySelector(
-          ".result-exam"
-        )?.value || 0
-      );
-
-
-    if(
-      test1 !== 0 ||
-      test2 !== 0 ||
-      exam !== 0
-    ){
-
-      results.push({
-
-        studentID:studentID,
-
-        className:className,
-
-        subject:subject,
-
-        test1:test1,
-
-        test2:test2,
-
-        exam:exam,
-
-        total:
-          test1 +
-          test2 +
-          exam,
-
-        session:session,
-
-        term:term
-
-      });
-
-    }
-
-  });
-
-
-  if(!results.length){
-
-    toast(
-      "Enter at least one result."
-    );
-
-    return;
-
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    await api("uploadResult",{
-
-      schoolID:currentUser.schoolID,
-
-      email:currentUser.email,
-
-      results:results
-
-    });
-
-
-    toast(
-      "Results uploaded successfully."
-    );
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   TEACHER — VIEW RESULTS
-===================================================== */
-
-async function resultsView(){
-
-  openPanel(
-    "View Results",
-    `
-      <div class="form-grid">
-
-        <div class="form-group">
-
-          <label>Class</label>
-
-          <select id="viewResultClass">
-
-            <option value="">
-              All Classes
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="form-group">
-
-          <label>Session</label>
-
-          <input
-            id="viewResultSession"
-            placeholder="2026/2027"
-          >
-
-        </div>
-
-      </div>
-
-      <button
-        class="success-btn"
-        onclick="loadResults()"
-      >
-        🔎 Load Results
-      </button>
-
-      <div id="resultsTable">
-        <div class="empty">
-          Click Load Results.
-        </div>
-      </div>
-    `
-  );
-
-
-  await populateClassSelect(
-    "viewResultClass"
-  );
-
-}
-
-
-async function loadResults(){
-
-  showLoading(true);
-
-
-  try{
-
-    const result =
-      await api("getResults",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email,
-
-        className:
-          document.getElementById(
-            "viewResultClass"
-          ).value,
-
-        session:
-          document.getElementById(
-            "viewResultSession"
-          ).value.trim()
-
-      });
-
-
-    currentResults =
-      result.results ||
-      result.data ||
-      [];
-
-
-    const container =
-      document.getElementById(
-        "resultsTable"
-      );
-
-
-    if(!currentResults.length){
-
-      container.innerHTML =
-        `<div class="empty">
-          No results found.
-        </div>`;
-
-      return;
-
-    }
-
-
-    container.innerHTML = `
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>Student</th>
-              <th>Class</th>
-              <th>Subject</th>
-              <th>Test 1</th>
-              <th>Test 2</th>
-              <th>Exam</th>
-              <th>Total</th>
-              <th>Term</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            ${currentResults.map(r=>`
-
-              <tr>
-
-                <td>
-                  ${escapeHTML(
-                    r.StudentName ||
-                    r.studentName ||
-                    ""
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    r.Class ||
-                    r.className ||
-                    ""
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    r.Subject ||
-                    r.subject ||
-                    ""
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    r.Test1 ||
-                    r.test1 ||
-                    0
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    r.Test2 ||
-                    r.test2 ||
-                    0
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    r.Exam ||
-                    r.exam ||
-                    0
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    r.Total ||
-                    r.total ||
-                    0
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHTML(
-                    r.Term ||
-                    r.term ||
-                    ""
-                  )}
-                </td>
-
-              </tr>
-
-            `).join("")}
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    `;
-
-
-  }catch(error){
-
-    document.getElementById(
-      "resultsTable"
-    ).innerHTML =
-      `<div class="empty">
-        ${escapeHTML(error.message)}
-      </div>`;
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   REPORT CARD
-===================================================== */
-
-async function reportCardView(){
-
-  openPanel(
-    "Report Card",
-    `
-      <div class="form-grid">
-
-        <div class="form-group">
-
           <label>Select Class</label>
-
-          <select id="reportClass">
-
-            <option value="">
-              Select class
-            </option>
-
+          <select id="studentClassFilter">
+            <option value="">Select class</option>
           </select>
-
         </div>
+
+      </div>
+
+      <div class="card">
+
+        <h3>➕ Add Single Student</h3>
+
+        <form id="studentForm">
+
+          <div class="grid-2">
+
+            <div class="form-group">
+              <label>Student Name</label>
+              <input id="studentName" required>
+            </div>
+
+            <div class="form-group">
+              <label>Date of Birth</label>
+              <input id="studentDob" type="date">
+            </div>
+
+            <div class="form-group">
+              <label>Date of Admission</label>
+              <input id="studentAdmissionDate" type="date">
+            </div>
+
+            <div class="form-group">
+              <label>Parent / Guardian Name</label>
+              <input id="guardianName">
+            </div>
+
+            <div class="form-group">
+              <label>Parent / Guardian Address</label>
+              <input id="guardianAddress">
+            </div>
+
+            <div class="form-group">
+              <label>Parent / Guardian Phone</label>
+              <input id="guardianPhone">
+            </div>
+
+          </div>
+
+          <div class="camera-box">
+
+            <h3>📷 Student Photo</h3>
+
+            <video
+              id="cameraVideo"
+              autoplay
+              playsinline
+              class="hidden"
+            ></video>
+
+            <canvas
+              id="cameraCanvas"
+              class="hidden"
+            ></canvas>
+
+            <img
+              id="studentPhotoPreview"
+              class="photo-preview hidden"
+              alt="Student photo"
+            >
+
+            <div class="form-actions">
+
+              <button
+                type="button"
+                id="startCameraButton"
+                class="secondary-btn"
+              >
+                📷 Open Camera
+              </button>
+
+              <button
+                type="button"
+                id="captureButton"
+                class="primary-btn hidden"
+              >
+                📸 Capture Photo
+              </button>
+
+            </div>
+
+            <input
+              type="hidden"
+              id="studentPhotoData"
+            >
+
+            <p style="margin-top:10px;color:#64748b;font-size:12px;">
+              Student photo is required.
+            </p>
+
+          </div>
+
+          <br>
+
+          <button class="primary-btn">
+            💾 Save Student
+          </button>
+
+        </form>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Registered Students</h3>
+
+        <div id="studentsList">
+          <div class="empty">
+            Select a class to view students.
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BULK STUDENTS -->
+    <section id="page-bulk-students" class="page">
+
+      <div class="page-header">
+        <h2>👥 Students in Bulk</h2>
+        <p>Add multiple students using names only.</p>
+      </div>
+
+      <div class="card">
+
+        <form id="bulkStudentsForm">
+
+          <div class="form-group">
+            <label>Select Class</label>
+            <select id="bulkStudentClass" required>
+              <option value="">Select class</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Student Names</label>
+            <textarea
+              id="bulkStudentNames"
+              rows="12"
+              placeholder="One student name per line"
+              required
+            ></textarea>
+          </div>
+
+          <button class="primary-btn">
+            💾 Save Students
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACADEMIC SETTINGS -->
+    <section id="page-academic" class="page">
+
+      <div class="page-header">
+        <h2>⚙️ Academic Settings</h2>
+        <p>Set session, term and assessment limits.</p>
+      </div>
+
+      <div class="card">
+
+        <form id="academicForm">
+
+          <div class="grid-2">
+
+            <div class="form-group">
+              <label>Academic Session</label>
+              <input
+                id="academicSession"
+                placeholder="2026/2027"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Term</label>
+              <select id="academicTerm">
+                <option value="First Term">First Term</option>
+                <option value="Second Term">Second Term</option>
+                <option value="Third Term">Third Term</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Resumption Date</label>
+              <input id="academicResumption" type="date">
+            </div>
+
+            <div class="form-group">
+              <label>Test 1 Maximum</label>
+              <input value="15" readonly>
+            </div>
+
+            <div class="form-group">
+              <label>Test 2 Maximum</label>
+              <input value="15" readonly>
+            </div>
+
+            <div class="form-group">
+              <label>Exam Maximum</label>
+              <input value="70" readonly>
+            </div>
+
+          </div>
+
+          <button class="primary-btn">
+            💾 Save Academic Settings
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+    <!-- STAFF -->
+    <section id="page-staff" class="page">
+
+      <div class="page-header">
+        <h2>👨‍💼 Staff</h2>
+        <p>Create Teacher and Bursar accounts.</p>
+      </div>
+
+      <div class="card">
+
+        <form id="staffForm">
+
+          <div class="grid-2">
+
+            <div class="form-group">
+              <label>Staff Name</label>
+              <input id="staffName" required>
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input id="staffEmail" type="email" required>
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input id="staffPassword" type="password" required>
+            </div>
+
+            <div class="form-group">
+              <label>Role</label>
+              <select id="staffRole">
+                <option value="teacher">Teacher</option>
+                <option value="bursar">Bursar</option>
+              </select>
+            </div>
+
+          </div>
+
+          <button class="primary-btn">
+            👨‍💼 Create Staff Account
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+    <!-- TEACHER UPLOAD -->
+    <section id="page-upload-result" class="page">
+
+      <div class="page-header">
+        <h2>📝 Upload Result</h2>
+        <p>Enter student assessment scores.</p>
+      </div>
+
+      <div class="card">
+
+        <form id="resultForm">
+
+          <div class="grid-2">
+
+            <div class="form-group">
+              <label>Class</label>
+              <select id="resultClass" required>
+                <option value="">Select class</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Student</label>
+              <select id="resultStudent" required>
+                <option value="">Select student</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Subject</label>
+              <select id="resultSubject" required>
+                <option value="">Select subject</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Test 1 — Maximum 15</label>
+              <input
+                id="resultTest1"
+                type="number"
+                min="0"
+                max="15"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Test 2 — Maximum 15</label>
+              <input
+                id="resultTest2"
+                type="number"
+                min="0"
+                max="15"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Exam — Maximum 70</label>
+              <input
+                id="resultExam"
+                type="number"
+                min="0"
+                max="70"
+              >
+            </div>
+
+          </div>
+
+          <button class="primary-btn">
+            💾 Save Result
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+    <!-- VIEW RESULTS -->
+    <section id="page-results" class="page">
+
+      <div class="page-header">
+        <h2>📊 View Results</h2>
+        <p>View uploaded student results.</p>
+      </div>
+
+      <div class="card">
 
         <div class="form-group">
-
-          <label>Student</label>
-
-          <select id="reportStudent">
-
-            <option value="">
-              Select student
-            </option>
-
+          <label>Select Class</label>
+          <select id="viewResultClass">
+            <option value="">Select class</option>
           </select>
-
         </div>
-
-      </div>
-
-      <div class="action-row">
-
-        <button
-          class="success-btn"
-          onclick="loadReportCard()"
-        >
-          📄 Generate Report
-        </button>
-
-        <button
-          class="secondary-btn"
-          onclick="window.print()"
-        >
-          🖨️ Print
-        </button>
-
-      </div>
-
-      <div
-        id="reportCardOutput"
-        style="margin-top:20px;"
-      >
-        <div class="empty">
-          Select a class and student.
-        </div>
-      </div>
-    `
-  );
-
-
-  await populateClassSelect(
-    "reportClass"
-  );
-
-
-  document.getElementById(
-    "reportClass"
-  ).onchange =
-    loadReportStudents;
-
-}
-
-
-async function loadReportStudents(){
-
-  const className =
-    document.getElementById(
-      "reportClass"
-    ).value;
-
-
-  const select =
-    document.getElementById(
-      "reportStudent"
-    );
-
-
-  select.innerHTML =
-    `<option value="">
-      Select student
-    </option>`;
-
-
-  if(!className){
-    return;
-  }
-
-
-  if(!currentStudents.length){
-
-    await loadAllStudents();
-
-  }
-
-
-  currentStudents
-    .filter(student=>{
-
-      return String(
-        student.Class ||
-        student.className ||
-        student.class ||
-        ""
-      ).trim() === className;
-
-    })
-    .sort((a,b)=>{
-
-      const aa =
-        String(
-          a.StudentName ||
-          a.studentName ||
-          ""
-        ).toLowerCase();
-
-      const bb =
-        String(
-          b.StudentName ||
-          b.studentName ||
-          ""
-        ).toLowerCase();
-
-      return aa.localeCompare(bb);
-
-    })
-    .forEach(student=>{
-
-      const option =
-        document.createElement("option");
-
-
-      option.value =
-        student.StudentID ||
-        student.studentID ||
-        student.id ||
-        "";
-
-
-      option.textContent =
-        student.StudentName ||
-        student.studentName ||
-        student.name ||
-        "";
-
-
-      select.appendChild(option);
-
-    });
-
-}
-
-
-async function loadReportCard(){
-
-  const studentID =
-    document.getElementById(
-      "reportStudent"
-    ).value;
-
-
-  if(!studentID){
-
-    toast("Select a student.");
-
-    return;
-
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    const result =
-      await api("getReportCard",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email,
-
-        studentID:studentID
-
-      });
-
-
-    const report =
-      result.report ||
-      result.data ||
-      {};
-
-
-    renderReportCard(report);
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-function renderReportCard(report){
-
-  const student =
-    report.student ||
-    {};
-
-
-  const subjects =
-    report.subjects ||
-    report.results ||
-    [];
-
-
-  const school =
-    report.school ||
-    {};
-
-
-  const session =
-    report.session ||
-    "";
-
-
-  const term =
-    report.term ||
-    "";
-
-
-  const total =
-    report.totalScores ||
-    report.total ||
-    "";
-
-
-  const average =
-    report.average ||
-    "";
-
-
-  const position =
-    report.position ||
-    "";
-
-
-  const logo =
-    school.logo ||
-    school.Logo ||
-    "";
-
-
-  document.getElementById(
-    "reportCardOutput"
-  ).innerHTML = `
-
-    <div style="
-      border:1px solid #ddd;
-      padding:20px;
-      background:white;
-    ">
-
-      <div style="
-        text-align:center;
-        border-bottom:2px solid #222;
-        padding-bottom:15px;
-        margin-bottom:15px;
-      ">
-
-        ${
-          logo
-          ?
-          `<img
-            src="${logo}"
-            style="
-              width:80px;
-              height:80px;
-              object-fit:contain;
-            "
-          >`
-          :
-          ""
-        }
-
-        <h2>
-          ${escapeHTML(
-            school.schoolName ||
-            currentUser.schoolName ||
-            "School"
-          )}
-        </h2>
-
-        <p>
-          ${escapeHTML(
-            school.address || ""
-          )}
-        </p>
-
-        <p>
-          ${escapeHTML(
-            school.contactNumber || ""
-          )}
-        </p>
-
-        <h3 style="margin-top:10px;">
-          STUDENT REPORT CARD
-        </h3>
-
-      </div>
-
-
-      <div class="table-wrap">
-
-        <table style="min-width:650px;">
-
-          <tbody>
-
-            <tr>
-
-              <td>
-                <strong>Student Name</strong>
-              </td>
-
-              <td>
-                ${escapeHTML(
-                  student.StudentName ||
-                  student.studentName ||
-                  ""
-                )}
-              </td>
-
-              <td>
-                <strong>Admission No.</strong>
-              </td>
-
-              <td>
-                ${escapeHTML(
-                  student.StudentID ||
-                  student.studentID ||
-                  ""
-                )}
-              </td>
-
-            </tr>
-
-            <tr>
-
-              <td>
-                <strong>Class</strong>
-              </td>
-
-              <td>
-                ${escapeHTML(
-                  student.Class ||
-                  student.className ||
-                  ""
-                )}
-              </td>
-
-              <td>
-                <strong>Session</strong>
-              </td>
-
-              <td>
-                ${escapeHTML(session)}
-              </td>
-
-            </tr>
-
-            <tr>
-
-              <td>
-                <strong>Term</strong>
-              </td>
-
-              <td>
-                ${escapeHTML(term)}
-              </td>
-
-              <td>
-                <strong>Position</strong>
-              </td>
-
-              <td>
-                ${escapeHTML(position)}
-              </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>S/N</th>
-              <th>Subject</th>
-              <th>Test 1</th>
-              <th>Test 2</th>
-              <th>Exam</th>
-              <th>Total</th>
-              <th>Grade</th>
-              <th>Remark</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            ${
-              subjects.length
-              ?
-              subjects.map((r,index)=>`
-
-                <tr>
-
-                  <td>
-                    ${index+1}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.Subject ||
-                      r.subject ||
-                      ""
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.Test1 ||
-                      r.test1 ||
-                      0
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.Test2 ||
-                      r.test2 ||
-                      0
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.Exam ||
-                      r.exam ||
-                      0
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.Total ||
-                      r.total ||
-                      0
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.Grade ||
-                      r.grade ||
-                      ""
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.Remark ||
-                      r.remark ||
-                      ""
-                    )}
-                  </td>
-
-                </tr>
-
-              `).join("")
-              :
-              `
-                <tr>
-                  <td colspan="8"
-                      style="text-align:center;">
-                    No results available.
-                  </td>
-                </tr>
-              `
-            }
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-
-      <div style="
-        display:grid;
-        grid-template-columns:
-          repeat(3,1fr);
-        gap:10px;
-        margin-top:20px;
-      ">
-
-        <div style="
-          border:1px solid #ddd;
-          padding:12px;
-          text-align:center;
-        ">
-          <strong>Total Scores</strong>
-          <br>
-          ${escapeHTML(total)}
-        </div>
-
-        <div style="
-          border:1px solid #ddd;
-          padding:12px;
-          text-align:center;
-        ">
-          <strong>Average</strong>
-          <br>
-          ${escapeHTML(average)}
-        </div>
-
-        <div style="
-          border:1px solid #ddd;
-          padding:12px;
-          text-align:center;
-        ">
-          <strong>Position</strong>
-          <br>
-          ${escapeHTML(position)}
-        </div>
-
-      </div>
-
-
-      <div style="
-        margin-top:25px;
-      ">
-
-        <p>
-          <strong>Class Teacher's Comment:</strong>
-        </p>
-
-        <p style="
-          border-bottom:1px solid #555;
-          min-height:30px;
-          margin-top:10px;
-        ">
-          ${escapeHTML(
-            report.teacherComment || ""
-          )}
-        </p>
-
-      </div>
-
-
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        margin-top:45px;
-        gap:30px;
-      ">
-
-        <div style="text-align:center;">
-          ______________________
-          <br>
-          Class Teacher
-        </div>
-
-        <div style="text-align:center;">
-          ______________________
-          <br>
-          Headteacher/Principal
-        </div>
-
-      </div>
-
-
-      <p style="
-        margin-top:30px;
-        text-align:center;
-      ">
-
-        <strong>
-          Resumption Date:
-        </strong>
-
-        ${escapeHTML(
-          report.resumptionDate || ""
-        )}
-
-      </p>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   BURSAR — PAYMENT
-===================================================== */
-
-async function paymentView(){
-
-  openPanel(
-    "Generate Receipt",
-    `
-      <div class="form-group">
-
-        <label>Select Class</label>
-
-        <select
-          id="paymentClass"
-          onchange="loadPaymentStudents()"
-        >
-
-          <option value="">
-            Select class
-          </option>
-
-        </select>
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Student</label>
-
-        <select id="paymentStudent">
-
-          <option value="">
-            Select student
-          </option>
-
-        </select>
-
-      </div>
-
-      <h4 style="margin:20px 0 10px;">
-        Payment Type
-      </h4>
-
-      <label style="
-        display:block;
-        padding:10px;
-        background:#f7f9fc;
-        border-radius:10px;
-        margin-bottom:8px;
-      ">
-
-        <input
-          type="checkbox"
-          class="payment-type"
-          value="School Fees"
-        >
-
-        School Fees
-
-      </label>
-
-
-      <label style="
-        display:block;
-        padding:10px;
-        background:#f7f9fc;
-        border-radius:10px;
-        margin-bottom:8px;
-      ">
-
-        <input
-          type="checkbox"
-          class="payment-type"
-          value="Registration Fee"
-        >
-
-        Registration Fee
-
-      </label>
-
-
-      <label style="
-        display:block;
-        padding:10px;
-        background:#f7f9fc;
-        border-radius:10px;
-        margin-bottom:15px;
-      ">
-
-        <input
-          type="checkbox"
-          class="payment-type"
-          value="Books Fee"
-        >
-
-        Books Fee
-
-      </label>
-
-
-      <div class="form-group">
-
-        <label>Amount Paid</label>
-
-        <input
-          id="paymentAmount"
-          type="number"
-          min="0"
-          step="0.01"
-        >
-
-      </div>
-
-
-      <button
-        class="primary-btn"
-        onclick="recordPayment()"
-      >
-        🧾 Record Payment
-      </button>
-
-
-      <div
-        id="paymentResult"
-        style="margin-top:20px;"
-      ></div>
-    `
-  );
-
-
-  await populateClassSelect(
-    "paymentClass"
-  );
-
-
-  document.getElementById(
-    "paymentClass"
-  ).onchange =
-    loadPaymentStudents;
-
-}
-
-
-async function loadPaymentStudents(){
-
-  const className =
-    document.getElementById(
-      "paymentClass"
-    ).value;
-
-
-  const select =
-    document.getElementById(
-      "paymentStudent"
-    );
-
-
-  select.innerHTML =
-    `<option value="">
-      Select student
-    </option>`;
-
-
-  if(!className){
-    return;
-  }
-
-
-  if(!currentStudents.length){
-
-    await loadAllStudents();
-
-  }
-
-
-  currentStudents
-    .filter(student=>{
-
-      return String(
-        student.Class ||
-        student.className ||
-        ""
-      ).trim() === className;
-
-    })
-    .forEach(student=>{
-
-      const option =
-        document.createElement("option");
-
-
-      option.value =
-        student.StudentID ||
-        student.studentID ||
-        student.id ||
-        "";
-
-
-      option.textContent =
-        student.StudentName ||
-        student.studentName ||
-        student.name ||
-        "";
-
-
-      select.appendChild(option);
-
-    });
-
-}
-
-
-async function recordPayment(){
-
-  const studentID =
-    document.getElementById(
-      "paymentStudent"
-    ).value;
-
-
-  const amount =
-    Number(
-      document.getElementById(
-        "paymentAmount"
-      ).value
-    );
-
-
-  const types =
-    Array.from(
-      document.querySelectorAll(
-        ".payment-type:checked"
-      )
-    ).map(x=>x.value);
-
-
-  if(!studentID){
-
-    toast("Select a student.");
-
-    return;
-
-  }
-
-
-  if(!types.length){
-
-    toast(
-      "Select at least one payment type."
-    );
-
-    return;
-
-  }
-
-
-  if(!amount || amount <= 0){
-
-    toast(
-      "Enter a valid payment amount."
-    );
-
-    return;
-
-  }
-
-
-  showLoading(true);
-
-
-  try{
-
-    const result =
-      await api("recordPayment",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email,
-
-        studentID:studentID,
-
-        paymentTypes:types,
-
-        amount:amount
-
-      });
-
-
-    const container =
-      document.getElementById(
-        "paymentResult"
-      );
-
-
-    container.innerHTML = `
-
-      <div style="
-        padding:15px;
-        background:#e8f5e9;
-        border-radius:12px;
-      ">
-
-        <strong>
-          ${escapeHTML(
-            result.message ||
-            "Payment recorded."
-          )}
-        </strong>
-
-        ${
-          result.receiptNumber
-          ?
-          `<p style="margin-top:8px;">
-            Receipt No:
-            <strong>
-              ${escapeHTML(
-                result.receiptNumber
-              )}
-            </strong>
-          </p>`
-          :
-          ""
-        }
-
-      </div>
-
-    `;
-
-
-  }catch(error){
-
-    toast(error.message);
-
-  }finally{
-
-    showLoading(false);
-
-  }
-
-}
-
-
-/* =====================================================
-   BURSAR — RECEIPT HISTORY
-===================================================== */
-
-async function receiptHistoryView(){
-
-  openPanel(
-    "Receipt History",
-    `<div class="empty">
-      Loading receipt history...
-    </div>`
-  );
-
-
-  showLoading(true);
-
-
-  try{
-
-    const result =
-      await api("getReceiptHistory",{
-
-        schoolID:currentUser.schoolID,
-
-        email:currentUser.email
-
-      });
-
-
-    const receipts =
-      result.receipts ||
-      result.data ||
-      [];
-
-
-    let html = "";
-
-
-    if(!receipts.length){
-
-      html =
-        `<div class="empty">
-          No receipts found.
-        </div>`;
-
-    }else{
-
-      html = `
 
         <div class="table-wrap">
+          <div id="resultsList">
+            <div class="empty">
+              Select a class to view results.
+            </div>
+          </div>
+        </div>
 
-          <table>
+      </div>
 
-            <thead>
+    </section>
 
-              <tr>
 
-                <th>Receipt No.</th>
-                <th>Student</th>
-                <th>Payment</th>
-                <th>Amount</th>
-                <th>Date</th>
+    <!-- REPORT CARD -->
+    <section id="page-report-card" class="page">
 
-              </tr>
+      <div class="page-header">
+        <h2>📄 General Report Card</h2>
+        <p>Generate student report cards.</p>
+      </div>
 
-            </thead>
+      <div class="card">
 
-            <tbody>
+        <div class="form-group">
+          <label>Select Class</label>
+          <select id="reportClass">
+            <option value="">Select class</option>
+          </select>
+        </div>
 
-              ${receipts.map(r=>`
+        <div class="form-group">
+          <label>Select Student</label>
+          <select id="reportStudent">
+            <option value="">Select student</option>
+          </select>
+        </div>
 
-                <tr>
+        <div class="form-actions">
 
-                  <td>
-                    ${escapeHTML(
-                      r.receiptNumber ||
-                      r.ReceiptNumber ||
-                      ""
-                    )}
-                  </td>
+          <button
+            type="button"
+            class="primary-btn"
+            id="generateReportButton"
+          >
+            📄 Generate Report
+          </button>
 
-                  <td>
-                    ${escapeHTML(
-                      r.studentName ||
-                      r.StudentName ||
-                      ""
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.paymentTypes ||
-                      r.PaymentTypes ||
-                      ""
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.amount ||
-                      r.Amount ||
-                      ""
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHTML(
-                      r.date ||
-                      r.Date ||
-                      r.createdAt ||
-                      ""
-                    )}
-                  </td>
-
-                </tr>
-
-              `).join("")}
-
-            </tbody>
-
-          </table>
+          <button
+            type="button"
+            class="secondary-btn"
+            id="printReportButton"
+          >
+            🖨️ Print
+          </button>
 
         </div>
 
-      `;
+      </div>
 
-    }
+      <div
+        id="reportCardPreview"
+        class="card hidden"
+      ></div>
 
-
-    document.querySelector(
-      "#contentView .panel"
-    ).insertAdjacentHTML(
-      "beforeend",
-      html
-    );
+    </section>
 
 
-  }catch(error){
+    <!-- BURSAR -->
+    <section id="page-receipt" class="page">
 
-    document.querySelector(
-      "#contentView .panel"
-    ).insertAdjacentHTML(
-      "beforeend",
-      `<div class="empty">
-        ${escapeHTML(error.message)}
-      </div>`
-    );
+      <div class="page-header">
+        <h2>🧾 Generate Receipt</h2>
+        <p>Record school payments.</p>
+      </div>
 
-  }finally{
+      <div class="card">
 
-    showLoading(false);
+        <form id="paymentForm">
 
-  }
+          <div class="grid-2">
 
-}
+            <div class="form-group">
+              <label>Class</label>
+              <select id="paymentClass" required>
+                <option value="">Select class</option>
+              </select>
+            </div>
 
+            <div class="form-group">
+              <label>Student</label>
+              <select id="paymentStudent" required>
+                <option value="">Select student</option>
+              </select>
+            </div>
 
-/* =====================================================
-   INITIAL DATA
-===================================================== */
+          </div>
 
-window.addEventListener("beforeunload",function(){
+          <h3>Payment Components</h3>
 
-  /*
-    The page is intentionally kept as one single
-    ExamPlus application.
-  */
+          <label style="display:block;margin:12px 0;">
+            <input type="checkbox" value="School Fees" class="payment-component">
+            School Fees
+          </label>
 
-});
-
-</script>
-
-</body>
-</html>ɠ
+          <label style="display:block;margin:12px 0;">
+            <input type="checkbox" value="Registration Fee" class="
