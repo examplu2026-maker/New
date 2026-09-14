@@ -1,637 +1,518 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#2563eb">
-<title>ExamPlus - School Management System</title>
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f1f5f9;
-  color:#0f172a;
-}
-
-button,
-input,
-select,
-textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.hidden{
-  display:none !important;
-}
-
-/* LOGIN */
-#loginPage{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:linear-gradient(135deg,#1d4ed8,#2563eb,#0f172a);
-}
-
-.login-box{
-  width:100%;
-  max-width:420px;
-  background:white;
-  border-radius:20px;
-  padding:30px 24px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-
-.logo-circle{
-  width:75px;
-  height:75px;
-  margin:0 auto 15px;
-  border-radius:50%;
-  background:#2563eb;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:35px;
-}
-
-.login-box h1{
-  text-align:center;
-  font-size:28px;
-  margin-bottom:5px;
-}
-
-.login-subtitle{
-  text-align:center;
-  color:#64748b;
-  margin-bottom:25px;
-}
-
-.form-group{
-  margin-bottom:16px;
-}
-
-.form-group label{
-  display:block;
-  font-weight:600;
-  margin-bottom:7px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-  border:1px solid #cbd5e1;
-  border-radius:10px;
-  padding:12px;
-  outline:none;
-  background:white;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-  border-color:#2563eb;
-  box-shadow:0 0 0 3px rgba(37,99,235,.1);
-}
-
-.primary-btn,
-.secondary-btn,
-.danger-btn{
-  border:0;
-  border-radius:10px;
-  padding:12px 16px;
-  font-weight:700;
-  width:100%;
-}
-
-.primary-btn{
-  background:#2563eb;
-  color:white;
-}
-
-.primary-btn:hover{
-  background:#1d4ed8;
-}
-
-.secondary-btn{
-  background:#e2e8f0;
-  color:#0f172a;
-}
-
-.danger-btn{
-  background:#dc2626;
-  color:white;
-}
-
-.message{
-  padding:11px 13px;
-  border-radius:10px;
-  margin-bottom:15px;
-  font-size:14px;
-}
-
-.error-message{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.success-message{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.loading{
-  opacity:.65;
-  pointer-events:none;
-}
-
-/* APP */
-#appPage{
-  min-height:100vh;
-}
-
-.topbar{
-  height:64px;
-  background:#0f172a;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 15px;
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-
-.topbar-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.menu-button{
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:10px;
-  background:#1e293b;
-  color:white;
-  font-size:22px;
-}
-
-.topbar-title{
-  font-weight:800;
-  font-size:18px;
-}
-
-.user-info{
-  font-size:12px;
-  text-align:right;
-}
-
-.sidebar{
-  position:fixed;
-  top:64px;
-  left:-290px;
-  width:275px;
-  height:calc(100vh - 64px);
-  background:white;
-  box-shadow:5px 0 25px rgba(0,0,0,.12);
-  z-index:999;
-  transition:.25s;
-  overflow-y:auto;
-  padding:15px;
-}
-
-.sidebar.open{
-  left:0;
-}
-
-.sidebar-overlay{
-  position:fixed;
-  inset:64px 0 0 0;
-  background:rgba(0,0,0,.4);
-  z-index:998;
-}
-
-.nav-section{
-  margin-bottom:20px;
-}
-
-.nav-title{
-  font-size:11px;
-  text-transform:uppercase;
-  color:#94a3b8;
-  font-weight:800;
-  margin:10px 8px;
-}
-
-.nav-item{
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  border:0;
-  background:transparent;
-  padding:12px;
-  border-radius:10px;
-  color:#334155;
-  text-align:left;
-  margin-bottom:4px;
-  font-weight:600;
-}
-
-.nav-item:hover,
-.nav-item.active{
-  background:#eff6ff;
-  color:#2563eb;
-}
-
-.nav-icon{
-  width:25px;
-  text-align:center;
-  font-size:19px;
-}
-
-.content{
-  padding:20px;
-  max-width:1400px;
-  margin:auto;
-}
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.page-header{
-  margin-bottom:20px;
-}
-
-.page-header h2{
-  font-size:25px;
-  margin-bottom:5px;
-}
-
-.page-header p{
-  color:#64748b;
-}
-
-/* DASHBOARD */
-.welcome-card{
-  background:linear-gradient(135deg,#2563eb,#1e40af);
-  color:white;
-  border-radius:18px;
-  padding:24px;
-  margin-bottom:20px;
-}
-
-.welcome-card h2{
-  margin-bottom:7px;
-}
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin-bottom:20px;
-}
-
-.stat-card{
-  background:white;
-  padding:18px;
-  border-radius:14px;
-  box-shadow:0 2px 8px rgba(15,23,42,.06);
-}
-
-.stat-icon{
-  font-size:28px;
-  margin-bottom:8px;
-}
-
-.stat-value{
-  font-size:25px;
-  font-weight:800;
-}
-
-.stat-label{
-  color:#64748b;
-  font-size:13px;
-}
-
-.menu-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-
-.menu-card{
-  background:white;
-  border:0;
-  border-radius:15px;
-  padding:20px 12px;
-  min-height:125px;
-  box-shadow:0 2px 8px rgba(15,23,42,.06);
-  text-align:center;
-}
-
-.menu-card:hover{
-  transform:translateY(-2px);
-  box-shadow:0 5px 15px rgba(15,23,42,.1);
-}
-
-.menu-card-icon{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.menu-card-title{
-  font-weight:800;
-  font-size:14px;
-}
-
-.menu-card-text{
-  color:#64748b;
-  font-size:11px;
-  margin-top:4px;
-}
-
-/* CARDS */
-.card{
-  background:white;
-  border-radius:15px;
-  padding:20px;
-  box-shadow:0 2px 8px rgba(15,23,42,.06);
-  margin-bottom:18px;
-}
-
-.card h3{
-  margin-bottom:15px;
-}
-
-.grid-2,
-.grid-3{
-  display:grid;
-  gap:15px;
-}
-
-.grid-2{
-  grid-template-columns:1fr;
-}
-
-.grid-3{
-  grid-template-columns:1fr;
-}
-
-.form-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.form-actions button{
-  width:auto;
-}
-
-.table-wrap{
-  width:100%;
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:650px;
-}
-
-th,
-td{
-  border-bottom:1px solid #e2e8f0;
-  padding:11px 9px;
-  text-align:left;
-  font-size:13px;
-}
-
-th{
-  background:#f8fafc;
-  font-weight:800;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 8px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:700;
-  background:#dbeafe;
-  color:#1d4ed8;
-}
-
-.photo-preview{
-  width:100px;
-  height:100px;
-  border-radius:12px;
-  object-fit:cover;
-  background:#e2e8f0;
-  display:block;
-  margin-bottom:10px;
-}
-
-.student-photo{
-  width:50px;
-  height:50px;
-  border-radius:8px;
-  object-fit:cover;
-}
-
-.empty{
-  text-align:center;
-  padding:30px;
-  color:#64748b;
-}
-
-.list-item{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  padding:13px;
-  border-radius:10px;
-  margin-bottom:8px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-.small-btn{
-  border:0;
-  border-radius:7px;
-  padding:7px 10px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.small-danger{
-  background:#fee2e2;
-  color:#b91c1c;
-}
-
-.small-primary{
-  background:#dbeafe;
-  color:#1d4ed8;
-}
-
-.camera-box{
-  border:2px dashed #cbd5e1;
-  border-radius:12px;
-  padding:15px;
-  text-align:center;
-}
-
-video{
-  width:100%;
-  max-width:350px;
-  border-radius:12px;
-  background:#0f172a;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(15,23,42,.6);
-  z-index:2000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-}
-
-.modal-box{
-  width:100%;
-  max-width:600px;
-  max-height:90vh;
-  overflow-y:auto;
-  background:white;
-  border-radius:16px;
-  padding:20px;
-}
-
-.close-btn{
-  float:right;
-  border:0;
-  background:#e2e8f0;
-  width:35px;
-  height:35px;
-  border-radius:50%;
-}
-
-.toast{
-  position:fixed;
-  right:15px;
-  bottom:15px;
-  max-width:330px;
-  background:#0f172a;
-  color:white;
-  padding:13px 16px;
-  border-radius:10px;
-  z-index:5000;
-  box-shadow:0 5px 20px rgba(0,0,0,.25);
-}
-
-@media(min-width:700px){
-  .stats-grid{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .menu-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .grid-2{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .grid-3{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .content{
-    padding:30px;
-  }
-}
-
-@media(min-width:1000px){
-  .sidebar{
-    left:0;
-  }
-
-  .sidebar-overlay{
-    display:none !important;
-  }
-
-  .menu-button{
-    display:none;
-  }
-
-  .content{
-    margin-left:275px;
-  }
-
-  .topbar-title{
-    margin-left:275px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ExamPlus - School Management System</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    #loginPage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #0f766e, #2563eb);
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      border-radius: 20px;
+      padding: 35px 25px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    }
+
+    .logo-box {
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 15px;
+      border-radius: 18px;
+      background: #0f766e;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .login-card h1 {
+      text-align: center;
+      color: #0f766e;
+      margin-bottom: 5px;
+    }
+
+    .login-subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      outline: none;
+      background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #0f766e;
+      box-shadow: 0 0 0 3px rgba(15,118,110,0.1);
+    }
+
+    .login-btn {
+      width: 100%;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      background: #0f766e;
+      color: white;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .login-btn:hover {
+      background: #0b5f59;
+    }
+
+    #loginMessage {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* =========================
+       APP
+    ========================= */
+
+    #app {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 65px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      color: #0f766e;
+      font-size: 20px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: #0f766e;
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+    }
+
+    .user-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .logout-btn {
+      border: none;
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      width: 245px;
+      background: #111827;
+      color: white;
+      padding: 18px 12px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      color: #9ca3af;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 10px 12px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #d1d5db;
+      padding: 12px;
+      border-radius: 9px;
+      text-align: left;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: #0f766e;
+      color: white;
+    }
+
+    .nav-icon {
+      width: 25px;
+      text-align: center;
+      font-size: 17px;
+    }
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .content {
+      flex: 1;
+      padding: 25px;
+      overflow-x: hidden;
+    }
+
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    .page-header {
+      margin-bottom: 25px;
+    }
+
+    .page-header h2 {
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .page-header p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* =========================
+       DASHBOARD CARDS
+    ========================= */
+
+    .welcome-card {
+      background: linear-gradient(135deg, #0f766e, #2563eb);
+      color: white;
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .welcome-card h2 {
+      margin-bottom: 7px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .dashboard-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid #e5e7eb;
+      transition: transform 0.2s;
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #ecfdf5;
+      color: #0f766e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    .dashboard-card h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .dashboard-card p {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    /* =========================
+       CONTENT CARDS
+    ========================= */
+
+    .panel {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .panel h3 {
+      margin-bottom: 15px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .danger-btn {
+      border: none;
+      padding: 11px 15px;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+
+    .primary-btn {
+      background: #0f766e;
+      color: white;
+    }
+
+    .secondary-btn {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .danger-btn {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .stat-label {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 7px;
+      color: #0f766e;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    .menu-toggle {
+      display: none;
+      border: none;
+      background: #f3f4f6;
+      padding: 9px;
+      border-radius: 8px;
+      font-size: 20px;
+    }
+
+    @media (max-width: 800px) {
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 65px;
+        left: -260px;
+        height: calc(100vh - 65px);
+        z-index: 200;
+        transition: left 0.25s ease;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .content {
+        padding: 18px;
+      }
+
+      .user-role {
+        display: none;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .topbar {
+        padding: 0 12px;
+      }
+
+      .brand {
+        font-size: 17px;
+      }
+
+      .content {
+        padding: 14px;
+      }
+
+      .welcome-card {
+        padding: 20px;
+      }
+
+      .page-header h2 {
+        font-size: 21px;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dashboard-card {
+        padding: 15px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- LOGIN PAGE -->
-<section id="loginPage">
+<!-- ============================================================
+     LOGIN PAGE
+============================================================ -->
 
-  <div class="login-box">
+<div id="loginPage">
 
-    <div class="logo-circle">🎓</div>
+  <div class="login-card">
+
+    <div class="logo-box">EP</div>
 
     <h1>ExamPlus</h1>
-    <div class="login-subtitle">School Management System</div>
 
-    <div id="loginMessage" class="hidden"></div>
+    <p class="login-subtitle">
+      School Management System
+    </p>
 
-    <!-- IMPORTANT: FORM SUBMIT FIX -->
     <form id="loginForm">
 
       <div class="form-group">
-        <label for="loginEmail">Email</label>
+        <label for="email">Email</label>
+
         <input
           type="email"
-          id="loginEmail"
-          autocomplete="username"
+          id="email"
           placeholder="Enter your email"
           required
         >
       </div>
 
       <div class="form-group">
-        <label for="loginPassword">Password</label>
+        <label for="password">Password</label>
+
         <input
           type="password"
-          id="loginPassword"
-          autocomplete="current-password"
+          id="password"
           placeholder="Enter your password"
           required
         >
@@ -639,853 +520,767 @@ video{
 
       <button
         type="submit"
+        class="login-btn"
         id="loginButton"
-        class="primary-btn"
       >
-        🔐 Login
+        Login
       </button>
 
     </form>
 
+    <div id="loginMessage"></div>
+
   </div>
 
-</section>
+</div>
 
 
-<!-- APPLICATION -->
-<section id="appPage" class="hidden">
+<!-- ============================================================
+     MAIN APPLICATION
+============================================================ -->
+
+<div id="app">
+
+  <!-- TOP BAR -->
 
   <header class="topbar">
 
-    <div class="topbar-left">
-      <button
-        type="button"
-        class="menu-button"
-        id="menuButton"
-      >☰</button>
+    <div class="brand">
 
-      <div class="topbar-title">ExamPlus</div>
+      <button
+        class="menu-toggle"
+        onclick="toggleSidebar()"
+      >
+        ☰
+      </button>
+
+      <div class="brand-icon">
+        EP
+      </div>
+
+      <span>ExamPlus</span>
+
     </div>
 
-    <div class="user-info">
-      <div id="topUserName">User</div>
-      <div id="topUserRole">Role</div>
+    <div class="user-area">
+
+      <span id="schoolNameDisplay">
+        School
+      </span>
+
+      <span class="user-role" id="roleDisplay">
+        Role
+      </span>
+
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
+        Logout
+      </button>
+
     </div>
 
   </header>
 
 
-  <div
-    id="sidebarOverlay"
-    class="sidebar-overlay hidden"
-  ></div>
+  <div class="layout">
 
+    <!-- SIDEBAR -->
 
-  <aside id="sidebar" class="sidebar">
-
-    <div id="navigation"></div>
-
-    <button
-      type="button"
-      class="nav-item"
-      id="logoutButton"
-      style="color:#dc2626;margin-top:15px;"
+    <aside
+      class="sidebar"
+      id="sidebar"
     >
-      <span class="nav-icon">🚪</span>
-      <span>Logout</span>
-    </button>
 
-  </aside>
-
-
-  <main class="content">
-
-    <!-- DASHBOARD -->
-    <section id="page-dashboard" class="page active">
-
-      <div class="welcome-card">
-        <h2 id="welcomeTitle">Welcome to ExamPlus</h2>
-        <p id="welcomeText">
-          Manage your school from one place.
-        </p>
+      <div class="sidebar-title">
+        Main
       </div>
 
-      <div class="stats-grid">
+      <button
+        class="nav-btn active"
+        onclick="showSection('dashboard', this)"
+      >
+        <span class="nav-icon">⌂</span>
+        Dashboard
+      </button>
 
-        <div class="stat-card">
-          <div class="stat-icon">🏫</div>
-          <div class="stat-value" id="statSchools">0</div>
-          <div class="stat-label">Schools</div>
+
+      <!-- ADMIN MENU -->
+
+      <div
+        id="adminMenu"
+        style="display:none;"
+      >
+
+        <div class="sidebar-title">
+          Administration
         </div>
 
-        <div class="stat-card">
-          <div class="stat-icon">📚</div>
-          <div class="stat-value" id="statClasses">0</div>
-          <div class="stat-label">Classes</div>
+        <button
+          class="nav-btn"
+          onclick="showSection('schoolDetails', this)"
+        >
+          <span class="nav-icon">🏫</span>
+          School Details
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="showSection('students', this)"
+        >
+          <span class="nav-icon">👨‍🎓</span>
+          Students
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="showSection('classes', this)"
+        >
+          <span class="nav-icon">📚</span>
+          All Classes
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="showSection('subjects', this)"
+        >
+          <span class="nav-icon">📖</span>
+          All Subjects
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="showSection('reportCard', this)"
+        >
+          <span class="nav-icon">📊</span>
+          General Report Card
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="showSection('settings', this)"
+        >
+          <span class="nav-icon">⚙️</span>
+          Settings
+        </button>
+
+      </div>
+
+
+      <!-- BURSAR MENU -->
+
+      <div
+        id="bursarMenu"
+        style="display:none;"
+      >
+
+        <div class="sidebar-title">
+          Bursar
         </div>
 
-        <div class="stat-card">
-          <div class="stat-icon">👨‍🎓</div>
-          <div class="stat-value" id="statStudents">0</div>
-          <div class="stat-label">Students</div>
+        <button
+          class="nav-btn"
+          onclick="showSection('fees', this)"
+        >
+          <span class="nav-icon">💰</span>
+          Fees & Payments
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="showSection('receipt', this)"
+        >
+          <span class="nav-icon">🧾</span>
+          Generate Receipt
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="showSection('receiptHistory', this)"
+        >
+          <span class="nav-icon">📜</span>
+          Receipt History
+        </button>
+
+      </div>
+
+
+      <!-- TEACHER MENU -->
+
+      <div
+        id="teacherMenu"
+        style="display:none;"
+      >
+
+        <div class="sidebar-title">
+          Teacher
         </div>
 
-        <div class="stat-card">
-          <div class="stat-icon">📖</div>
-          <div class="stat-value" id="statSubjects">0</div>
-          <div class="stat-label">Subjects</div>
+        <button
+          class="nav-btn"
+          onclick="showSection('uploadResult', this)"
+        >
+          <span class="nav-icon">📝</span>
+          Upload Result
+        </button>
+
+        <button
+          class="nav-btn"
+          onclick="showSection('viewResults', this)"
+        >
+          <span class="nav-icon">📊</span>
+          View Results
+        </button>
+
+      </div>
+
+
+      <!-- SUPER ADMIN MENU -->
+
+      <div
+        id="superAdminMenu"
+        style="display:none;"
+      >
+
+        <div class="sidebar-title">
+          Platform
         </div>
 
-      </div>
+        <button
+          class="nav-btn"
+          onclick="showSection('createSchool', this)"
+        >
+          <span class="nav-icon">➕</span>
+          Create School
+        </button>
 
-      <div class="card">
-        <h3>Quick Access</h3>
-        <div id="dashboardMenus" class="menu-grid"></div>
-      </div>
+        <button
+          class="nav-btn"
+          onclick="showSection('viewSchools', this)"
+        >
+          <span class="nav-icon">🏫</span>
+          View Schools
+        </button>
 
-    </section>
-
-
-    <!-- SUPER ADMIN -->
-    <section id="page-create-school" class="page">
-
-      <div class="page-header">
-        <h2>🏫 Create School</h2>
-        <p>Create a new school in ExamPlus.</p>
-      </div>
-
-      <div class="card">
-
-        <div id="createSchoolMessage" class="hidden"></div>
-
-        <form id="createSchoolForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>School Name</label>
-              <input id="schoolName" required>
-            </div>
-
-            <div class="form-group">
-              <label>School Admin Email</label>
-              <input
-                id="schoolAdminEmail"
-                type="email"
-                required
-              >
-            </div>
-
-            <div class="form-group">
-              <label>School Admin Password</label>
-              <input
-                id="schoolAdminPassword"
-                type="password"
-                required
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Contact Number</label>
-              <input id="schoolContact">
-            </div>
-
-            <div class="form-group">
-              <label>Address</label>
-              <input id="schoolAddress">
-            </div>
-
-          </div>
-
-          <button class="primary-btn" type="submit">
-            🏫 Create School
-          </button>
-
-        </form>
+        <button
+          class="nav-btn"
+          onclick="showSection('contact', this)"
+        >
+          <span class="nav-icon">☎️</span>
+          Contact / Support
+        </button>
 
       </div>
 
-    </section>
+    </aside>
 
 
-    <!-- VIEW SCHOOLS -->
-    <section id="page-schools" class="page">
+    <!-- MAIN CONTENT -->
 
-      <div class="page-header">
-        <h2>🏫 View Schools</h2>
-        <p>Schools registered in ExamPlus.</p>
-      </div>
+    <main class="content">
 
-      <div class="card">
-        <div id="schoolsList">
-          <div class="empty">Loading schools...</div>
+
+      <!-- ======================================================
+           DASHBOARD
+      ======================================================= -->
+
+      <section
+        id="dashboard"
+        class="page-section active"
+      >
+
+        <div class="welcome-card">
+
+          <h2 id="welcomeTitle">
+            Welcome to ExamPlus
+          </h2>
+
+          <p id="welcomeText">
+            Your school management dashboard.
+          </p>
+
         </div>
-      </div>
-
-    </section>
 
 
-    <!-- SYSTEM SETTINGS -->
-    <section id="page-system-settings" class="page">
+        <div class="stats-grid">
 
-      <div class="page-header">
-        <h2>⚙️ System Settings</h2>
-        <p>Manage ExamPlus system settings.</p>
-      </div>
+          <div class="stat-card">
 
-      <div class="card">
-
-        <form id="systemSettingsForm">
-
-          <div class="form-group">
-            <label>Super Admin WhatsApp / Contact</label>
-            <input id="systemContact">
-          </div>
-
-          <button class="primary-btn">
-            💾 Save Settings
-          </button>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- SCHOOL DETAILS -->
-    <section id="page-school-details" class="page">
-
-      <div class="page-header">
-        <h2>🏫 School Details</h2>
-        <p>Manage your school's information.</p>
-      </div>
-
-      <div class="card">
-
-        <form id="schoolDetailsForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>School Name</label>
-              <input id="detailSchoolName">
+            <div class="stat-label">
+              Students
             </div>
 
-            <div class="form-group">
-              <label>Contact Number</label>
-              <input id="detailContact">
-            </div>
-
-            <div class="form-group">
-              <label>School Email</label>
-              <input id="detailEmail" type="email">
-            </div>
-
-            <div class="form-group">
-              <label>Resumption Date</label>
-              <input id="detailResumptionDate" type="date">
-            </div>
-
-            <div class="form-group">
-              <label>Address</label>
-              <textarea id="detailAddress"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>School Logo</label>
-              <input id="schoolLogo" type="file" accept="image/*">
-            </div>
-
-          </div>
-
-          <img
-            id="logoPreview"
-            class="photo-preview hidden"
-            alt="School logo"
-          >
-
-          <button class="primary-btn">
-            💾 Save School Details
-          </button>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- CLASSES -->
-    <section id="page-classes" class="page">
-
-      <div class="page-header">
-        <h2>📚 All Classes</h2>
-        <p>Create and manage school classes.</p>
-      </div>
-
-      <div class="card">
-
-        <form id="classForm">
-
-          <div class="form-group">
-            <label>Class Name</label>
-            <input
-              id="classNameInput"
-              placeholder="Example: SS1"
-              required
+            <div
+              class="stat-number"
+              id="studentCount"
             >
+              0
+            </div>
+
           </div>
 
-          <button class="primary-btn">
-            ➕ Add Class
-          </button>
 
-        </form>
+          <div class="stat-card">
 
-      </div>
+            <div class="stat-label">
+              Classes
+            </div>
 
-      <div class="card">
-        <h3>Classes</h3>
-        <div id="classesList"></div>
-      </div>
+            <div
+              class="stat-number"
+              id="classCount"
+            >
+              0
+            </div>
 
-    </section>
-
-
-    <!-- SUBJECTS -->
-    <section id="page-subjects" class="page">
-
-      <div class="page-header">
-        <h2>📖 All Subjects</h2>
-        <p>Set different subjects for each class.</p>
-      </div>
-
-      <div class="card">
-
-        <form id="subjectsForm">
-
-          <div class="form-group">
-            <label>Select Class</label>
-            <select id="subjectClassSelect" required>
-              <option value="">Select class</option>
-            </select>
           </div>
 
-          <div class="form-group">
-            <label>Subjects — one subject per line</label>
-            <textarea
-              id="subjectsInput"
-              rows="8"
-              placeholder="English Language&#10;Mathematics&#10;Biology"
-            ></textarea>
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Subjects
+            </div>
+
+            <div
+              class="stat-number"
+              id="subjectCount"
+            >
+              0
+            </div>
+
           </div>
 
-          <button class="primary-btn">
-            💾 Save Subjects
-          </button>
 
-        </form>
+          <div class="stat-card">
 
-      </div>
+            <div class="stat-label">
+              Role
+            </div>
 
-      <div class="card">
-        <h3>Current Subjects</h3>
-        <div id="subjectsList"></div>
-      </div>
+            <div
+              class="stat-number"
+              id="dashboardRole"
+              style="font-size:18px;"
+            >
+              -
+            </div>
 
-    </section>
+          </div>
 
-
-    <!-- STUDENTS -->
-    <section id="page-students" class="page">
-
-      <div class="page-header">
-        <h2>👨‍🎓 Students Details</h2>
-        <p>Register students with their details and photograph.</p>
-      </div>
-
-      <div class="card">
-
-        <div class="form-group">
-          <label>Select Class</label>
-          <select id="studentClassFilter">
-            <option value="">Select class</option>
-          </select>
         </div>
 
-      </div>
 
-      <div class="card">
+        <div class="dashboard-grid">
 
-        <h3>➕ Add Single Student</h3>
+          <div class="dashboard-card">
 
-        <form id="studentForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>Student Name</label>
-              <input id="studentName" required>
+            <div class="card-icon">
+              👨‍🎓
             </div>
 
-            <div class="form-group">
-              <label>Date of Birth</label>
-              <input id="studentDob" type="date">
-            </div>
+            <h3>Students</h3>
 
-            <div class="form-group">
-              <label>Date of Admission</label>
-              <input id="studentAdmissionDate" type="date">
-            </div>
-
-            <div class="form-group">
-              <label>Parent / Guardian Name</label>
-              <input id="guardianName">
-            </div>
-
-            <div class="form-group">
-              <label>Parent / Guardian Address</label>
-              <input id="guardianAddress">
-            </div>
-
-            <div class="form-group">
-              <label>Parent / Guardian Phone</label>
-              <input id="guardianPhone">
-            </div>
-
-          </div>
-
-          <div class="camera-box">
-
-            <h3>📷 Student Photo</h3>
-
-            <video
-              id="cameraVideo"
-              autoplay
-              playsinline
-              class="hidden"
-            ></video>
-
-            <canvas
-              id="cameraCanvas"
-              class="hidden"
-            ></canvas>
-
-            <img
-              id="studentPhotoPreview"
-              class="photo-preview hidden"
-              alt="Student photo"
-            >
-
-            <div class="form-actions">
-
-              <button
-                type="button"
-                id="startCameraButton"
-                class="secondary-btn"
-              >
-                📷 Open Camera
-              </button>
-
-              <button
-                type="button"
-                id="captureButton"
-                class="primary-btn hidden"
-              >
-                📸 Capture Photo
-              </button>
-
-            </div>
-
-            <input
-              type="hidden"
-              id="studentPhotoData"
-            >
-
-            <p style="margin-top:10px;color:#64748b;font-size:12px;">
-              Student photo is required.
+            <p>
+              Manage student records and classes.
             </p>
 
           </div>
 
-          <br>
 
-          <button class="primary-btn">
-            💾 Save Student
-          </button>
+          <div class="dashboard-card">
 
-        </form>
+            <div class="card-icon">
+              📚
+            </div>
 
-      </div>
+            <h3>Classes</h3>
 
-      <div class="card">
+            <p>
+              Create and manage school classes.
+            </p>
 
-        <h3>Registered Students</h3>
-
-        <div id="studentsList">
-          <div class="empty">
-            Select a class to view students.
           </div>
+
+
+          <div class="dashboard-card">
+
+            <div class="card-icon">
+              📊
+            </div>
+
+            <h3>Results</h3>
+
+            <p>
+              Manage academic results.
+            </p>
+
+          </div>
+
+
+          <div class="dashboard-card">
+
+            <div class="card-icon">
+              💰
+            </div>
+
+            <h3>Fees</h3>
+
+            <p>
+              Manage school payments and fees.
+            </p>
+
+          </div>
+
         </div>
 
-      </div>
-
-    </section>
+      </section>
 
 
-    <!-- BULK STUDENTS -->
-    <section id="page-bulk-students" class="page">
+      <!-- ======================================================
+           SCHOOL DETAILS
+      ======================================================= -->
 
-      <div class="page-header">
-        <h2>👥 Students in Bulk</h2>
-        <p>Add multiple students using names only.</p>
-      </div>
+      <section
+        id="schoolDetails"
+        class="page-section"
+      >
 
-      <div class="card">
+        <div class="page-header">
 
-        <form id="bulkStudentsForm">
+          <h2>School Details</h2>
+
+          <p>
+            Manage your school's basic information.
+          </p>
+
+        </div>
+
+        <div class="panel">
+
+          <h3>School Information</h3>
 
           <div class="form-group">
-            <label>Select Class</label>
-            <select id="bulkStudentClass" required>
-              <option value="">Select class</option>
-            </select>
+            <label>School Name</label>
+            <input
+              type="text"
+              id="schoolName"
+              placeholder="School name"
+            >
           </div>
 
           <div class="form-group">
-            <label>Student Names</label>
-            <textarea
-              id="bulkStudentNames"
-              rows="12"
-              placeholder="One student name per line"
-              required
-            ></textarea>
+            <label>School Address</label>
+            <input
+              type="text"
+              id="schoolAddress"
+              placeholder="School address"
+            >
           </div>
 
-          <button class="primary-btn">
-            💾 Save Students
-          </button>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- ACADEMIC SETTINGS -->
-    <section id="page-academic" class="page">
-
-      <div class="page-header">
-        <h2>⚙️ Academic Settings</h2>
-        <p>Set session, term and assessment limits.</p>
-      </div>
-
-      <div class="card">
-
-        <form id="academicForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>Academic Session</label>
-              <input
-                id="academicSession"
-                placeholder="2026/2027"
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Term</label>
-              <select id="academicTerm">
-                <option value="First Term">First Term</option>
-                <option value="Second Term">Second Term</option>
-                <option value="Third Term">Third Term</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Resumption Date</label>
-              <input id="academicResumption" type="date">
-            </div>
-
-            <div class="form-group">
-              <label>Test 1 Maximum</label>
-              <input value="15" readonly>
-            </div>
-
-            <div class="form-group">
-              <label>Test 2 Maximum</label>
-              <input value="15" readonly>
-            </div>
-
-            <div class="form-group">
-              <label>Exam Maximum</label>
-              <input value="70" readonly>
-            </div>
-
+          <div class="form-group">
+            <label>School Contact</label>
+            <input
+              type="text"
+              id="schoolContact"
+              placeholder="Phone number"
+            >
           </div>
 
-          <button class="primary-btn">
-            💾 Save Academic Settings
-          </button>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- STAFF -->
-    <section id="page-staff" class="page">
-
-      <div class="page-header">
-        <h2>👨‍💼 Staff</h2>
-        <p>Create Teacher and Bursar accounts.</p>
-      </div>
-
-      <div class="card">
-
-        <form id="staffForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>Staff Name</label>
-              <input id="staffName" required>
-            </div>
-
-            <div class="form-group">
-              <label>Email</label>
-              <input id="staffEmail" type="email" required>
-            </div>
-
-            <div class="form-group">
-              <label>Password</label>
-              <input id="staffPassword" type="password" required>
-            </div>
-
-            <div class="form-group">
-              <label>Role</label>
-              <select id="staffRole">
-                <option value="teacher">Teacher</option>
-                <option value="bursar">Bursar</option>
-              </select>
-            </div>
-
+          <div class="form-group">
+            <label>Resumption Date</label>
+            <input
+              type="date"
+              id="resumptionDate"
+            >
           </div>
 
-          <button class="primary-btn">
-            👨‍💼 Create Staff Account
-          </button>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- TEACHER UPLOAD -->
-    <section id="page-upload-result" class="page">
-
-      <div class="page-header">
-        <h2>📝 Upload Result</h2>
-        <p>Enter student assessment scores.</p>
-      </div>
-
-      <div class="card">
-
-        <form id="resultForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>Class</label>
-              <select id="resultClass" required>
-                <option value="">Select class</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Student</label>
-              <select id="resultStudent" required>
-                <option value="">Select student</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Subject</label>
-              <select id="resultSubject" required>
-                <option value="">Select subject</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Test 1 — Maximum 15</label>
-              <input
-                id="resultTest1"
-                type="number"
-                min="0"
-                max="15"
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Test 2 — Maximum 15</label>
-              <input
-                id="resultTest2"
-                type="number"
-                min="0"
-                max="15"
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Exam — Maximum 70</label>
-              <input
-                id="resultExam"
-                type="number"
-                min="0"
-                max="70"
-              >
-            </div>
-
+          <div class="form-group">
+            <label>School Logo</label>
+            <input
+              type="file"
+              id="schoolLogo"
+              accept="image/*"
+            >
           </div>
-
-          <button class="primary-btn">
-            💾 Save Result
-          </button>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- VIEW RESULTS -->
-    <section id="page-results" class="page">
-
-      <div class="page-header">
-        <h2>📊 View Results</h2>
-        <p>View uploaded student results.</p>
-      </div>
-
-      <div class="card">
-
-        <div class="form-group">
-          <label>Select Class</label>
-          <select id="viewResultClass">
-            <option value="">Select class</option>
-          </select>
-        </div>
-
-        <div class="table-wrap">
-          <div id="resultsList">
-            <div class="empty">
-              Select a class to view results.
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- REPORT CARD -->
-    <section id="page-report-card" class="page">
-
-      <div class="page-header">
-        <h2>📄 General Report Card</h2>
-        <p>Generate student report cards.</p>
-      </div>
-
-      <div class="card">
-
-        <div class="form-group">
-          <label>Select Class</label>
-          <select id="reportClass">
-            <option value="">Select class</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Select Student</label>
-          <select id="reportStudent">
-            <option value="">Select student</option>
-          </select>
-        </div>
-
-        <div class="form-actions">
 
           <button
-            type="button"
             class="primary-btn"
-            id="generateReportButton"
+            onclick="saveSchoolDetails()"
           >
-            📄 Generate Report
-          </button>
-
-          <button
-            type="button"
-            class="secondary-btn"
-            id="printReportButton"
-          >
-            🖨️ Print
+            Save School Details
           </button>
 
         </div>
 
-      </div>
-
-      <div
-        id="reportCardPreview"
-        class="card hidden"
-      ></div>
-
-    </section>
+      </section>
 
 
-    <!-- BURSAR -->
-    <section id="page-receipt" class="page">
+      <!-- ======================================================
+           STUDENTS
+      ======================================================= -->
 
-      <div class="page-header">
-        <h2>🧾 Generate Receipt</h2>
-        <p>Record school payments.</p>
-      </div>
+      <section
+        id="students"
+        class="page-section"
+      >
 
-      <div class="card">
+        <div class="page-header">
 
-        <form id="paymentForm">
+          <h2>Students Details</h2>
 
-          <div class="grid-2">
+          <p>
+            Register and manage students.
+          </p>
 
-            <div class="form-group">
-              <label>Class</label>
-              <select id="paymentClass" required>
-                <option value="">Select class</option>
-              </select>
-            </div>
+        </div>
 
-            <div class="form-group">
-              <label>Student</label>
-              <select id="paymentStudent" required>
-                <option value="">Select student</option>
-              </select>
-            </div>
+
+        <div class="panel">
+
+          <h3>Student Management</h3>
+
+          <div class="button-row">
+
+            <button
+              class="primary-btn"
+              onclick="studentAction('single')"
+            >
+              👤 Add Single Student
+            </button>
+
+            <button
+              class="secondary-btn"
+              onclick="studentAction('bulk')"
+            >
+              👥 Add Students in Bulk
+            </button>
+
+            <button
+              class="secondary-btn"
+              onclick="studentAction('view')"
+            >
+              👁 View Students
+            </button>
 
           </div>
 
-          <h3>Payment Components</h3>
+        </div>
 
-          <label style="display:block;margin:12px 0;">
-            <input type="checkbox" value="School Fees" class="payment-component">
-            School Fees
-          </label>
 
-          <label style="display:block;margin:12px 0;">
-            <input type="checkbox" value="Registration Fee" class="
+        <div
+          class="panel"
+          id="studentArea"
+        >
+
+          <h3>
+            Student registration area
+          </h3>
+
+          <p style="color:#6b7280;">
+            Select an option above to continue.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ======================================================
+           CLASSES
+      ======================================================= -->
+
+      <section
+        id="classes"
+        class="page-section"
+      >
+
+        <div class="page-header">
+
+          <h2>All Classes</h2>
+
+          <p>
+            Create and manage school classes.
+          </p>
+
+        </div>
+
+
+        <div class="panel">
+
+          <h3>Create Class</h3>
+
+          <div class="form-group">
+
+            <label>
+              Class Name
+            </label>
+
+            <input
+              type="text"
+              id="classNameInput"
+              placeholder="Example: SS1"
+            >
+
+          </div>
+
+          <button
+            class="primary-btn"
+            onclick="createClass()"
+          >
+            Add Class
+          </button>
+
+        </div>
+
+
+        <div class="panel">
+
+          <h3>Existing Classes</h3>
+
+          <div id="classList">
+            No classes loaded yet.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ======================================================
+           SUBJECTS
+      ======================================================= -->
+
+      <section
+        id="subjects"
+        class="page-section"
+      >
+
+        <div class="page-header">
+
+          <h2>All Subjects</h2>
+
+          <p>
+            Add subjects to each class.
+          </p>
+
+        </div>
+
+
+        <div class="panel">
+
+          <h3>Subjects in Bulk</h3>
+
+          <div class="form-group">
+
+            <label>
+              Select Class
+            </label>
+
+            <select id="subjectClassSelect">
+
+              <option value="">
+                Select class
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Subjects
+            </label>
+
+            <textarea
+              id="bulkSubjects"
+              rows="7"
+              style="width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;"
+              placeholder="Enter one subject per line"
+            ></textarea>
+
+          </div>
+
+
+          <button
+            class="primary-btn"
+            onclick="saveSubjects()"
+          >
+            Save Subjects
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ======================================================
+           REPORT CARD
+      ======================================================= -->
+
+      <section
+        id="reportCard"
+        class="page-section"
+      >
+
+        <div class="page-header">
+
+          <h2>General Report Card</h2>
+
+          <p>
+            Generate student academic reports.
+          </p>
+
+        </div>
+
+
+        <div class="panel">
+
+          <h3>Report Card</h3>
+
+          <p style="color:#6b7280;margin-bottom:15px;">
+            The report card generator will be connected to
+            students, subjects and results.
+          </p>
+
+          <div class="button-row">
+
+            <button
+              class="primary-btn"
+              onclick="reportAction('single')"
+            >
+              Generate Report
+            </button>
+
+            <button
+              class="secondary-btn"
+              onclick="reportAction('all')"
+            >
+              Generate All
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ======================================================
+           SETTINGS
+      ======================================================= -->
+
+      <section
+        id="settings"
+        class="page-section"
+      >
+
+        <div class="page-header">
+
+          <h2>Settings</h2>
+
+          <p>
+            Configure assessment and school
