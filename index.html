@@ -1600,4 +1600,4245 @@ async function createSchool(event){
 
         adminEmail:email,
 
-       
+        adminPassword:password
+
+      });
+
+
+    toast(
+      result.message ||
+      "School created successfully."
+    );
+
+    createSchoolView();
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   SUPER ADMIN — VIEW SCHOOLS
+===================================================== */
+
+async function schoolsView(){
+
+  openPanel(
+    "View Schools",
+    `<div class="empty">Loading schools...</div>`
+  );
+
+
+  showLoading(true);
+
+  try{
+
+    const result =
+      await api("getSchools",{
+        email:currentUser.email
+      });
+
+
+    const schools =
+      result.schools ||
+      result.data ||
+      [];
+
+
+    let html = "";
+
+
+    if(!schools.length){
+
+      html =
+        `<div class="empty">
+          No schools have been created yet.
+        </div>`;
+
+    }else{
+
+      html = `
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>School ID</th>
+                <th>School Name</th>
+                <th>Admin Email</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              ${schools.map(s=>`
+
+                <tr>
+
+                  <td>
+                    ${escapeHTML(
+                      s.schoolID ||
+                      s.id ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      s.schoolName ||
+                      s.name ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      s.adminEmail ||
+                      s.email ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      s.status ||
+                      "Active"
+                    )}
+                  </td>
+
+                </tr>
+
+              `).join("")}
+
+            </tbody>
+
+          </table>
+
+        </div>
+      `;
+
+    }
+
+
+    document.querySelector("#contentView .panel")
+      .insertAdjacentHTML(
+        "beforeend",
+        html
+      );
+
+
+  }catch(error){
+
+    document.querySelector("#contentView .panel")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<div class="empty">
+          ${escapeHTML(error.message)}
+        </div>`
+      );
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   SYSTEM SETTINGS
+===================================================== */
+
+async function systemSettingsView(){
+
+  openPanel(
+    "System Settings",
+    `
+      <div class="form-group">
+        <label>ExamPlus System Name</label>
+        <input id="systemName" value="ExamPlus">
+      </div>
+
+      <div class="form-group">
+        <label>Default Trial Days</label>
+        <input
+          id="trialDays"
+          type="number"
+          min="0"
+          value="7"
+        >
+      </div>
+
+      <button
+        class="primary-btn"
+        onclick="saveSystemSettings()"
+      >
+        💾 Save System Settings
+      </button>
+    `
+  );
+
+
+  try{
+
+    const result =
+      await api("getSystemSettings",{
+        email:currentUser.email
+      });
+
+
+    const settings =
+      result.settings ||
+      result.data ||
+      {};
+
+
+    if(settings.systemName){
+      document.getElementById("systemName")
+        .value = settings.systemName;
+    }
+
+    if(settings.trialDays !== undefined){
+      document.getElementById("trialDays")
+        .value = settings.trialDays;
+    }
+
+  }catch(e){
+
+    console.log(e);
+
+  }
+
+}
+
+
+async function saveSystemSettings(){
+
+  showLoading(true);
+
+  try{
+
+    await api("saveSystemSettings",{
+
+      email:currentUser.email,
+
+      settings:{
+        systemName:
+          document.getElementById("systemName").value.trim(),
+
+        trialDays:
+          Number(
+            document.getElementById("trialDays").value
+          )
+
+      }
+
+    });
+
+
+    toast("System settings saved.");
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   SCHOOL ADMIN — SCHOOL DETAILS
+===================================================== */
+
+async function schoolDetailsView(){
+
+  openPanel(
+    "School Details",
+    `<div class="empty">Loading school details...</div>`
+  );
+
+
+  showLoading(true);
+
+
+  try{
+
+    const result =
+      await api("getSchool",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    const school =
+      result.school ||
+      result.data ||
+      {};
+
+
+    document.querySelector("#contentView .panel")
+      .insertAdjacentHTML(
+        "beforeend",
+        `
+        <form onsubmit="saveSchoolDetails(event)">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>School Name</label>
+              <input
+                id="schoolName"
+                value="${escapeHTML(
+                  school.schoolName || ""
+                )}"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Contact Number</label>
+              <input
+                id="schoolContact"
+                value="${escapeHTML(
+                  school.contactNumber || ""
+                )}"
+              >
+            </div>
+
+            <div class="form-group form-full">
+              <label>School Address</label>
+              <textarea
+                id="schoolAddress"
+              >${escapeHTML(
+                school.address || ""
+              )}</textarea>
+            </div>
+
+            <div class="form-group">
+              <label>School Email</label>
+              <input
+                id="schoolEmail"
+                type="email"
+                value="${escapeHTML(
+                  school.schoolEmail || ""
+                )}"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Resumption Date</label>
+              <input
+                id="schoolResumption"
+                type="date"
+                value="${escapeHTML(
+                  school.resumptionDate || ""
+                )}"
+              >
+            </div>
+
+            <div class="form-group form-full">
+              <label>School Logo</label>
+
+              <input
+                id="schoolLogo"
+                type="file"
+                accept="image/*"
+              >
+
+              <small>
+                Logo will be used on school documents.
+              </small>
+
+            </div>
+
+          </div>
+
+          <button
+            class="primary-btn"
+            type="submit"
+          >
+            💾 Save School Details
+          </button>
+
+        </form>
+        `
+      );
+
+
+  }catch(error){
+
+    document.querySelector("#contentView .panel")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<div class="empty">
+          ${escapeHTML(error.message)}
+        </div>`
+      );
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+async function saveSchoolDetails(event){
+
+  event.preventDefault();
+
+  showLoading(true);
+
+
+  try{
+
+    let logo = "";
+
+
+    const file =
+      document.getElementById("schoolLogo").files[0];
+
+
+    if(file){
+
+      logo =
+        await fileToDataURL(file);
+
+    }
+
+
+    await api("saveSchoolDetails",{
+
+      email:currentUser.email,
+
+      schoolID:currentUser.schoolID,
+
+      schoolName:
+        document.getElementById("schoolName").value.trim(),
+
+      address:
+        document.getElementById("schoolAddress").value.trim(),
+
+      contactNumber:
+        document.getElementById("schoolContact").value.trim(),
+
+      schoolEmail:
+        document.getElementById("schoolEmail").value.trim(),
+
+      resumptionDate:
+        document.getElementById("schoolResumption").value,
+
+      logo:logo
+
+    });
+
+
+    currentUser.schoolName =
+      document.getElementById("schoolName").value.trim();
+
+    sessionStorage.setItem(
+      "examplusUser",
+      JSON.stringify(currentUser)
+    );
+
+
+    toast("School details saved.");
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   FILE TO DATA URL
+===================================================== */
+
+function fileToDataURL(file){
+
+  return new Promise((resolve,reject)=>{
+
+    const reader = new FileReader();
+
+    reader.onload =
+      ()=>resolve(reader.result);
+
+    reader.onerror =
+      ()=>reject(
+        new Error("Could not read image.")
+      );
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+
+/* =====================================================
+   CLASSES
+===================================================== */
+
+async function classesView(){
+
+  openPanel(
+    "All Classes",
+    `
+      <form onsubmit="saveClass(event)">
+
+        <div class="form-group">
+
+          <label>Class Name</label>
+
+          <input
+            id="className"
+            placeholder="Example: SS1"
+            required
+          >
+
+        </div>
+
+        <button
+          class="success-btn"
+          type="submit"
+        >
+          ➕ Create Class
+        </button>
+
+      </form>
+
+      <div id="classesList">
+        <div class="empty">
+          Loading classes...
+        </div>
+      </div>
+    `
+  );
+
+
+  await loadClassesList();
+
+}
+
+
+async function loadClassesList(){
+
+  try{
+
+    const result =
+      await api("getClasses",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    currentClasses =
+      result.classes ||
+      result.data ||
+      [];
+
+
+    const container =
+      document.getElementById("classesList");
+
+
+    if(!currentClasses.length){
+
+      container.innerHTML =
+        `<div class="empty">
+          No classes created yet.
+        </div>`;
+
+      return;
+
+    }
+
+
+    container.innerHTML = `
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${currentClasses.map(cls=>{
+
+              const name =
+                typeof cls === "string"
+                  ? cls
+                  : cls.className || cls.name || "";
+
+              return `
+
+                <tr>
+
+                  <td>
+                    ${escapeHTML(name)}
+                  </td>
+
+                  <td>
+
+                    <button
+                      class="danger-btn"
+                      onclick="deleteClassItem('${encodeURIComponent(name)}')"
+                    >
+                      Delete
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              `;
+
+            }).join("")}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    `;
+
+  }catch(error){
+
+    document.getElementById("classesList")
+      .innerHTML =
+      `<div class="empty">
+        ${escapeHTML(error.message)}
+      </div>`;
+
+  }
+
+}
+
+
+async function saveClass(event){
+
+  event.preventDefault();
+
+  const name =
+    document.getElementById("className")
+      .value.trim();
+
+
+  if(!name){
+    return;
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("saveClass",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      className:name
+
+    });
+
+
+    toast("Class created.");
+
+    classesView();
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+async function deleteClassItem(encoded){
+
+  const className =
+    decodeURIComponent(encoded);
+
+
+  if(!confirm(
+    `Delete class "${className}"?`
+  )){
+    return;
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("deleteClass",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      className:className
+
+    });
+
+
+    toast("Class deleted.");
+
+    classesView();
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   SUBJECTS
+===================================================== */
+
+async function subjectsView(){
+
+  openPanel(
+    "All Subjects",
+    `
+      <div class="form-group">
+
+        <label>Select Class</label>
+
+        <select
+          id="subjectClass"
+          onchange="showSubjectsForSelectedClass()"
+        >
+          <option value="">
+            Select class
+          </option>
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Subjects in Bulk
+        </label>
+
+        <textarea
+          id="bulkSubjects"
+          placeholder="English&#10;Mathematics&#10;Biology"
+        ></textarea>
+
+        <small>
+          Enter one subject per line.
+        </small>
+
+      </div>
+
+      <button
+        class="success-btn"
+        onclick="saveSubjects()"
+      >
+        💾 Save Subjects
+      </button>
+
+      <div id="subjectList"></div>
+    `
+  );
+
+
+  await populateClassSelect(
+    "subjectClass"
+  );
+
+  await loadSubjects();
+
+}
+
+
+async function loadSubjects(){
+
+  try{
+
+    const result =
+      await api("getSubjects",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    currentSubjects =
+      result.subjects ||
+      result.data ||
+      {};
+
+
+    showSubjectsForSelectedClass();
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+
+}
+
+
+function showSubjectsForSelectedClass(){
+
+  const className =
+    document.getElementById("subjectClass")
+      ?.value;
+
+
+  const list =
+    document.getElementById("subjectList");
+
+
+  if(!list){
+    return;
+  }
+
+
+  if(!className){
+
+    list.innerHTML = "";
+
+    return;
+
+  }
+
+
+  const subjects =
+    Array.isArray(currentSubjects[className])
+      ? currentSubjects[className]
+      : [];
+
+
+  document.getElementById("bulkSubjects")
+    .value = "";
+
+
+  list.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${
+            subjects.length
+            ?
+            subjects.map(subject=>`
+
+              <tr>
+
+                <td>
+                  ${escapeHTML(subject)}
+                </td>
+
+                <td>
+
+                  <button
+                    class="danger-btn"
+                    onclick="deleteSubjectItem('${encodeURIComponent(className)}','${encodeURIComponent(subject)}')"
+                  >
+                    Delete
+                  </button>
+
+                </td>
+
+              </tr>
+
+            `).join("")
+            :
+            `
+              <tr>
+                <td colspan="2">
+                  No subjects for this class.
+                </td>
+              </tr>
+            `
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+async function saveSubjects(){
+
+  const className =
+    document.getElementById("subjectClass").value;
+
+
+  if(!className){
+
+    toast("Select a class first.");
+
+    return;
+
+  }
+
+
+  const text =
+    document.getElementById("bulkSubjects")
+      .value;
+
+
+  const subjects =
+    text
+      .split(/\r?\n/)
+      .map(x=>x.trim())
+      .filter(Boolean);
+
+
+  if(!subjects.length){
+
+    toast("Enter at least one subject.");
+
+    return;
+
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("saveSubjects",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      className:className,
+
+      subjects:subjects
+
+    });
+
+
+    toast("Subjects saved.");
+
+    subjectsView();
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+async function deleteSubjectItem(
+  encodedClass,
+  encodedSubject
+){
+
+  const className =
+    decodeURIComponent(encodedClass);
+
+  const subject =
+    decodeURIComponent(encodedSubject);
+
+
+  if(!confirm(
+    `Delete ${subject}?`
+  )){
+    return;
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("deleteSubject",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      className:className,
+
+      subject:subject
+
+    });
+
+
+    toast("Subject deleted.");
+
+    subjectsView();
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   GENERIC CLASS SELECT
+===================================================== */
+
+async function populateClassSelect(
+  selectId,
+  selectedValue=""
+){
+
+  const select =
+    document.getElementById(selectId);
+
+
+  if(!select){
+    return;
+  }
+
+
+  try{
+
+    if(!currentClasses.length){
+
+      const result =
+        await api("getClasses",{
+
+          schoolID:currentUser.schoolID,
+
+          email:currentUser.email
+
+        });
+
+
+      currentClasses =
+        result.classes ||
+        result.data ||
+        [];
+
+    }
+
+
+    select.innerHTML =
+      `<option value="">
+        Select class
+      </option>`;
+
+
+    currentClasses.forEach(cls=>{
+
+      const name =
+        typeof cls === "string"
+          ? cls
+          : cls.className || cls.name || "";
+
+
+      const option =
+        document.createElement("option");
+
+      option.value = name;
+      option.textContent = name;
+
+      if(name === selectedValue){
+        option.selected = true;
+      }
+
+      select.appendChild(option);
+
+    });
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+
+}
+
+
+/* =====================================================
+   STUDENTS DETAILS
+===================================================== */
+
+async function studentsView(){
+
+  openPanel(
+    "Students Details",
+    `
+      <div class="form-group">
+
+        <label>Select Class</label>
+
+        <select
+          id="studentClass"
+          onchange="loadStudentsForClass()"
+        >
+          <option value="">
+            Select class
+          </option>
+        </select>
+
+      </div>
+
+      <h4 style="margin:20px 0 12px;">
+        Add Single Student
+      </h4>
+
+      <form onsubmit="saveSingleStudent(event)">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Student Name</label>
+            <input id="studentName" required>
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input id="studentDOB" type="date">
+          </div>
+
+          <div class="form-group">
+            <label>Date of Admission</label>
+            <input id="studentAdmission" type="date">
+          </div>
+
+          <div class="form-group">
+            <label>Parent/Guardian Name</label>
+            <input id="guardianName">
+          </div>
+
+          <div class="form-group form-full">
+            <label>Parent/Guardian Address</label>
+            <textarea id="guardianAddress"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Parent/Guardian Phone Number</label>
+            <input id="guardianPhone" type="tel">
+          </div>
+
+        </div>
+
+
+        <div class="photo-area">
+
+          <strong>Student Photo</strong>
+
+          <p style="margin:8px 0;color:#718096;font-size:13px;">
+            Student photo is required.
+          </p>
+
+          <label class="camera-btn">
+            📷 Capture Student Photo
+            <input
+              id="cameraInput"
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onchange="captureStudentPhoto(event)"
+            >
+          </label>
+
+          <img
+            id="studentPhotoPreview"
+            alt="Student Photo"
+          >
+
+        </div>
+
+
+        <button
+          class="primary-btn"
+          type="submit"
+        >
+          💾 Save Student
+        </button>
+
+      </form>
+
+      <div id="studentsClassList">
+        <div class="empty">
+          Select a class to view students.
+        </div>
+      </div>
+    `
+  );
+
+
+  await populateClassSelect(
+    "studentClass"
+  );
+
+
+  await loadAllStudents();
+
+}
+
+
+async function captureStudentPhoto(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file){
+    return;
+  }
+
+
+  try{
+
+    currentPhoto =
+      await fileToDataURL(file);
+
+
+    const preview =
+      document.getElementById(
+        "studentPhotoPreview"
+      );
+
+
+    preview.src = currentPhoto;
+
+    preview.style.display = "block";
+
+
+  }catch(error){
+
+    toast("Unable to load photo.");
+
+  }
+
+}
+
+
+async function loadAllStudents(){
+
+  try{
+
+    const result =
+      await api("getStudents",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    currentStudents =
+      result.students ||
+      result.data ||
+      [];
+
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+async function loadStudentsForClass(){
+
+  const className =
+    document.getElementById("studentClass")
+      .value;
+
+
+  const container =
+    document.getElementById(
+      "studentsClassList"
+    );
+
+
+  if(!className){
+
+    container.innerHTML =
+      `<div class="empty">
+        Select a class to view students.
+      </div>`;
+
+    return;
+
+  }
+
+
+  if(!currentStudents.length){
+
+    await loadAllStudents();
+
+  }
+
+
+  const students =
+    currentStudents
+      .filter(student=>{
+
+        return String(
+          student.Class ||
+          student.className ||
+          student.class ||
+          ""
+        ).trim() === className;
+
+      })
+      .sort((a,b)=>{
+
+        const aa =
+          String(
+            a.StudentName ||
+            a.studentName ||
+            a.name ||
+            ""
+          ).toLowerCase();
+
+        const bb =
+          String(
+            b.StudentName ||
+            b.studentName ||
+            b.name ||
+            ""
+          ).toLowerCase();
+
+        return aa.localeCompare(bb);
+
+      });
+
+
+  if(!students.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        No students found in ${escapeHTML(className)}.
+      </div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <h4 style="margin:25px 0 10px;">
+      Students in ${escapeHTML(className)}
+    </h4>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Photo</th>
+            <th>Student Name</th>
+            <th>Student ID</th>
+            <th>Date of Birth</th>
+            <th>Guardian</th>
+            <th>Phone</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${students.map(student=>{
+
+            const id =
+              student.StudentID ||
+              student.studentID ||
+              student.id ||
+              "";
+
+            const name =
+              student.StudentName ||
+              student.studentName ||
+              student.name ||
+              "";
+
+            const photo =
+              student.Photo ||
+              student.photo ||
+              "";
+
+            return `
+
+              <tr>
+
+                <td>
+
+                  ${
+                    photo
+                    ?
+                    `<img
+                      src="${photo}"
+                      style="
+                        width:45px;
+                        height:45px;
+                        border-radius:8px;
+                        object-fit:cover;
+                      "
+                    >`
+                    :
+                    "📷"
+                  }
+
+                </td>
+
+                <td>
+                  ${escapeHTML(name)}
+                </td>
+
+                <td>
+                  ${escapeHTML(id)}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    student.DateOfBirth ||
+                    student.dateOfBirth ||
+                    ""
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    student.ParentGuardianName ||
+                    student.parentGuardianName ||
+                    ""
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    student.ParentGuardianPhone ||
+                    student.parentGuardianPhone ||
+                    ""
+                  )}
+                </td>
+
+                <td>
+
+                  <button
+                    class="danger-btn"
+                    onclick="deleteStudentItem('${encodeURIComponent(id)}')"
+                  >
+                    Delete
+                  </button>
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+async function saveSingleStudent(event){
+
+  event.preventDefault();
+
+
+  const className =
+    document.getElementById("studentClass")
+      .value;
+
+
+  if(!className){
+
+    toast("Please select a class.");
+
+    return;
+
+  }
+
+
+  if(!currentPhoto){
+
+    toast(
+      "Student photo is required."
+    );
+
+    return;
+
+  }
+
+
+  const student = {
+
+    StudentName:
+      document.getElementById("studentName")
+        .value.trim(),
+
+    DateOfBirth:
+      document.getElementById("studentDOB").value,
+
+    DateOfAdmission:
+      document.getElementById("studentAdmission").value,
+
+    ParentGuardianName:
+      document.getElementById("guardianName")
+        .value.trim(),
+
+    ParentGuardianAddress:
+      document.getElementById("guardianAddress")
+        .value.trim(),
+
+    ParentGuardianPhone:
+      document.getElementById("guardianPhone")
+        .value.trim(),
+
+    Photo:currentPhoto,
+
+    Class:className
+
+  };
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("saveStudent",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      student:student
+
+    });
+
+
+    toast("Student saved successfully.");
+
+
+    document.getElementById("studentName").value = "";
+    document.getElementById("studentDOB").value = "";
+    document.getElementById("studentAdmission").value = "";
+    document.getElementById("guardianName").value = "";
+    document.getElementById("guardianAddress").value = "";
+    document.getElementById("guardianPhone").value = "";
+
+    currentPhoto = "";
+
+    document.getElementById(
+      "studentPhotoPreview"
+    ).style.display = "none";
+
+    document.getElementById(
+      "cameraInput"
+    ).value = "";
+
+
+    await loadAllStudents();
+
+    await loadStudentsForClass();
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+async function deleteStudentItem(encodedID){
+
+  const studentID =
+    decodeURIComponent(encodedID);
+
+
+  if(!confirm(
+    "Delete this student?"
+  )){
+    return;
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("deleteStudent",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      studentID:studentID
+
+    });
+
+
+    toast("Student deleted.");
+
+    await loadAllStudents();
+
+    await loadStudentsForClass();
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   BULK STUDENTS
+===================================================== */
+
+function bulkStudentsView(){
+
+  openPanel(
+    "Students in Bulk",
+    `
+      <div class="form-group">
+
+        <label>Select Class</label>
+
+        <select id="bulkStudentClass">
+          <option value="">
+            Select class
+          </option>
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Student Names
+        </label>
+
+        <textarea
+          id="bulkStudentNames"
+          style="min-height:250px;"
+          placeholder="Ahmed Musa&#10;Fatima Bello&#10;Ibrahim Ali"
+        ></textarea>
+
+        <small>
+          Enter one student name per line.
+        </small>
+
+      </div>
+
+      <button
+        class="primary-btn"
+        onclick="saveBulkStudents()"
+      >
+        👨‍🎓 Save Students
+      </button>
+    `
+  );
+
+
+  populateClassSelect(
+    "bulkStudentClass"
+  );
+
+}
+
+
+async function saveBulkStudents(){
+
+  const className =
+    document.getElementById(
+      "bulkStudentClass"
+    ).value;
+
+
+  const text =
+    document.getElementById(
+      "bulkStudentNames"
+    ).value;
+
+
+  if(!className){
+
+    toast("Select a class.");
+
+    return;
+
+  }
+
+
+  const names =
+    text
+      .split(/\r?\n/)
+      .map(x=>x.trim())
+      .filter(Boolean);
+
+
+  if(!names.length){
+
+    toast("Enter student names.");
+
+    return;
+
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("saveStudentsBulk",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      className:className,
+
+      names:names
+
+    });
+
+
+    toast(
+      `${names.length} student(s) saved.`
+    );
+
+
+    document.getElementById(
+      "bulkStudentNames"
+    ).value = "";
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   ACADEMIC SETTINGS
+===================================================== */
+
+async function academicSettingsView(){
+
+  openPanel(
+    "Academic Settings",
+    `
+      <form onsubmit="saveAcademicSettings(event)">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label>Session</label>
+
+            <input
+              id="academicSession"
+              placeholder="2026/2027"
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Term</label>
+
+            <select id="academicTerm">
+
+              <option value="">
+                Select Term
+              </option>
+
+              <option value="First Term">
+                First Term
+              </option>
+
+              <option value="Second Term">
+                Second Term
+              </option>
+
+              <option value="Third Term">
+                Third Term
+              </option>
+
+            </select>
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Resumption Date</label>
+
+            <input
+              id="academicResumption"
+              type="date"
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Test 1 Maximum</label>
+
+            <input
+              id="test1Max"
+              type="number"
+              value="15"
+              readonly
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Test 2 Maximum</label>
+
+            <input
+              id="test2Max"
+              type="number"
+              value="15"
+              readonly
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Exam Maximum</label>
+
+            <input
+              id="examMax"
+              type="number"
+              value="70"
+              readonly
+            >
+
+          </div>
+
+        </div>
+
+        <p style="
+          background:#f7f9fc;
+          padding:12px;
+          border-radius:10px;
+          margin-bottom:15px;
+          font-size:13px;
+        ">
+          Total maximum score:
+          <strong>100</strong>
+          (15 + 15 + 70)
+        </p>
+
+        <button
+          class="primary-btn"
+          type="submit"
+        >
+          💾 Save Academic Settings
+        </button>
+
+      </form>
+    `
+  );
+
+
+  try{
+
+    const result =
+      await api("getAcademicSettings",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    academicSettings =
+      result.settings ||
+      result.data ||
+      academicSettings;
+
+
+    document.getElementById(
+      "academicSession"
+    ).value =
+      academicSettings.session || "";
+
+
+    document.getElementById(
+      "academicTerm"
+    ).value =
+      academicSettings.term || "";
+
+
+    document.getElementById(
+      "academicResumption"
+    ).value =
+      academicSettings.resumptionDate || "";
+
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+async function saveAcademicSettings(event){
+
+  event.preventDefault();
+
+
+  academicSettings = {
+
+    session:
+      document.getElementById(
+        "academicSession"
+      ).value.trim(),
+
+    term:
+      document.getElementById(
+        "academicTerm"
+      ).value,
+
+    resumptionDate:
+      document.getElementById(
+        "academicResumption"
+      ).value,
+
+    test1Max:15,
+
+    test2Max:15,
+
+    examMax:70
+
+  };
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("saveAcademicSettings",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      settings:academicSettings
+
+    });
+
+
+    toast(
+      "Academic settings saved."
+    );
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   STAFF
+===================================================== */
+
+function staffView(){
+
+  openPanel(
+    "Staff",
+    `
+      <form onsubmit="createStaffAccount(event)">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label>Staff Name</label>
+
+            <input
+              id="staffName"
+              required
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Email</label>
+
+            <input
+              id="staffEmail"
+              type="email"
+              required
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Password</label>
+
+            <input
+              id="staffPassword"
+              type="password"
+              required
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Role</label>
+
+            <select id="staffRole">
+
+              <option value="Teacher">
+                Teacher
+              </option>
+
+              <option value="Bursar">
+                Bursar
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <button
+          class="primary-btn"
+          type="submit"
+        >
+          👨‍💼 Create Staff Account
+        </button>
+
+      </form>
+
+      <div style="
+        margin-top:20px;
+        padding:14px;
+        background:#f7f9fc;
+        border-radius:12px;
+        font-size:13px;
+      ">
+        Staff accounts created here will belong to
+        this school.
+      </div>
+    `
+  );
+
+}
+
+
+async function createStaffAccount(event){
+
+  event.preventDefault();
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("createStaff",{
+
+      email:currentUser.email,
+
+      schoolID:currentUser.schoolID,
+
+      staffName:
+        document.getElementById("staffName")
+          .value.trim(),
+
+      staffEmail:
+        document.getElementById("staffEmail")
+          .value.trim(),
+
+      staffPassword:
+        document.getElementById("staffPassword")
+          .value,
+
+      role:
+        document.getElementById("staffRole")
+          .value
+
+    });
+
+
+    toast(
+      "Staff account created."
+    );
+
+
+    document.getElementById("staffName").value = "";
+    document.getElementById("staffEmail").value = "";
+    document.getElementById("staffPassword").value = "";
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   CONTACT US
+===================================================== */
+
+async function contactView(){
+
+  openPanel(
+    "Contact Us",
+    `<div class="empty">
+      Loading contact information...
+    </div>`
+  );
+
+
+  showLoading(true);
+
+
+  try{
+
+    const result =
+      await api("getContact",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    const contact =
+      result.contact ||
+      result.data ||
+      {};
+
+
+    document.querySelector("#contentView .panel")
+      .insertAdjacentHTML(
+        "beforeend",
+        `
+        <div style="
+          background:#f7f9fc;
+          border-radius:15px;
+          padding:20px;
+        ">
+
+          <h4 style="margin-bottom:10px;">
+            ExamPlus Super Admin
+          </h4>
+
+          <p style="
+            color:#718096;
+            margin-bottom:15px;
+          ">
+            Use the contact details below
+            for ExamPlus support.
+          </p>
+
+          <p>
+            <strong>WhatsApp:</strong>
+            ${escapeHTML(
+              contact.whatsapp ||
+              contact.phone ||
+              "Not available"
+            )}
+          </p>
+
+          <p style="margin-top:8px;">
+            <strong>Email:</strong>
+            ${escapeHTML(
+              contact.email ||
+              "Not available"
+            )}
+          </p>
+
+        </div>
+        `
+      );
+
+
+  }catch(error){
+
+    document.querySelector("#contentView .panel")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<div class="empty">
+          ${escapeHTML(error.message)}
+        </div>`
+      );
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   TEACHER — UPLOAD RESULT
+===================================================== */
+
+async function uploadResultView(){
+
+  openPanel(
+    "Upload Result",
+    `
+      <div class="form-group">
+
+        <label>Class</label>
+
+        <select
+          id="resultClass"
+          onchange="loadResultSubjects()"
+        >
+          <option value="">
+            Select class
+          </option>
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Subject</label>
+
+        <select id="resultSubject">
+
+          <option value="">
+            Select subject
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>Session</label>
+
+          <input
+            id="resultSession"
+            placeholder="2026/2027"
+          >
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Term</label>
+
+          <select id="resultTerm">
+
+            <option value="First Term">
+              First Term
+            </option>
+
+            <option value="Second Term">
+              Second Term
+            </option>
+
+            <option value="Third Term">
+              Third Term
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <div id="resultStudents">
+        <div class="empty">
+          Select class and subject.
+        </div>
+      </div>
+
+      <button
+        class="primary-btn"
+        onclick="saveResults()"
+        style="margin-top:15px;"
+      >
+        💾 Save Results
+      </button>
+    `
+  );
+
+
+  await populateClassSelect(
+    "resultClass"
+  );
+
+
+  try{
+
+    const result =
+      await api("getAcademicSettings",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    const settings =
+      result.settings ||
+      result.data ||
+      {};
+
+
+    document.getElementById(
+      "resultSession"
+    ).value =
+      settings.session || "";
+
+
+    document.getElementById(
+      "resultTerm"
+    ).value =
+      settings.term || "First Term";
+
+
+  }catch(e){}
+
+}
+
+
+async function loadResultSubjects(){
+
+  const className =
+    document.getElementById("resultClass")
+      .value;
+
+
+  const subjectSelect =
+    document.getElementById("resultSubject");
+
+
+  subjectSelect.innerHTML =
+    `<option value="">
+      Select subject
+    </option>`;
+
+
+  document.getElementById(
+    "resultStudents"
+  ).innerHTML =
+    `<div class="empty">
+      Select a subject.
+    </div>`;
+
+
+  if(!className){
+    return;
+  }
+
+
+  try{
+
+    const result =
+      await api("getSubjects",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    currentSubjects =
+      result.subjects ||
+      result.data ||
+      {};
+
+
+    const subjects =
+      Array.isArray(
+        currentSubjects[className]
+      )
+      ?
+      currentSubjects[className]
+      :
+      [];
+
+
+    subjects.forEach(subject=>{
+
+      const option =
+        document.createElement("option");
+
+      option.value = subject;
+      option.textContent = subject;
+
+      subjectSelect.appendChild(option);
+
+    });
+
+
+    subjectSelect.onchange =
+      loadResultStudents;
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }
+
+}
+
+
+async function loadResultStudents(){
+
+  const className =
+    document.getElementById("resultClass")
+      .value;
+
+
+  if(!className){
+    return;
+  }
+
+
+  if(!currentStudents.length){
+
+    await loadAllStudents();
+
+  }
+
+
+  const students =
+    currentStudents.filter(student=>{
+
+      return String(
+        student.Class ||
+        student.className ||
+        student.class ||
+        ""
+      ).trim() === className;
+
+    });
+
+
+  const container =
+    document.getElementById(
+      "resultStudents"
+    );
+
+
+  if(!students.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        No students found.
+      </div>`;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Student</th>
+            <th>Test 1 / 15</th>
+            <th>Test 2 / 15</th>
+            <th>Exam / 70</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${students.map((student,index)=>{
+
+            const id =
+              student.StudentID ||
+              student.studentID ||
+              student.id ||
+              index;
+
+
+            const name =
+              student.StudentName ||
+              student.studentName ||
+              student.name ||
+              "";
+
+
+            return `
+
+              <tr>
+
+                <td>
+                  ${escapeHTML(name)}
+                  <input
+                    type="hidden"
+                    class="result-student-id"
+                    value="${escapeHTML(id)}"
+                  >
+                </td>
+
+                <td>
+
+                  <input
+                    class="result-test1"
+                    type="number"
+                    min="0"
+                    max="15"
+                    step="0.01"
+                    style="width:90px;"
+                  >
+
+                </td>
+
+                <td>
+
+                  <input
+                    class="result-test2"
+                    type="number"
+                    min="0"
+                    max="15"
+                    step="0.01"
+                    style="width:90px;"
+                  >
+
+                </td>
+
+                <td>
+
+                  <input
+                    class="result-exam"
+                    type="number"
+                    min="0"
+                    max="70"
+                    step="0.01"
+                    style="width:90px;"
+                  >
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+async function saveResults(){
+
+  const className =
+    document.getElementById("resultClass")
+      .value;
+
+  const subject =
+    document.getElementById("resultSubject")
+      .value;
+
+  const session =
+    document.getElementById("resultSession")
+      .value.trim();
+
+  const term =
+    document.getElementById("resultTerm")
+      .value;
+
+
+  if(!className ||
+     !subject ||
+     !session ||
+     !term){
+
+    toast(
+      "Complete class, subject, session and term."
+    );
+
+    return;
+
+  }
+
+
+  const rows =
+    document.querySelectorAll(
+      "#resultStudents tbody tr"
+    );
+
+
+  const results = [];
+
+
+  rows.forEach(row=>{
+
+    const studentID =
+      row.querySelector(
+        ".result-student-id"
+      )?.value;
+
+
+    const test1 =
+      Number(
+        row.querySelector(
+          ".result-test1"
+        )?.value || 0
+      );
+
+
+    const test2 =
+      Number(
+        row.querySelector(
+          ".result-test2"
+        )?.value || 0
+      );
+
+
+    const exam =
+      Number(
+        row.querySelector(
+          ".result-exam"
+        )?.value || 0
+      );
+
+
+    if(
+      test1 !== 0 ||
+      test2 !== 0 ||
+      exam !== 0
+    ){
+
+      results.push({
+
+        studentID:studentID,
+
+        className:className,
+
+        subject:subject,
+
+        test1:test1,
+
+        test2:test2,
+
+        exam:exam,
+
+        total:
+          test1 +
+          test2 +
+          exam,
+
+        session:session,
+
+        term:term
+
+      });
+
+    }
+
+  });
+
+
+  if(!results.length){
+
+    toast(
+      "Enter at least one result."
+    );
+
+    return;
+
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    await api("uploadResult",{
+
+      schoolID:currentUser.schoolID,
+
+      email:currentUser.email,
+
+      results:results
+
+    });
+
+
+    toast(
+      "Results uploaded successfully."
+    );
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   TEACHER — VIEW RESULTS
+===================================================== */
+
+async function resultsView(){
+
+  openPanel(
+    "View Results",
+    `
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>Class</label>
+
+          <select id="viewResultClass">
+
+            <option value="">
+              All Classes
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Session</label>
+
+          <input
+            id="viewResultSession"
+            placeholder="2026/2027"
+          >
+
+        </div>
+
+      </div>
+
+      <button
+        class="success-btn"
+        onclick="loadResults()"
+      >
+        🔎 Load Results
+      </button>
+
+      <div id="resultsTable">
+        <div class="empty">
+          Click Load Results.
+        </div>
+      </div>
+    `
+  );
+
+
+  await populateClassSelect(
+    "viewResultClass"
+  );
+
+}
+
+
+async function loadResults(){
+
+  showLoading(true);
+
+
+  try{
+
+    const result =
+      await api("getResults",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email,
+
+        className:
+          document.getElementById(
+            "viewResultClass"
+          ).value,
+
+        session:
+          document.getElementById(
+            "viewResultSession"
+          ).value.trim()
+
+      });
+
+
+    currentResults =
+      result.results ||
+      result.data ||
+      [];
+
+
+    const container =
+      document.getElementById(
+        "resultsTable"
+      );
+
+
+    if(!currentResults.length){
+
+      container.innerHTML =
+        `<div class="empty">
+          No results found.
+        </div>`;
+
+      return;
+
+    }
+
+
+    container.innerHTML = `
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Student</th>
+              <th>Class</th>
+              <th>Subject</th>
+              <th>Test 1</th>
+              <th>Test 2</th>
+              <th>Exam</th>
+              <th>Total</th>
+              <th>Term</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            ${currentResults.map(r=>`
+
+              <tr>
+
+                <td>
+                  ${escapeHTML(
+                    r.StudentName ||
+                    r.studentName ||
+                    ""
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    r.Class ||
+                    r.className ||
+                    ""
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    r.Subject ||
+                    r.subject ||
+                    ""
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    r.Test1 ||
+                    r.test1 ||
+                    0
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    r.Test2 ||
+                    r.test2 ||
+                    0
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    r.Exam ||
+                    r.exam ||
+                    0
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    r.Total ||
+                    r.total ||
+                    0
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHTML(
+                    r.Term ||
+                    r.term ||
+                    ""
+                  )}
+                </td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    `;
+
+
+  }catch(error){
+
+    document.getElementById(
+      "resultsTable"
+    ).innerHTML =
+      `<div class="empty">
+        ${escapeHTML(error.message)}
+      </div>`;
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   REPORT CARD
+===================================================== */
+
+async function reportCardView(){
+
+  openPanel(
+    "Report Card",
+    `
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>Select Class</label>
+
+          <select id="reportClass">
+
+            <option value="">
+              Select class
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Student</label>
+
+          <select id="reportStudent">
+
+            <option value="">
+              Select student
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <div class="action-row">
+
+        <button
+          class="success-btn"
+          onclick="loadReportCard()"
+        >
+          📄 Generate Report
+        </button>
+
+        <button
+          class="secondary-btn"
+          onclick="window.print()"
+        >
+          🖨️ Print
+        </button>
+
+      </div>
+
+      <div
+        id="reportCardOutput"
+        style="margin-top:20px;"
+      >
+        <div class="empty">
+          Select a class and student.
+        </div>
+      </div>
+    `
+  );
+
+
+  await populateClassSelect(
+    "reportClass"
+  );
+
+
+  document.getElementById(
+    "reportClass"
+  ).onchange =
+    loadReportStudents;
+
+}
+
+
+async function loadReportStudents(){
+
+  const className =
+    document.getElementById(
+      "reportClass"
+    ).value;
+
+
+  const select =
+    document.getElementById(
+      "reportStudent"
+    );
+
+
+  select.innerHTML =
+    `<option value="">
+      Select student
+    </option>`;
+
+
+  if(!className){
+    return;
+  }
+
+
+  if(!currentStudents.length){
+
+    await loadAllStudents();
+
+  }
+
+
+  currentStudents
+    .filter(student=>{
+
+      return String(
+        student.Class ||
+        student.className ||
+        student.class ||
+        ""
+      ).trim() === className;
+
+    })
+    .sort((a,b)=>{
+
+      const aa =
+        String(
+          a.StudentName ||
+          a.studentName ||
+          ""
+        ).toLowerCase();
+
+      const bb =
+        String(
+          b.StudentName ||
+          b.studentName ||
+          ""
+        ).toLowerCase();
+
+      return aa.localeCompare(bb);
+
+    })
+    .forEach(student=>{
+
+      const option =
+        document.createElement("option");
+
+
+      option.value =
+        student.StudentID ||
+        student.studentID ||
+        student.id ||
+        "";
+
+
+      option.textContent =
+        student.StudentName ||
+        student.studentName ||
+        student.name ||
+        "";
+
+
+      select.appendChild(option);
+
+    });
+
+}
+
+
+async function loadReportCard(){
+
+  const studentID =
+    document.getElementById(
+      "reportStudent"
+    ).value;
+
+
+  if(!studentID){
+
+    toast("Select a student.");
+
+    return;
+
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    const result =
+      await api("getReportCard",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email,
+
+        studentID:studentID
+
+      });
+
+
+    const report =
+      result.report ||
+      result.data ||
+      {};
+
+
+    renderReportCard(report);
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+function renderReportCard(report){
+
+  const student =
+    report.student ||
+    {};
+
+
+  const subjects =
+    report.subjects ||
+    report.results ||
+    [];
+
+
+  const school =
+    report.school ||
+    {};
+
+
+  const session =
+    report.session ||
+    "";
+
+
+  const term =
+    report.term ||
+    "";
+
+
+  const total =
+    report.totalScores ||
+    report.total ||
+    "";
+
+
+  const average =
+    report.average ||
+    "";
+
+
+  const position =
+    report.position ||
+    "";
+
+
+  const logo =
+    school.logo ||
+    school.Logo ||
+    "";
+
+
+  document.getElementById(
+    "reportCardOutput"
+  ).innerHTML = `
+
+    <div style="
+      border:1px solid #ddd;
+      padding:20px;
+      background:white;
+    ">
+
+      <div style="
+        text-align:center;
+        border-bottom:2px solid #222;
+        padding-bottom:15px;
+        margin-bottom:15px;
+      ">
+
+        ${
+          logo
+          ?
+          `<img
+            src="${logo}"
+            style="
+              width:80px;
+              height:80px;
+              object-fit:contain;
+            "
+          >`
+          :
+          ""
+        }
+
+        <h2>
+          ${escapeHTML(
+            school.schoolName ||
+            currentUser.schoolName ||
+            "School"
+          )}
+        </h2>
+
+        <p>
+          ${escapeHTML(
+            school.address || ""
+          )}
+        </p>
+
+        <p>
+          ${escapeHTML(
+            school.contactNumber || ""
+          )}
+        </p>
+
+        <h3 style="margin-top:10px;">
+          STUDENT REPORT CARD
+        </h3>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table style="min-width:650px;">
+
+          <tbody>
+
+            <tr>
+
+              <td>
+                <strong>Student Name</strong>
+              </td>
+
+              <td>
+                ${escapeHTML(
+                  student.StudentName ||
+                  student.studentName ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                <strong>Admission No.</strong>
+              </td>
+
+              <td>
+                ${escapeHTML(
+                  student.StudentID ||
+                  student.studentID ||
+                  ""
+                )}
+              </td>
+
+            </tr>
+
+            <tr>
+
+              <td>
+                <strong>Class</strong>
+              </td>
+
+              <td>
+                ${escapeHTML(
+                  student.Class ||
+                  student.className ||
+                  ""
+                )}
+              </td>
+
+              <td>
+                <strong>Session</strong>
+              </td>
+
+              <td>
+                ${escapeHTML(session)}
+              </td>
+
+            </tr>
+
+            <tr>
+
+              <td>
+                <strong>Term</strong>
+              </td>
+
+              <td>
+                ${escapeHTML(term)}
+              </td>
+
+              <td>
+                <strong>Position</strong>
+              </td>
+
+              <td>
+                ${escapeHTML(position)}
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>S/N</th>
+              <th>Subject</th>
+              <th>Test 1</th>
+              <th>Test 2</th>
+              <th>Exam</th>
+              <th>Total</th>
+              <th>Grade</th>
+              <th>Remark</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            ${
+              subjects.length
+              ?
+              subjects.map((r,index)=>`
+
+                <tr>
+
+                  <td>
+                    ${index+1}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.Subject ||
+                      r.subject ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.Test1 ||
+                      r.test1 ||
+                      0
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.Test2 ||
+                      r.test2 ||
+                      0
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.Exam ||
+                      r.exam ||
+                      0
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.Total ||
+                      r.total ||
+                      0
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.Grade ||
+                      r.grade ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.Remark ||
+                      r.remark ||
+                      ""
+                    )}
+                  </td>
+
+                </tr>
+
+              `).join("")
+              :
+              `
+                <tr>
+                  <td colspan="8"
+                      style="text-align:center;">
+                    No results available.
+                  </td>
+                </tr>
+              `
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <div style="
+        display:grid;
+        grid-template-columns:
+          repeat(3,1fr);
+        gap:10px;
+        margin-top:20px;
+      ">
+
+        <div style="
+          border:1px solid #ddd;
+          padding:12px;
+          text-align:center;
+        ">
+          <strong>Total Scores</strong>
+          <br>
+          ${escapeHTML(total)}
+        </div>
+
+        <div style="
+          border:1px solid #ddd;
+          padding:12px;
+          text-align:center;
+        ">
+          <strong>Average</strong>
+          <br>
+          ${escapeHTML(average)}
+        </div>
+
+        <div style="
+          border:1px solid #ddd;
+          padding:12px;
+          text-align:center;
+        ">
+          <strong>Position</strong>
+          <br>
+          ${escapeHTML(position)}
+        </div>
+
+      </div>
+
+
+      <div style="
+        margin-top:25px;
+      ">
+
+        <p>
+          <strong>Class Teacher's Comment:</strong>
+        </p>
+
+        <p style="
+          border-bottom:1px solid #555;
+          min-height:30px;
+          margin-top:10px;
+        ">
+          ${escapeHTML(
+            report.teacherComment || ""
+          )}
+        </p>
+
+      </div>
+
+
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        margin-top:45px;
+        gap:30px;
+      ">
+
+        <div style="text-align:center;">
+          ______________________
+          <br>
+          Class Teacher
+        </div>
+
+        <div style="text-align:center;">
+          ______________________
+          <br>
+          Headteacher/Principal
+        </div>
+
+      </div>
+
+
+      <p style="
+        margin-top:30px;
+        text-align:center;
+      ">
+
+        <strong>
+          Resumption Date:
+        </strong>
+
+        ${escapeHTML(
+          report.resumptionDate || ""
+        )}
+
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   BURSAR — PAYMENT
+===================================================== */
+
+async function paymentView(){
+
+  openPanel(
+    "Generate Receipt",
+    `
+      <div class="form-group">
+
+        <label>Select Class</label>
+
+        <select
+          id="paymentClass"
+          onchange="loadPaymentStudents()"
+        >
+
+          <option value="">
+            Select class
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Student</label>
+
+        <select id="paymentStudent">
+
+          <option value="">
+            Select student
+          </option>
+
+        </select>
+
+      </div>
+
+      <h4 style="margin:20px 0 10px;">
+        Payment Type
+      </h4>
+
+      <label style="
+        display:block;
+        padding:10px;
+        background:#f7f9fc;
+        border-radius:10px;
+        margin-bottom:8px;
+      ">
+
+        <input
+          type="checkbox"
+          class="payment-type"
+          value="School Fees"
+        >
+
+        School Fees
+
+      </label>
+
+
+      <label style="
+        display:block;
+        padding:10px;
+        background:#f7f9fc;
+        border-radius:10px;
+        margin-bottom:8px;
+      ">
+
+        <input
+          type="checkbox"
+          class="payment-type"
+          value="Registration Fee"
+        >
+
+        Registration Fee
+
+      </label>
+
+
+      <label style="
+        display:block;
+        padding:10px;
+        background:#f7f9fc;
+        border-radius:10px;
+        margin-bottom:15px;
+      ">
+
+        <input
+          type="checkbox"
+          class="payment-type"
+          value="Books Fee"
+        >
+
+        Books Fee
+
+      </label>
+
+
+      <div class="form-group">
+
+        <label>Amount Paid</label>
+
+        <input
+          id="paymentAmount"
+          type="number"
+          min="0"
+          step="0.01"
+        >
+
+      </div>
+
+
+      <button
+        class="primary-btn"
+        onclick="recordPayment()"
+      >
+        🧾 Record Payment
+      </button>
+
+
+      <div
+        id="paymentResult"
+        style="margin-top:20px;"
+      ></div>
+    `
+  );
+
+
+  await populateClassSelect(
+    "paymentClass"
+  );
+
+
+  document.getElementById(
+    "paymentClass"
+  ).onchange =
+    loadPaymentStudents;
+
+}
+
+
+async function loadPaymentStudents(){
+
+  const className =
+    document.getElementById(
+      "paymentClass"
+    ).value;
+
+
+  const select =
+    document.getElementById(
+      "paymentStudent"
+    );
+
+
+  select.innerHTML =
+    `<option value="">
+      Select student
+    </option>`;
+
+
+  if(!className){
+    return;
+  }
+
+
+  if(!currentStudents.length){
+
+    await loadAllStudents();
+
+  }
+
+
+  currentStudents
+    .filter(student=>{
+
+      return String(
+        student.Class ||
+        student.className ||
+        ""
+      ).trim() === className;
+
+    })
+    .forEach(student=>{
+
+      const option =
+        document.createElement("option");
+
+
+      option.value =
+        student.StudentID ||
+        student.studentID ||
+        student.id ||
+        "";
+
+
+      option.textContent =
+        student.StudentName ||
+        student.studentName ||
+        student.name ||
+        "";
+
+
+      select.appendChild(option);
+
+    });
+
+}
+
+
+async function recordPayment(){
+
+  const studentID =
+    document.getElementById(
+      "paymentStudent"
+    ).value;
+
+
+  const amount =
+    Number(
+      document.getElementById(
+        "paymentAmount"
+      ).value
+    );
+
+
+  const types =
+    Array.from(
+      document.querySelectorAll(
+        ".payment-type:checked"
+      )
+    ).map(x=>x.value);
+
+
+  if(!studentID){
+
+    toast("Select a student.");
+
+    return;
+
+  }
+
+
+  if(!types.length){
+
+    toast(
+      "Select at least one payment type."
+    );
+
+    return;
+
+  }
+
+
+  if(!amount || amount <= 0){
+
+    toast(
+      "Enter a valid payment amount."
+    );
+
+    return;
+
+  }
+
+
+  showLoading(true);
+
+
+  try{
+
+    const result =
+      await api("recordPayment",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email,
+
+        studentID:studentID,
+
+        paymentTypes:types,
+
+        amount:amount
+
+      });
+
+
+    const container =
+      document.getElementById(
+        "paymentResult"
+      );
+
+
+    container.innerHTML = `
+
+      <div style="
+        padding:15px;
+        background:#e8f5e9;
+        border-radius:12px;
+      ">
+
+        <strong>
+          ${escapeHTML(
+            result.message ||
+            "Payment recorded."
+          )}
+        </strong>
+
+        ${
+          result.receiptNumber
+          ?
+          `<p style="margin-top:8px;">
+            Receipt No:
+            <strong>
+              ${escapeHTML(
+                result.receiptNumber
+              )}
+            </strong>
+          </p>`
+          :
+          ""
+        }
+
+      </div>
+
+    `;
+
+
+  }catch(error){
+
+    toast(error.message);
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   BURSAR — RECEIPT HISTORY
+===================================================== */
+
+async function receiptHistoryView(){
+
+  openPanel(
+    "Receipt History",
+    `<div class="empty">
+      Loading receipt history...
+    </div>`
+  );
+
+
+  showLoading(true);
+
+
+  try{
+
+    const result =
+      await api("getReceiptHistory",{
+
+        schoolID:currentUser.schoolID,
+
+        email:currentUser.email
+
+      });
+
+
+    const receipts =
+      result.receipts ||
+      result.data ||
+      [];
+
+
+    let html = "";
+
+
+    if(!receipts.length){
+
+      html =
+        `<div class="empty">
+          No receipts found.
+        </div>`;
+
+    }else{
+
+      html = `
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>Receipt No.</th>
+                <th>Student</th>
+                <th>Payment</th>
+                <th>Amount</th>
+                <th>Date</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${receipts.map(r=>`
+
+                <tr>
+
+                  <td>
+                    ${escapeHTML(
+                      r.receiptNumber ||
+                      r.ReceiptNumber ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.studentName ||
+                      r.StudentName ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.paymentTypes ||
+                      r.PaymentTypes ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.amount ||
+                      r.Amount ||
+                      ""
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      r.date ||
+                      r.Date ||
+                      r.createdAt ||
+                      ""
+                    )}
+                  </td>
+
+                </tr>
+
+              `).join("")}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      `;
+
+    }
+
+
+    document.querySelector(
+      "#contentView .panel"
+    ).insertAdjacentHTML(
+      "beforeend",
+      html
+    );
+
+
+  }catch(error){
+
+    document.querySelector(
+      "#contentView .panel"
+    ).insertAdjacentHTML(
+      "beforeend",
+      `<div class="empty">
+        ${escapeHTML(error.message)}
+      </div>`
+    );
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   INITIAL DATA
+===================================================== */
+
+window.addEventListener("beforeunload",function(){
+
+  /*
+    The page is intentionally kept as one single
+    ExamPlus application.
+  */
+
+});
+
+</script>
+
+</body>
+</html>ɠ
