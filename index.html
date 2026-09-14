@@ -1,79 +1,1603 @@
-<!-- ===================== LOGIN SECTION ===================== -->
-<div id="loginSection">
-  <h2>ExamPlus Login</h2>
-  <form id="loginForm">
-    <div>
-      <label for="emailInput">Email</label>
-      <input id="emailInput" type="email" required placeholder="you@example.com">
-    </div>
-    <div>
-      <label for="passwordInput">Password</label>
-      <input id="passwordInput" type="password" required placeholder="Password">
-    </div>
-    <button type="submit">Log In</button>
-  </form>
-  <p id="loginMessage" style="color:red;"></p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamPlus</title>
 
-<!-- Dashboards will go here later, hidden until login succeeds -->
-<div id="superAdminDashboard" style="display:none;"></div>
-<div id="schoolAdminDashboard" style="display:none;"></div>
-<div id="teacherDashboard" style="display:none;"></div>
-<div id="bursarDashboard" style="display:none;"></div>
-
-<script>
-function loginUser(email, password) {
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwReh0vtqm65Dxm4RRc40kDINJ1WDcs9UHMzMk1vHFeOUwG-ZHLuTCMMdhFIdhiEOzc5g/exec';
-  const callbackName = 'loginCallback_' + Date.now();
-
-  window[callbackName] = function (response) {
-    document.body.removeChild(script);
-    delete window[callbackName];
-
-    if (response.success) {
-      console.log('Login success:', response);
-      document.getElementById('loginMessage').textContent = '';
-
-      // Save session info for later use
-      window.currentUser = response;
-
-      // Hide login, show correct dashboard
-      document.getElementById('loginSection').style.display = 'none';
-
-      const role = String(response.role).toLowerCase();
-      if (role === 'superadmin') {
-        document.getElementById('superAdminDashboard').style.display = 'block';
-      } else if (role === 'admin') {
-        document.getElementById('schoolAdminDashboard').style.display = 'block';
-      } else if (role === 'teacher') {
-        document.getElementById('teacherDashboard').style.display = 'block';
-      } else if (role === 'bursar') {
-        document.getElementById('bursarDashboard').style.display = 'block';
-      } else {
-        document.getElementById('loginMessage').textContent = 'Unknown role: ' + response.role;
-      }
-
-    } else {
-      document.getElementById('loginMessage').textContent = response.message;
-    }
-  };
-
-  const url = APPS_SCRIPT_URL +
-    '?action=login' +
-    '&email=' + encodeURIComponent(email) +
-    '&password=' + encodeURIComponent(password) +
-    '&callback=' + callbackName;
-
-  const script = document.createElement('script');
-  script.src = url;
-  document.body.appendChild(script);
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-document.getElementById('loginForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const email = document.getElementById('emailInput').value;
-  const password = document.getElementById('passwordInput').value;
-  loginUser(email, password);
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+#loginPage{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:linear-gradient(135deg,#0d47a1,#1565c0,#42a5f5);
+}
+
+.login-card{
+  width:100%;
+  max-width:420px;
+  background:#fff;
+  border-radius:24px;
+  padding:30px 24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.20);
+}
+
+.logo-box{
+  width:75px;
+  height:75px;
+  border-radius:20px;
+  background:#1565c0;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  margin:0 auto 15px;
+}
+
+.login-card h1{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:6px;
+}
+
+.login-card .subtitle{
+  text-align:center;
+  color:#718096;
+  margin-bottom:25px;
+}
+
+.form-group{
+  margin-bottom:16px;
+}
+
+.form-group label{
+  display:block;
+  font-weight:600;
+  margin-bottom:7px;
+  font-size:14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  border:1px solid #d7dee8;
+  border-radius:12px;
+  padding:12px 14px;
+  outline:none;
+  background:#fff;
+}
+
+.form-group textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:#1976d2;
+  box-shadow:0 0 0 3px rgba(25,118,210,.10);
+}
+
+.primary-btn{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  background:#1565c0;
+  color:white;
+  padding:13px;
+  font-weight:bold;
+  transition:.2s;
+}
+
+.primary-btn:hover{
+  background:#0d47a1;
+}
+
+.secondary-btn{
+  border:0;
+  border-radius:10px;
+  background:#edf2f7;
+  color:#243447;
+  padding:10px 15px;
+  font-weight:600;
+}
+
+.danger-btn{
+  border:0;
+  border-radius:10px;
+  background:#e53935;
+  color:white;
+  padding:9px 13px;
+  font-weight:600;
+}
+
+.success-btn{
+  border:0;
+  border-radius:10px;
+  background:#2e7d32;
+  color:white;
+  padding:10px 15px;
+  font-weight:600;
+}
+
+.warning-btn{
+  border:0;
+  border-radius:10px;
+  background:#ef6c00;
+  color:white;
+  padding:10px 15px;
+  font-weight:600;
+}
+
+#loginMessage{
+  margin-top:15px;
+  text-align:center;
+  font-size:14px;
+}
+
+/* =========================
+   APP
+========================= */
+
+#appPage{
+  min-height:100vh;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:65px;
+  background:#1565c0;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  box-shadow:0 2px 10px rgba(0,0,0,.12);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:bold;
+}
+
+.brand-icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:rgba(255,255,255,.18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+}
+
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.role-badge{
+  background:rgba(255,255,255,.15);
+  border-radius:20px;
+  padding:7px 10px;
+  font-size:12px;
+}
+
+.logout-btn{
+  border:0;
+  background:#fff;
+  color:#1565c0;
+  border-radius:9px;
+  padding:8px 10px;
+  font-weight:bold;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+  padding:18px 15px 100px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.welcome-card{
+  background:#fff;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.welcome-card h2{
+  font-size:21px;
+  margin-bottom:5px;
+}
+
+.welcome-card p{
+  color:#718096;
+  font-size:14px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.stat-card{
+  background:#fff;
+  border-radius:16px;
+  padding:17px;
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.stat-icon{
+  font-size:26px;
+  margin-bottom:8px;
+}
+
+.stat-card strong{
+  display:block;
+  font-size:22px;
+}
+
+.stat-card span{
+  color:#718096;
+  font-size:12px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.section-title{
+  margin:22px 0 12px;
+  font-size:17px;
+}
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.menu-card{
+  border:0;
+  background:#fff;
+  border-radius:17px;
+  padding:18px 10px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+  color:#172033;
+  transition:.2s;
+}
+
+.menu-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 7px 20px rgba(0,0,0,.08);
+}
+
+.menu-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  margin:0 auto 9px;
+  background:#e3f2fd;
+  color:#1565c0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+}
+
+.menu-card strong{
+  display:block;
+  font-size:13px;
+}
+
+.menu-card small{
+  display:block;
+  color:#718096;
+  margin-top:4px;
+  font-size:10px;
+}
+
+/* =========================
+   CONTENT PANEL
+========================= */
+
+.panel{
+  background:#fff;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+  margin-top:15px;
+}
+
+.panel-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.panel-header h3{
+  font-size:19px;
+}
+
+.back-btn{
+  border:0;
+  background:#edf2f7;
+  border-radius:10px;
+  padding:9px 12px;
+  font-weight:bold;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:0 15px;
+}
+
+.action-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  margin-top:15px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:700px;
+}
+
+th,
+td{
+  padding:10px;
+  border-bottom:1px solid #edf0f4;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  background:#f7f9fc;
+  font-weight:bold;
+}
+
+.empty{
+  text-align:center;
+  padding:30px 10px;
+  color:#718096;
+}
+
+/* =========================
+   PHOTO
+========================= */
+
+.photo-area{
+  border:2px dashed #cbd5e0;
+  border-radius:15px;
+  padding:15px;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+#studentPhotoPreview{
+  width:120px;
+  height:120px;
+  border-radius:15px;
+  object-fit:cover;
+  display:none;
+  margin:12px auto;
+}
+
+.camera-btn{
+  display:inline-block;
+  border:0;
+  background:#1565c0;
+  color:#fff;
+  padding:11px 15px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+#cameraInput{
+  display:none;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  background:#172033;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:13px;
+  z-index:9999;
+  display:none;
+  max-width:90%;
+  text-align:center;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+#loading{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.82);
+  z-index:9998;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.loading-box{
+  background:#fff;
+  border-radius:18px;
+  padding:25px;
+  text-align:center;
+  box-shadow:0 10px 40px rgba(0,0,0,.15);
+}
+
+.spinner{
+  width:35px;
+  height:35px;
+  border:4px solid #e3f2fd;
+  border-top-color:#1565c0;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 12px;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:700px){
+
+  .stats-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .menu-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .form-full{
+    grid-column:1/-1;
+  }
+
+  .dashboard{
+    padding:25px;
+  }
+
+  .panel{
+    padding:25px;
+  }
+}
+
+/* =========================
+   PRINT
+========================= */
+
+@media print{
+
+  .topbar,
+  .menu-grid,
+  .welcome-card,
+  .stats-grid,
+  .back-btn,
+  button{
+    display:none!important;
+  }
+
+  .dashboard{
+    padding:0;
+  }
+
+  .panel{
+    box-shadow:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOGIN PAGE
+========================= -->
+
+<div id="loginPage">
+
+  <div class="login-card">
+
+    <div class="logo-box">🎓</div>
+
+    <h1>ExamPlus</h1>
+
+    <div class="subtitle">
+      School Management System
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        type="email"
+        id="loginEmail"
+        placeholder="Enter your email"
+        autocomplete="username"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+      >
+    </div>
+
+    <button class="primary-btn" onclick="login()">
+      🔐 Login
+    </button>
+
+    <div id="loginMessage"></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     APPLICATION
+========================= -->
+
+<div id="appPage" class="hidden">
+
+  <div class="topbar">
+
+    <div class="brand">
+      <div class="brand-icon">🎓</div>
+      <span>ExamPlus</span>
+    </div>
+
+    <div class="topbar-right">
+
+      <span id="roleBadge" class="role-badge">
+        User
+      </span>
+
+      <button class="logout-btn" onclick="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+  <main class="dashboard">
+
+    <!-- =====================
+         MAIN DASHBOARD
+    ====================== -->
+
+    <div id="homeView">
+
+      <div class="welcome-card">
+
+        <h2 id="welcomeTitle">
+          Welcome to ExamPlus
+        </h2>
+
+        <p id="welcomeText">
+          School Management System
+        </p>
+
+      </div>
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-icon">🏫</div>
+          <strong id="statSchool">-</strong>
+          <span>School</span>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">👨‍🎓</div>
+          <strong id="statStudents">-</strong>
+          <span>Students</span>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📚</div>
+          <strong id="statClasses">-</strong>
+          <span>Classes</span>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📖</div>
+          <strong id="statSubjects">-</strong>
+          <span>Subjects</span>
+        </div>
+
+      </div>
+
+      <h3 class="section-title">
+        Main Menu
+      </h3>
+
+      <div id="mainMenu" class="menu-grid"></div>
+
+    </div>
+
+
+    <!-- =====================
+         CONTENT
+    ====================== -->
+
+    <div id="contentView" class="hidden"></div>
+
+  </main>
+
+</div>
+
+
+<!-- =========================
+     LOADING
+========================= -->
+
+<div id="loading">
+
+  <div class="loading-box">
+
+    <div class="spinner"></div>
+
+    <div>
+      Please wait...
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div id="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   EXAMPLUS CONFIGURATION
+===================================================== */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbw5tDT-kSTpiKdFiKCClSfoLef2goIwGmiarmqWLbA3nyf1qqvf-y7g90f7d-A5nKwE4g/exec";
+
+
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
+
+let currentUser = null;
+let currentClasses = [];
+let currentSubjects = {};
+let currentStudents = [];
+let currentResults = [];
+let currentPayments = [];
+let currentPhoto = "";
+
+let academicSettings = {
+  session:"",
+  term:"",
+  resumptionDate:"",
+  test1Max:15,
+  test2Max:15,
+  examMax:70
+};
+
+
+/* =====================================================
+   BASIC HELPERS
+===================================================== */
+
+function showLoading(show=true){
+
+  document.getElementById("loading").style.display =
+    show ? "flex" : "none";
+
+}
+
+
+function toast(message){
+
+  const el = document.getElementById("toast");
+
+  el.textContent = message;
+  el.style.display = "block";
+
+  setTimeout(()=>{
+    el.style.display = "none";
+  },3000);
+
+}
+
+
+function escapeHTML(value){
+
+  if(value === null || value === undefined){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+function normalizeRole(role){
+
+  const r = String(role || "")
+    .trim()
+    .toLowerCase();
+
+  if(r === "super admin" || r === "superadmin"){
+    return "superadmin";
+  }
+
+  if(r === "school admin" || r === "admin"){
+    return "admin";
+  }
+
+  if(r === "teacher"){
+    return "teacher";
+  }
+
+  if(r === "bursar"){
+    return "bursar";
+  }
+
+  return r;
+}
+
+
+function api(action,data={}){
+
+  return new Promise((resolve,reject)=>{
+
+    const callbackName =
+      "examplusCallback_" +
+      Date.now() +
+      "_" +
+      Math.floor(Math.random()*100000);
+
+    const params = new URLSearchParams();
+
+    params.append("action",action);
+    params.append("callback",callbackName);
+
+    Object.keys(data).forEach(key=>{
+
+      let value = data[key];
+
+      if(value === undefined || value === null){
+        value = "";
+      }
+
+      if(typeof value === "object"){
+        value = JSON.stringify(value);
+      }
+
+      params.append(key,value);
+
+    });
+
+    const script = document.createElement("script");
+
+    const timeout = setTimeout(()=>{
+
+      cleanup();
+
+      reject(new Error(
+        "Request timed out. Please check the Apps Script deployment."
+      ));
+
+    },30000);
+
+
+    window[callbackName] = function(response){
+
+      clearTimeout(timeout);
+      cleanup();
+
+      if(response && response.success === false){
+
+        reject(new Error(
+          response.message || "Request failed."
+        ));
+
+        return;
+      }
+
+      resolve(response);
+
+    };
+
+
+    function cleanup(){
+
+      try{
+        delete window[callbackName];
+      }catch(e){}
+
+      if(script.parentNode){
+        script.parentNode.removeChild(script);
+      }
+
+    }
+
+
+    script.onerror = function(){
+
+      clearTimeout(timeout);
+      cleanup();
+
+      reject(new Error(
+        "Could not connect to ExamPlus server."
+      ));
+
+    };
+
+
+    script.src =
+      API_URL +
+      "?" +
+      params.toString();
+
+    document.body.appendChild(script);
+
+  });
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function login(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const message =
+    document.getElementById("loginMessage");
+
+
+  if(!email || !password){
+
+    message.style.color = "#e53935";
+    message.textContent =
+      "Please enter email and password.";
+
+    return;
+  }
+
+
+  showLoading(true);
+
+  message.textContent = "";
+
+
+  try{
+
+    const response =
+      await api("login",{
+        email:email,
+        password:password
+      });
+
+
+    if(!response || !response.user){
+
+      throw new Error(
+        response?.message || "Invalid login details."
+      );
+
+    }
+
+
+    currentUser = response.user;
+
+    currentUser.role =
+      normalizeRole(currentUser.role);
+
+
+    sessionStorage.setItem(
+      "examplusUser",
+      JSON.stringify(currentUser)
+    );
+
+
+    document.getElementById("loginPage")
+      .classList.add("hidden");
+
+    document.getElementById("appPage")
+      .classList.remove("hidden");
+
+
+    setupDashboard();
+
+
+  }catch(error){
+
+    message.style.color = "#e53935";
+    message.textContent =
+      error.message || "Login failed.";
+
+  }finally{
+
+    showLoading(false);
+
+  }
+
+}
+
+
+document.getElementById("loginPassword")
+  .addEventListener("keydown",function(e){
+
+    if(e.key === "Enter"){
+      login();
+    }
+
+  });
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+  currentUser = null;
+
+  sessionStorage.removeItem("examplusUser");
+
+  document.getElementById("appPage")
+    .classList.add("hidden");
+
+  document.getElementById("loginPage")
+    .classList.remove("hidden");
+
+  document.getElementById("loginEmail").value = "";
+  document.getElementById("loginPassword").value = "";
+
+}
+
+
+/* =====================================================
+   RESTORE SESSION
+===================================================== */
+
+window.addEventListener("load",async function(){
+
+  const saved =
+    sessionStorage.getItem("examplusUser");
+
+  if(saved){
+
+    try{
+
+      currentUser = JSON.parse(saved);
+
+      currentUser.role =
+        normalizeRole(currentUser.role);
+
+      document.getElementById("loginPage")
+        .classList.add("hidden");
+
+      document.getElementById("appPage")
+        .classList.remove("hidden");
+
+      setupDashboard();
+
+    }catch(e){
+
+      sessionStorage.removeItem("examplusUser");
+
+    }
+
+  }
+
 });
-</script>
-<!-- ===================== END LOGIN SECTION ===================== -->
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function setupDashboard(){
+
+  const role = normalizeRole(currentUser.role);
+
+  document.getElementById("roleBadge").textContent =
+    currentUser.role || "User";
+
+
+  let title = "Welcome to ExamPlus";
+  let text = "School Management System";
+
+
+  if(role === "superadmin"){
+
+    title = "Welcome, Super Admin";
+    text = "Manage schools and the ExamPlus system.";
+
+  }
+
+  else if(role === "admin"){
+
+    title = "Welcome, School Admin";
+    text =
+      currentUser.schoolName ||
+      "Manage your school.";
+
+  }
+
+  else if(role === "teacher"){
+
+    title = "Welcome, Teacher";
+    text =
+      currentUser.schoolName ||
+      "Manage student results.";
+
+  }
+
+  else if(role === "bursar"){
+
+    title = "Welcome, Bursar";
+    text =
+      currentUser.schoolName ||
+      "Manage school payments and receipts.";
+
+  }
+
+
+  document.getElementById("welcomeTitle")
+    .textContent = title;
+
+  document.getElementById("welcomeText")
+    .textContent = text;
+
+
+  buildMenu(role);
+
+  loadDashboardStats();
+
+}
+
+
+function buildMenu(role){
+
+  const menu =
+    document.getElementById("mainMenu");
+
+  menu.innerHTML = "";
+
+
+  if(role === "superadmin"){
+
+    addMenu(
+      "🏫",
+      "Create School",
+      "Register a new school.",
+      "createSchoolView"
+    );
+
+    addMenu(
+      "📋",
+      "View Schools",
+      "View registered schools.",
+      "schoolsView"
+    );
+
+    addMenu(
+      "⚙️",
+      "System Settings",
+      "Configure ExamPlus system.",
+      "systemSettingsView"
+    );
+
+  }
+
+
+  if(role === "admin"){
+
+    addMenu(
+      "🏫",
+      "School Details",
+      "Manage school information.",
+      "schoolDetailsView"
+    );
+
+    addMenu(
+      "📚",
+      "All Classes",
+      "Create and manage classes.",
+      "classesView"
+    );
+
+    addMenu(
+      "📖",
+      "All Subjects",
+      "Manage subjects by class.",
+      "subjectsView"
+    );
+
+    addMenu(
+      "👨‍🎓",
+      "Students Details",
+      "Register and view students.",
+      "studentsView"
+    );
+
+    addMenu(
+      "📝",
+      "Students in Bulk",
+      "Add many students at once.",
+      "bulkStudentsView"
+    );
+
+    addMenu(
+      "📊",
+      "Report Card",
+      "Generate student report cards.",
+      "reportCardView"
+    );
+
+    addMenu(
+      "⚙️",
+      "Academic Settings",
+      "Session, term and scores.",
+      "academicSettingsView"
+    );
+
+    addMenu(
+      "👨‍🏫",
+      "Staff",
+      "Create teacher and bursar accounts.",
+      "staffView"
+    );
+
+    addMenu(
+      "☎️",
+      "Contact Us",
+      "Contact ExamPlus Super Admin.",
+      "contactView"
+    );
+
+  }
+
+
+  if(role === "teacher"){
+
+    addMenu(
+      "📤",
+      "Upload Result",
+      "Enter student scores.",
+      "uploadResultView"
+    );
+
+    addMenu(
+      "📊",
+      "View Results",
+      "View uploaded results.",
+      "resultsView"
+    );
+
+  }
+
+
+  if(role === "bursar"){
+
+    addMenu(
+      "🧾",
+      "Generate Receipt",
+      "Record a student payment.",
+      "paymentView"
+    );
+
+    addMenu(
+      "📜",
+      "Receipt History",
+      "View previous receipts.",
+      "receiptHistoryView"
+    );
+
+  }
+
+}
+
+
+function addMenu(icon,title,description,view){
+
+  const menu =
+    document.getElementById("mainMenu");
+
+  const button =
+    document.createElement("button");
+
+  button.className = "menu-card";
+
+  button.innerHTML = `
+    <div class="menu-icon">${icon}</div>
+    <strong>${escapeHTML(title)}</strong>
+    <small>${escapeHTML(description)}</small>
+  `;
+
+  button.onclick = ()=>{
+    window[view]();
+  };
+
+  menu.appendChild(button);
+
+}
+
+
+/* =====================================================
+   DASHBOARD STATS
+===================================================== */
+
+async function loadDashboardStats(){
+
+  const role =
+    normalizeRole(currentUser.role);
+
+
+  if(role === "superadmin"){
+
+    try{
+
+      const result =
+        await api("getSchools",{
+          email:currentUser.email
+        });
+
+      const schools =
+        result.schools || result.data || [];
+
+      document.getElementById("statSchool")
+        .textContent = schools.length;
+
+      document.getElementById("statStudents")
+        .textContent = "-";
+
+      document.getElementById("statClasses")
+        .textContent = "-";
+
+      document.getElementById("statSubjects")
+        .textContent = "-";
+
+    }catch(e){
+
+      console.log(e);
+
+    }
+
+    return;
+  }
+
+
+  if(!currentUser.schoolID){
+    return;
+  }
+
+
+  try{
+
+    const classes =
+      await api("getClasses",{
+        schoolID:currentUser.schoolID,
+        email:currentUser.email
+      });
+
+    currentClasses =
+      classes.classes ||
+      classes.data ||
+      [];
+
+    document.getElementById("statClasses")
+      .textContent = currentClasses.length;
+
+
+  }catch(e){
+
+    document.getElementById("statClasses")
+      .textContent = "-";
+
+  }
+
+
+  try{
+
+    const students =
+      await api("getStudents",{
+        schoolID:currentUser.schoolID,
+        email:currentUser.email
+      });
+
+    currentStudents =
+      students.students ||
+      students.data ||
+      [];
+
+    document.getElementById("statStudents")
+      .textContent = currentStudents.length;
+
+
+  }catch(e){
+
+    document.getElementById("statStudents")
+      .textContent = "-";
+
+  }
+
+
+  let subjectCount = 0;
+
+  try{
+
+    const result =
+      await api("getSubjects",{
+        schoolID:currentUser.schoolID,
+        email:currentUser.email
+      });
+
+    const subjects =
+      result.subjects ||
+      result.data ||
+      {};
+
+    currentSubjects = subjects;
+
+    Object.keys(subjects).forEach(cls=>{
+
+      if(Array.isArray(subjects[cls])){
+        subjectCount += subjects[cls].length;
+      }
+
+    });
+
+    document.getElementById("statSubjects")
+      .textContent = subjectCount;
+
+  }catch(e){
+
+    document.getElementById("statSubjects")
+      .textContent = "-";
+
+  }
+
+
+  document.getElementById("statSchool")
+    .textContent =
+      currentUser.schoolName || "School";
+
+}
+
+
+/* =====================================================
+   CONTENT FRAME
+===================================================== */
+
+function openPanel(title,html){
+
+  document.getElementById("homeView")
+    .classList.add("hidden");
+
+  const content =
+    document.getElementById("contentView");
+
+  content.classList.remove("hidden");
+
+  content.innerHTML = `
+    <div class="panel">
+
+      <div class="panel-header">
+
+        <h3>${escapeHTML(title)}</h3>
+
+        <button
+          class="back-btn"
+          onclick="goHome()"
+        >
+          ← Back
+        </button>
+
+      </div>
+
+      ${html}
+
+    </div>
+  `;
+
+}
+
+
+function goHome(){
+
+  document.getElementById("contentView")
+    .classList.add("hidden");
+
+  document.getElementById("homeView")
+    .classList.remove("hidden");
+
+  loadDashboardStats();
+
+}
+
+
+/* =====================================================
+   SUPER ADMIN — CREATE SCHOOL
+===================================================== */
+
+function createSchoolView(){
+
+  openPanel(
+    "Create School",
+    `
+    <form onsubmit="createSchool(event)">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>School Name</label>
+          <input id="newSchoolName" required>
+        </div>
+
+        <div class="form-group">
+          <label>School Admin Email</label>
+          <input
+            id="newSchoolEmail"
+            type="email"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>School Admin Password</label>
+          <input
+            id="newSchoolPassword"
+            type="password"
+            required
+          >
+        </div>
+
+      </div>
+
+      <button class="primary-btn" type="submit">
+        🏫 Create School
+      </button>
+
+    </form>
+    `
+  );
+
+}
+
+
+async function createSchool(event){
+
+  event.preventDefault();
+
+  const schoolName =
+    document.getElementById("newSchoolName").value.trim();
+
+  const email =
+    document.getElementById("newSchoolEmail").value.trim();
+
+  const password =
+    document.getElementById("newSchoolPassword").value;
+
+
+  if(!schoolName || !email || !password){
+    toast("Please complete all fields.");
+    return;
+  }
+
+
+  showLoading(true);
+
+  try{
+
+    const result =
+      await api("createSchool",{
+
+        email:currentUser.email,
+
+        schoolName:schoolName,
+
+        adminEmail:email,
+
+       
