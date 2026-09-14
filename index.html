@@ -1,2407 +1,415 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ExamPlus School Management System</title>
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f4f7fb;
-  color:#1f2937;
-}
-
-button,
-input,
-select,
-textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.hidden{
-  display:none !important;
-}
-
-/* LOGIN */
-
-#loginPage{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:linear-gradient(135deg,#0f766e,#2563eb);
-}
-
-.login-box{
-  width:100%;
-  max-width:420px;
-  background:white;
-  border-radius:18px;
-  padding:30px 24px;
-  box-shadow:0 20px 50px rgba(0,0,0,.2);
-}
-
-.logo-title{
-  text-align:center;
-  font-size:32px;
-  font-weight:800;
-  color:#0f766e;
-  margin-bottom:5px;
-}
-
-.logo-subtitle{
-  text-align:center;
-  color:#6b7280;
-  margin-bottom:25px;
-}
-
-.form-group{
-  margin-bottom:16px;
-}
-
-.form-group label{
-  display:block;
-  margin-bottom:7px;
-  font-weight:600;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-  border:1px solid #d1d5db;
-  border-radius:10px;
-  padding:12px;
-  outline:none;
-  background:white;
-}
-
-.form-group textarea{
-  min-height:120px;
-  resize:vertical;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-  border-color:#2563eb;
-}
-
-.primary-btn{
-  width:100%;
-  padding:13px;
-  border:none;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-weight:700;
-}
-
-.primary-btn:hover{
-  background:#1d4ed8;
-}
-
-.secondary-btn{
-  padding:10px 15px;
-  border:none;
-  border-radius:8px;
-  background:#0f766e;
-  color:white;
-  font-weight:600;
-}
-
-.danger-btn{
-  padding:9px 13px;
-  border:none;
-  border-radius:8px;
-  background:#dc2626;
-  color:white;
-  font-weight:600;
-}
-
-.warning-btn{
-  padding:9px 13px;
-  border:none;
-  border-radius:8px;
-  background:#d97706;
-  color:white;
-  font-weight:600;
-}
-
-.success-btn{
-  padding:9px 13px;
-  border:none;
-  border-radius:8px;
-  background:#16a34a;
-  color:white;
-  font-weight:600;
-}
-
-.error-message{
-  margin-top:15px;
-  padding:10px;
-  border-radius:8px;
-  background:#fee2e2;
-  color:#991b1b;
-  display:none;
-}
-
-.success-message{
-  margin-top:15px;
-  padding:10px;
-  border-radius:8px;
-  background:#dcfce7;
-  color:#166534;
-  display:none;
-}
-
-/* APP */
-
-#app{
-  min-height:100vh;
-}
-
-.topbar{
-  height:64px;
-  background:#ffffff;
-  border-bottom:1px solid #e5e7eb;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:1000;
-}
-
-.brand{
-  font-size:22px;
-  font-weight:800;
-  color:#0f766e;
-}
-
-.school-title{
-  font-size:14px;
-  color:#6b7280;
-  margin-left:10px;
-}
-
-.topbar-left{
-  display:flex;
-  align-items:center;
-}
-
-.topbar-right{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.role-badge{
-  background:#eff6ff;
-  color:#1d4ed8;
-  padding:7px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.logout-btn{
-  border:none;
-  background:#fee2e2;
-  color:#b91c1c;
-  padding:8px 12px;
-  border-radius:8px;
-  font-weight:700;
-}
-
-.menu-btn{
-  display:none;
-  border:none;
-  background:#f3f4f6;
-  padding:8px 11px;
-  border-radius:8px;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-  position:fixed;
-  top:64px;
-  left:0;
-  bottom:0;
-  width:240px;
-  background:#111827;
-  padding:15px 10px;
-  overflow-y:auto;
-  z-index:900;
-}
-
-.sidebar-title{
-  color:#9ca3af;
-  font-size:11px;
-  font-weight:700;
-  padding:12px 10px 7px;
-  text-transform:uppercase;
-}
-
-.nav-btn{
-  width:100%;
-  text-align:left;
-  border:none;
-  background:transparent;
-  color:#d1d5db;
-  padding:11px 12px;
-  border-radius:8px;
-  margin-bottom:3px;
-  font-weight:600;
-}
-
-.nav-btn:hover,
-.nav-btn.active{
-  background:#1f2937;
-  color:white;
-}
-
-.main{
-  margin-left:240px;
-  padding:88px 20px 30px;
-}
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.page-title{
-  font-size:25px;
-  font-weight:800;
-  margin-bottom:6px;
-}
-
-.page-description{
-  color:#6b7280;
-  margin-bottom:20px;
-}
-
-/* CARDS */
-
-.dashboard-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:15px;
-}
-
-.dashboard-card{
-  background:white;
-  border-radius:14px;
-  padding:20px;
-  border:1px solid #e5e7eb;
-}
-
-.dashboard-card .icon{
-  font-size:30px;
-  margin-bottom:10px;
-}
-
-.dashboard-card h3{
-  font-size:16px;
-  margin-bottom:5px;
-}
-
-.dashboard-card p{
-  color:#6b7280;
-  font-size:13px;
-}
-
-/* PANELS */
-
-.panel{
-  background:white;
-  border-radius:14px;
-  padding:20px;
-  border:1px solid #e5e7eb;
-  margin-bottom:20px;
-}
-
-.panel-title{
-  font-size:18px;
-  font-weight:800;
-  margin-bottom:15px;
-}
-
-.grid-2{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:15px;
-}
-
-.grid-3{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:15px;
-}
-
-.full{
-  grid-column:1/-1;
-}
-
-.action-row{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-/* TABLE */
-
-.table-wrapper{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:650px;
-}
-
-th,
-td{
-  padding:11px;
-  border-bottom:1px solid #e5e7eb;
-  text-align:left;
-  vertical-align:middle;
-}
-
-th{
-  background:#f9fafb;
-  font-size:13px;
-}
-
-td{
-  font-size:14px;
-}
-
-.status{
-  display:inline-block;
-  padding:5px 8px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.status.active{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.status.inactive{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-/* STUDENT */
-
-.student-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:15px;
-}
-
-.student-card{
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  padding:15px;
-}
-
-.student-photo{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  object-fit:cover;
-  background:#e5e7eb;
-  display:block;
-  margin-bottom:10px;
-}
-
-.student-name{
-  font-size:17px;
-  font-weight:800;
-  margin-bottom:7px;
-}
-
-.student-info{
-  color:#6b7280;
-  font-size:13px;
-  line-height:1.6;
-}
-
-/* LOADING */
-
-.loading{
-  padding:20px;
-  text-align:center;
-  color:#6b7280;
-}
-
-/* MOBILE */
-
-@media(max-width:800px){
-
-  .menu-btn{
-    display:block;
-  }
-
-  .school-title{
-    display:none;
-  }
-
-  .sidebar{
-    transform:translateX(-100%);
-    transition:.25s;
-  }
-
-  .sidebar.open{
-    transform:translateX(0);
-  }
-
-  .main{
-    margin-left:0;
-    padding:84px 12px 25px;
-  }
-
-  .topbar{
-    padding:0 12px;
-  }
-
-  .brand{
-    font-size:20px;
-  }
-
-  .grid-2,
-  .grid-3{
-    grid-template-columns:1fr;
-  }
-
-  .dashboard-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .topbar-right .role-badge{
-    display:none;
-  }
-}
-
-@media(max-width:450px){
-
-  .dashboard-grid{
-    grid-template-columns:1fr;
-  }
-
-  .panel{
-    padding:15px;
-  }
-
-  .page-title{
-    font-size:22px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ExamPlus Login Test</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f3f6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      padding: 30px 22px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 15px;
+      border-radius: 18px;
+      background: #1769aa;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0 0 5px;
+      color: #172b4d;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccd3dc;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #1769aa;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #1769aa;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 10px;
+      display: none;
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .info {
+      display: block;
+      background: #eef6ff;
+      color: #1769aa;
+    }
+
+    .success {
+      display: block;
+      background: #eaf8ef;
+      color: #18743a;
+    }
+
+    .error {
+      display: block;
+      background: #fff0f0;
+      color: #b42318;
+    }
+
+    .debug {
+      margin-top: 15px;
+      padding: 10px;
+      background: #f7f7f7;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #555;
+      display: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
-
-<div id="loginPage">
-
   <div class="login-box">
 
-    <div class="logo-title">ExamPlus</div>
-    <div class="logo-subtitle">School Management System</div>
+    <div class="logo">EP</div>
+
+    <h1>ExamPlus</h1>
+
+    <div class="subtitle">
+      School Management System
+    </div>
 
     <form id="loginForm">
 
-      <div class="form-group">
-        <label>Email</label>
-        <input
-          type="email"
-          id="loginEmail"
-          placeholder="Enter email"
-          required
-        >
-      </div>
+      <label for="email">
+        Email
+      </label>
 
-      <div class="form-group">
-        <label>Password</label>
-        <input
-          type="password"
-          id="loginPassword"
-          placeholder="Enter password"
-          required
-        >
-      </div>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter your email"
+        autocomplete="username"
+        required
+      >
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        required
+      >
 
       <button
         type="submit"
-        class="primary-btn"
         id="loginButton"
       >
         Login
       </button>
 
-      <div
-        id="loginError"
-        class="error-message"
-      ></div>
-
     </form>
+
+    <div id="status" class="status"></div>
+
+    <div id="debug" class="debug"></div>
 
   </div>
 
-</div>
-
-
-<!-- ================= APPLICATION ================= -->
-
-<div id="app" class="hidden">
-
-  <!-- TOPBAR -->
-
-  <header class="topbar">
-
-    <div class="topbar-left">
-
-      <button
-        class="menu-btn"
-        onclick="toggleSidebar()"
-      >
-        ☰
-      </button>
-
-      <div class="brand">
-        ExamPlus
-      </div>
-
-      <div
-        id="schoolTitle"
-        class="school-title"
-      ></div>
-
-    </div>
-
-    <div class="topbar-right">
-
-      <span
-        id="roleBadge"
-        class="role-badge"
-      ></span>
-
-      <button
-        class="logout-btn"
-        onclick="logout()"
-      >
-        Logout
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <!-- SIDEBAR -->
-
-  <aside
-    id="sidebar"
-    class="sidebar"
-  >
-
-    <div class="sidebar-title">
-      Main
-    </div>
-
-    <button
-      class="nav-btn"
-      data-page="dashboard"
-      onclick="showPage('dashboard')"
-    >
-      🏠 Dashboard
-    </button>
-
-
-    <!-- SUPER ADMIN -->
-
-    <div
-      id="superAdminMenu"
-      class="hidden"
-    >
-
-      <div class="sidebar-title">
-        Super Admin
-      </div>
-
-      <button
-        class="nav-btn"
-        data-page="createSchool"
-        onclick="showPage('createSchool')"
-      >
-        🏫 Create School
-      </button>
-
-      <button
-        class="nav-btn"
-        data-page="viewSchools"
-        onclick="showPage('viewSchools')"
-      >
-        📋 View Schools
-      </button>
-
-    </div>
-
-
-    <!-- SCHOOL ADMIN -->
-
-    <div
-      id="adminMenu"
-      class="hidden"
-    >
-
-      <div class="sidebar-title">
-        School Administration
-      </div>
-
-      <button
-        class="nav-btn"
-        data-page="schoolDetails"
-        onclick="showPage('schoolDetails')"
-      >
-        🏫 School Details
-      </button>
-
-      <button
-        class="nav-btn"
-        data-page="students"
-        onclick="showPage('students')"
-      >
-        👨‍🎓 Students
-      </button>
-
-      <button
-        class="nav-btn"
-        data-page="classes"
-        onclick="showPage('classes')"
-      >
-        📚 All Classes
-      </button>
-
-      <button
-        class="nav-btn"
-        data-page="subjects"
-        onclick="showPage('subjects')"
-      >
-        📖 All Subjects
-      </button>
-
-      <button
-        class="nav-btn"
-        data-page="reportCard"
-        onclick="showPage('reportCard')"
-      >
-        📝 General Report Card
-      </button>
-
-      <button
-        class="nav-btn"
-        data-page="settings"
-        onclick="showPage('settings')"
-      >
-        ⚙️ Settings
-      </button>
-
-      <button
-        class="nav-btn"
-        data-page="contact"
-        onclick="showPage('contact')"
-      >
-        📞 Contact Us
-      </button>
-
-    </div>
-
-
-    <div class="sidebar-title">
-      Account
-    </div>
-
-    <button
-      class="nav-btn"
-      onclick="logout()"
-    >
-      🚪 Logout
-    </button>
-
-  </aside>
-
-
-  <!-- MAIN -->
-
-  <main class="main">
-
-
-    <!-- ================= DASHBOARD ================= -->
-
-    <section
-      id="page-dashboard"
-      class="page active"
-    >
-
-      <h1 class="page-title">
-        Dashboard
-      </h1>
-
-      <p class="page-description">
-        Welcome to ExamPlus.
-      </p>
-
-      <div class="dashboard-grid">
-
-        <div class="dashboard-card">
-          <div class="icon">🏫</div>
-          <h3 id="dashboardSchoolName">
-            ExamPlus
-          </h3>
-          <p>
-            School
-          </p>
-        </div>
-
-        <div class="dashboard-card">
-          <div class="icon">👨‍🎓</div>
-          <h3 id="dashboardStudents">
-            -
-          </h3>
-          <p>
-            Students
-          </p>
-        </div>
-
-        <div class="dashboard-card">
-          <div class="icon">📚</div>
-          <h3 id="dashboardClasses">
-            -
-          </h3>
-          <p>
-            Classes
-          </p>
-        </div>
-
-        <div class="dashboard-card">
-          <div class="icon">📖</div>
-          <h3 id="dashboardSubjects">
-            -
-          </h3>
-          <p>
-            Subjects
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= CREATE SCHOOL ================= -->
-
-    <section
-      id="page-createSchool"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        Create School
-      </h1>
-
-      <p class="page-description">
-        Create a new school and its School Admin account.
-      </p>
-
-      <div class="panel">
-
-        <div class="panel-title">
-          School Information
-        </div>
-
-        <form id="createSchoolForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>School Name</label>
-              <input
-                id="schoolName"
-                required
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Phone Number</label>
-              <input
-                id="schoolPhone"
-              >
-            </div>
-
-            <div class="form-group full">
-              <label>School Address</label>
-              <textarea
-                id="schoolAddress"
-              ></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>Admin Name</label>
-              <input
-                id="adminName"
-                required
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Admin Email</label>
-              <input
-                type="email"
-                id="adminEmail"
-                required
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Admin Password</label>
-              <input
-                type="password"
-                id="adminPassword"
-                required
-              >
-            </div>
-
-          </div>
-
-          <div class="action-row">
-
-            <button
-              type="submit"
-              class="primary-btn"
-              style="width:auto"
-            >
-              Create School
-            </button>
-
-          </div>
-
-          <div
-            id="createSchoolMessage"
-            class="success-message"
-          ></div>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= VIEW SCHOOLS ================= -->
-
-    <section
-      id="page-viewSchools"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        View Schools
-      </h1>
-
-      <p class="page-description">
-        Manage schools created in ExamPlus.
-      </p>
-
-      <div class="panel">
-
-        <div class="action-row">
-
-          <button
-            class="secondary-btn"
-            onclick="loadSchools()"
-          >
-            Refresh
-          </button>
-
-        </div>
-
-        <div
-          id="schoolsContainer"
-          class="loading"
-        >
-          Loading schools...
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= SCHOOL DETAILS ================= -->
-
-    <section
-      id="page-schoolDetails"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        School Details
-      </h1>
-
-      <p class="page-description">
-        Manage your school's basic information.
-      </p>
-
-      <div class="panel">
-
-        <form id="schoolDetailsForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>School Name</label>
-              <input
-                id="detailsSchoolName"
-                readonly
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Contact / Phone</label>
-              <input
-                id="detailsPhone"
-              >
-            </div>
-
-            <div class="form-group full">
-              <label>School Address</label>
-              <textarea
-                id="detailsAddress"
-              ></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>Logo URL</label>
-              <input
-                id="detailsLogo"
-                placeholder="Paste logo URL"
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Resumption Date</label>
-              <input
-                type="date"
-                id="detailsResumption"
-              >
-            </div>
-
-          </div>
-
-          <button
-            type="submit"
-            class="primary-btn"
-            style="width:auto"
-          >
-            Save School Details
-          </button>
-
-          <div
-            id="schoolDetailsMessage"
-            class="success-message"
-          ></div>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= STUDENTS ================= -->
-
-    <section
-      id="page-students"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        Students
-      </h1>
-
-      <p class="page-description">
-        Register and manage students.
-      </p>
-
-
-      <!-- SELECT CLASS -->
-
-      <div class="panel">
-
-        <div class="panel-title">
-          Select Class
-        </div>
-
-        <div class="form-group">
-
-          <select
-            id="studentClassSelect"
-            onchange="loadStudents()"
-          >
-
-            <option value="">
-              Select Class
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-
-      <!-- SINGLE STUDENT -->
-
-      <div class="panel">
-
-        <div class="panel-title">
-          Add Single Student
-        </div>
-
-        <form id="studentForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-              <label>Student Name</label>
-              <input
-                id="studentName"
-                required
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Date of Birth</label>
-              <input
-                type="date"
-                id="studentDob"
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Date of Admission</label>
-              <input
-                type="date"
-                id="studentAdmission"
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Parent / Guardian Name</label>
-              <input
-                id="guardianName"
-              >
-            </div>
-
-            <div class="form-group full">
-              <label>
-                Parent / Guardian Address
-              </label>
-
-              <textarea
-                id="guardianAddress"
-              ></textarea>
-
-            </div>
-
-            <div class="form-group">
-              <label>
-                Parent / Guardian Phone
-              </label>
-
-              <input
-                id="guardianPhone"
-              >
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Capture / Upload Student Photo
-              </label>
-
-              <input
-                type="file"
-                id="studentPhoto"
-                accept="image/*"
-                capture="environment"
-              >
-
-            </div>
-
-          </div>
-
-          <button
-            type="submit"
-            class="primary-btn"
-            style="width:auto"
-          >
-            Save Student
-          </button>
-
-          <div
-            id="studentMessage"
-            class="success-message"
-          ></div>
-
-        </form>
-
-      </div>
-
-
-      <!-- BULK STUDENTS -->
-
-      <div class="panel">
-
-        <div class="panel-title">
-          Add Students in Bulk
-        </div>
-
-        <p
-          style="color:#6b7280;margin-bottom:15px;font-size:14px"
-        >
-          Enter one student name per line.
-        </p>
-
-        <form id="bulkStudentForm">
-
-          <div class="form-group">
-
-            <textarea
-              id="bulkStudentNames"
-              placeholder="Ahmed Musa&#10;Aisha Ibrahim&#10;John Peter"
-            ></textarea>
-
-          </div>
-
-          <button
-            type="submit"
-            class="secondary-btn"
-          >
-            Add Students
-          </button>
-
-          <div
-            id="bulkStudentMessage"
-            class="success-message"
-          ></div>
-
-        </form>
-
-      </div>
-
-
-      <!-- STUDENT LIST -->
-
-      <div class="panel">
-
-        <div class="panel-title">
-          Students in Selected Class
-        </div>
-
-        <div
-          id="studentsContainer"
-          class="loading"
-        >
-          Select a class to view students.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= CLASSES ================= -->
-
-    <section
-      id="page-classes"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        All Classes
-      </h1>
-
-      <p class="page-description">
-        Create and manage school classes.
-      </p>
-
-      <div class="panel">
-
-        <form id="classForm">
-
-          <div class="grid-2">
-
-            <div class="form-group">
-
-              <label>
-                Class Name
-              </label>
-
-              <input
-                id="className"
-                placeholder="Example: SS1"
-                required
-              >
-
-            </div>
-
-          </div>
-
-          <button
-            type="submit"
-            class="primary-btn"
-            style="width:auto"
-          >
-            Create Class
-          </button>
-
-          <div
-            id="classMessage"
-            class="success-message"
-          ></div>
-
-        </form>
-
-      </div>
-
-
-      <div class="panel">
-
-        <div class="panel-title">
-          Existing Classes
-        </div>
-
-        <div
-          id="classesContainer"
-          class="loading"
-        >
-          Loading classes...
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= SUBJECTS ================= -->
-
-    <section
-      id="page-subjects"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        All Subjects
-      </h1>
-
-      <p class="page-description">
-        Add subjects for each class.
-      </p>
-
-      <div class="panel">
-
-        <form id="subjectForm">
-
-          <div class="form-group">
-
-            <label>
-              Select Class
-            </label>
-
-            <select id="subjectClassSelect">
-
-              <option value="">
-                Select Class
-              </option>
-
-            </select>
-
-          </div>
-
-          <div class="form-group">
-
-            <label>
-              Subjects — one per line
-            </label>
-
-            <textarea
-              id="subjectNames"
-              placeholder="Mathematics&#10;English Language&#10;Physics&#10;Biology"
-            ></textarea>
-
-          </div>
-
-          <button
-            type="submit"
-            class="primary-btn"
-            style="width:auto"
-          >
-            Add Subjects
-          </button>
-
-          <div
-            id="subjectMessage"
-            class="success-message"
-          ></div>
-
-        </form>
-
-      </div>
-
-
-      <div class="panel">
-
-        <div class="panel-title">
-          Existing Subjects
-        </div>
-
-        <div
-          id="subjectsContainer"
-          class="loading"
-        >
-          Select a class to view subjects.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= REPORT CARD ================= -->
-
-    <section
-      id="page-reportCard"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        General Report Card
-      </h1>
-
-      <p class="page-description">
-        Select a class to view students for report card processing.
-      </p>
-
-      <div class="panel">
-
-        <div class="form-group">
-
-          <label>
-            Select Class
-          </label>
-
-          <select
-            id="reportClassSelect"
-            onchange="loadReportStudents()"
-          >
-
-            <option value="">
-              Select Class
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-      <div class="panel">
-
-        <div
-          id="reportStudentsContainer"
-          class="loading"
-        >
-          Select a class.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= SETTINGS ================= -->
-
-    <section
-      id="page-settings"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        Settings
-      </h1>
-
-      <p class="page-description">
-        Configure assessment and school fees.
-      </p>
-
-      <div class="panel">
-
-        <div class="panel-title">
-          Assessment Settings
-        </div>
-
-        <form id="settingsForm">
-
-          <div class="grid-3">
-
-            <div class="form-group">
-              <label>Test 1 Maximum</label>
-
-              <input
-                type="number"
-                id="test1Max"
-                min="0"
-                max="100"
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Test 2 Maximum</label>
-
-              <input
-                type="number"
-                id="test2Max"
-                min="0"
-                max="100"
-              >
-            </div>
-
-            <div class="form-group">
-              <label>Exam Maximum</label>
-
-              <input
-                type="number"
-                id="examMax"
-                min="0"
-                max="100"
-              >
-            </div>
-
-          </div>
-
-
-          <div class="panel-title">
-            School Fees
-          </div>
-
-          <div class="grid-3">
-
-            <div class="form-group">
-
-              <label>
-                School Fees
-              </label>
-
-              <input
-                type="number"
-                id="schoolFees"
-                min="0"
-              >
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Registration Fee
-              </label>
-
-              <input
-                type="number"
-                id="registrationFee"
-                min="0"
-              >
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Books Fee
-              </label>
-
-              <input
-                type="number"
-                id="booksFee"
-                min="0"
-              >
-
-            </div>
-
-          </div>
-
-          <button
-            type="submit"
-            class="primary-btn"
-            style="width:auto"
-          >
-            Save Settings
-          </button>
-
-          <div
-            id="settingsMessage"
-            class="success-message"
-          ></div>
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= CONTACT ================= -->
-
-    <section
-      id="page-contact"
-      class="page"
-    >
-
-      <h1 class="page-title">
-        Contact Us
-      </h1>
-
-      <p class="page-description">
-        Contact ExamPlus support or your Super Admin.
-      </p>
-
-      <div class="panel">
-
-        <div class="panel-title">
-          ExamPlus Support
-        </div>
-
-        <p style="line-height:1.7;color:#6b7280">
-          Your Super Admin contact information can be displayed
-          here for school administrators.
-        </p>
-
-      </div>
-
-    </section>
-
-  </main>
-
-</div>
-
 
 <script>
-
-/* =========================================================
-   EXAMPLUS API
-   ========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycby7AmYVGIrZLHzOn8ujefghH4vFrilWN3xXE1vToiaTc1ANWia37SFV2mEvwq6pV41_Xw/exec";
 
 
-/* =========================================================
-   GLOBAL VARIABLES
-   ========================================================= */
+const form = document.getElementById("loginForm");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const loginButton = document.getElementById("loginButton");
+const statusBox = document.getElementById("status");
+const debugBox = document.getElementById("debug");
 
-let currentUser = null;
 
+function showStatus(message, type) {
 
-/* =========================================================
-   API REQUEST
-   ========================================================= */
+  statusBox.className = "status " + type;
 
-async function api(action, data = {}){
+  statusBox.textContent = message;
 
-  const payload = {
-    action: action,
-    ...data
-  };
-
-  try{
-
-    const response = await fetch(API_URL,{
-
-      method:"POST",
-
-      headers:{
-        "Content-Type":
-          "text/plain;charset=utf-8"
-      },
-
-      body:JSON.stringify(payload)
-
-    });
-
-    const text = await response.text();
-
-    let result;
-
-    try{
-      result = JSON.parse(text);
-    }catch(error){
-      throw new Error(
-        "Server returned an invalid response."
-      );
-    }
-
-    if(result.success === false){
-      throw new Error(
-        result.message || "Request failed."
-      );
-    }
-
-    return result;
-
-  }catch(error){
-
-    console.error(error);
-
-    throw error;
-  }
 }
 
 
-/* =========================================================
-   LOGIN
-   ========================================================= */
+function showDebug(message) {
 
-document
-.getElementById("loginForm")
-.addEventListener("submit", async function(e){
+  debugBox.style.display = "block";
 
-  e.preventDefault();
+  debugBox.textContent = message;
 
-  const email =
-    document.getElementById("loginEmail").value.trim();
+}
 
-  const password =
-    document.getElementById("loginPassword").value;
 
-  const button =
-    document.getElementById("loginButton");
+async function login() {
 
-  const errorBox =
-    document.getElementById("loginError");
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
 
-  errorBox.style.display = "none";
+  if (!email) {
 
-  button.disabled = true;
-  button.textContent = "Logging in...";
-
-  try{
-
-    const result = await api("login",{
-      email:email,
-      password:password
-    });
-
-    if(!result.user){
-      throw new Error("Invalid login response.");
-    }
-
-    currentUser = result.user;
-
-    localStorage.setItem(
-      "examplusUser",
-      JSON.stringify(currentUser)
+    showStatus(
+      "Please enter your email.",
+      "error"
     );
 
-    startApplication();
+    emailInput.focus();
 
-  }catch(error){
-
-    errorBox.textContent =
-      error.message || "Login failed.";
-
-    errorBox.style.display = "block";
-
-  }finally{
-
-    button.disabled = false;
-    button.textContent = "Login";
-
-  }
-
-});
-
-
-/* =========================================================
-   START APPLICATION
-   ========================================================= */
-
-function startApplication(){
-
-  document
-    .getElementById("loginPage")
-    .classList.add("hidden");
-
-  document
-    .getElementById("app")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("schoolTitle")
-    .textContent =
-      currentUser.schoolName || "";
-
-  document
-    .getElementById("roleBadge")
-    .textContent =
-      formatRole(currentUser.role);
-
-  setupMenus();
-
-  showPage("dashboard");
-
-  loadDashboard();
-}
-
-
-/* =========================================================
-   FORMAT ROLE
-   ========================================================= */
-
-function formatRole(role){
-
-  const value =
-    String(role || "")
-    .toLowerCase();
-
-  if(value === "superadmin"){
-    return "Super Admin";
-  }
-
-  if(value === "admin"){
-    return "School Admin";
-  }
-
-  if(value === "bursar"){
-    return "Bursar";
-  }
-
-  if(value === "teacher"){
-    return "Teacher";
-  }
-
-  return role || "";
-}
-
-
-/* =========================================================
-   MENU SETUP
-   ========================================================= */
-
-function setupMenus(){
-
-  const role =
-    String(currentUser.role || "")
-    .toLowerCase();
-
-  document
-    .getElementById("superAdminMenu")
-    .classList.add("hidden");
-
-  document
-    .getElementById("adminMenu")
-    .classList.add("hidden");
-
-
-  if(role === "superadmin"){
-
-    document
-      .getElementById("superAdminMenu")
-      .classList.remove("hidden");
-
-  }
-
-
-  if(role === "admin"){
-
-    document
-      .getElementById("adminMenu")
-      .classList.remove("hidden");
-
-  }
-
-}
-
-
-/* =========================================================
-   PAGE NAVIGATION
-   ========================================================= */
-
-function showPage(page){
-
-  document
-    .querySelectorAll(".page")
-    .forEach(function(section){
-
-      section.classList.remove("active");
-
-    });
-
-
-  const selected =
-    document.getElementById(
-      "page-" + page
-    );
-
-  if(selected){
-    selected.classList.add("active");
-  }
-
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(function(button){
-
-      button.classList.remove("active");
-
-      if(button.dataset.page === page){
-        button.classList.add("active");
-      }
-
-    });
-
-
-  document
-    .getElementById("sidebar")
-    .classList.remove("open");
-
-
-  /* LOAD DATA WHEN PAGE OPENS */
-
-  if(page === "viewSchools"){
-    loadSchools();
-  }
-
-  if(page === "schoolDetails"){
-    loadSchoolDetails();
-  }
-
-  if(page === "classes"){
-    loadClasses();
-  }
-
-  if(page === "subjects"){
-    prepareSubjectsPage();
-  }
-
-  if(page === "students"){
-    prepareStudentsPage();
-  }
-
-  if(page === "reportCard"){
-    prepareReportCardPage();
-  }
-
-  if(page === "settings"){
-    loadSettings();
-  }
-
-}
-
-
-/* =========================================================
-   SIDEBAR MOBILE
-   ========================================================= */
-
-function toggleSidebar(){
-
-  document
-    .getElementById("sidebar")
-    .classList.toggle("open");
-
-}
-
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
-function logout(){
-
-  localStorage.removeItem("examplusUser");
-
-  currentUser = null;
-
-  document
-    .getElementById("app")
-    .classList.add("hidden");
-
-  document
-    .getElementById("loginPage")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("loginEmail")
-    .value = "";
-
-  document
-    .getElementById("loginPassword")
-    .value = "";
-
-}
-
-
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
-
-async function loadDashboard(){
-
-  document
-    .getElementById("dashboardSchoolName")
-    .textContent =
-      currentUser.schoolName || "ExamPlus";
-
-
-  const role =
-    String(currentUser.role || "")
-    .toLowerCase();
-
-
-  if(role === "admin"){
-
-    try{
-
-      const classes =
-        await api("getClasses",{
-          schoolName:
-            currentUser.schoolName
-        });
-
-      document
-        .getElementById("dashboardClasses")
-        .textContent =
-          (classes.classes || []).length;
-
-    }catch(error){
-
-      document
-        .getElementById("dashboardClasses")
-        .textContent = "-";
-
-    }
-
-
-    try{
-
-      const subjects =
-        await api("getSubjects",{
-          schoolName:
-            currentUser.schoolName
-        });
-
-      document
-        .getElementById("dashboardSubjects")
-        .textContent =
-          (subjects.subjects || []).length;
-
-    }catch(error){
-
-      document
-        .getElementById("dashboardSubjects")
-        .textContent = "-";
-
-    }
-
-
-    document
-      .getElementById("dashboardStudents")
-      .textContent = "-";
-
-  }
-
-}
-
-
-/* =========================================================
-   CREATE SCHOOL
-   ========================================================= */
-
-document
-.getElementById("createSchoolForm")
-.addEventListener("submit", async function(e){
-
-  e.preventDefault();
-
-  const message =
-    document.getElementById(
-      "createSchoolMessage"
-    );
-
-  message.style.display = "none";
-
-  try{
-
-    const result =
-      await api("createSchool",{
-
-        schoolName:
-          document.getElementById("schoolName").value.trim(),
-
-        phone:
-          document.getElementById("schoolPhone").value.trim(),
-
-        address:
-          document.getElementById("schoolAddress").value.trim(),
-
-        adminName:
-          document.getElementById("adminName").value.trim(),
-
-        adminEmail:
-          document.getElementById("adminEmail").value.trim(),
-
-        adminPassword:
-          document.getElementById("adminPassword").value
-
-      });
-
-
-    message.textContent =
-      result.message ||
-      "School created successfully.";
-
-    message.style.display = "block";
-
-
-    document
-      .getElementById("createSchoolForm")
-      .reset();
-
-
-  }catch(error){
-
-    message.textContent =
-      error.message;
-
-    message.style.display = "block";
-
-  }
-
-});
-
-
-/* =========================================================
-   LOAD SCHOOLS
-   ========================================================= */
-
-async function loadSchools(){
-
-  const container =
-    document.getElementById(
-      "schoolsContainer"
-    );
-
-  container.innerHTML =
-    '<div class="loading">Loading schools...</div>';
-
-  try{
-
-    const result =
-      await api("getSchools");
-
-    const schools =
-      result.schools || [];
-
-
-    if(!schools.length){
-
-      container.innerHTML =
-        "<p>No schools found.</p>";
-
-      return;
-    }
-
-
-    let html = `
-      <div class="table-wrapper">
-      <table>
-
-        <thead>
-          <tr>
-            <th>School</th>
-            <th>Phone</th>
-            <th>Admin</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-    `;
-
-
-    schools.forEach(function(school){
-
-      const active =
-        String(school.status || "")
-        .toLowerCase() === "active";
-
-
-      html += `
-        <tr>
-
-          <td>
-            ${escapeHtml(school.schoolName || "")}
-          </td>
-
-          <td>
-            ${escapeHtml(school.phone || "")}
-          </td>
-
-          <td>
-            ${escapeHtml(school.adminName || "")}
-          </td>
-
-          <td>
-            ${escapeHtml(school.adminEmail || "")}
-          </td>
-
-          <td>
-
-            <span class="status ${active ? "active" : "inactive"}">
-
-              ${active ? "Active" : "Inactive"}
-
-            </span>
-
-          </td>
-
-          <td>
-
-            <button
-              class="${active ? "warning-btn" : "success-btn"}"
-              onclick="toggleSchool('${escapeAttribute(school.schoolName)}')"
-            >
-
-              ${active ? "Deactivate" : "Activate"}
-
-            </button>
-
-          </td>
-
-        </tr>
-      `;
-
-    });
-
-
-    html += `
-        </tbody>
-      </table>
-      </div>
-    `;
-
-
-    container.innerHTML = html;
-
-
-  }catch(error){
-
-    container.innerHTML =
-      `<p style="color:#b91c1c">
-        ${escapeHtml(error.message)}
-      </p>`;
-
-  }
-
-}
-
-
-/* =========================================================
-   TOGGLE SCHOOL
-   ========================================================= */
-
-async function toggleSchool(schoolName){
-
-  if(!confirm(
-    "Change the status of " +
-    schoolName +
-    "?"
-  )){
     return;
   }
 
 
-  try{
+  if (!password) {
 
-    await api("toggleSchool",{
-      schoolName:schoolName
-    });
-
-    await loadSchools();
-
-  }catch(error){
-
-    alert(error.message);
-
-  }
-
-}
-
-
-/* =========================================================
-   SCHOOL DETAILS
-   ========================================================= */
-
-async function loadSchoolDetails(){
-
-  try{
-
-    const result =
-      await api("getSchoolDetails",{
-        schoolName:
-          currentUser.schoolName
-      });
-
-    const school =
-      result.school || {};
-
-
-    document
-      .getElementById("detailsSchoolName")
-      .value =
-        school.schoolName ||
-        currentUser.schoolName ||
-        "";
-
-
-    document
-      .getElementById("detailsPhone")
-      .value =
-        school.phone || "";
-
-
-    document
-      .getElementById("detailsAddress")
-      .value =
-        school.address || "";
-
-
-    document
-      .getElementById("detailsLogo")
-      .value =
-        school.logoUrl || "";
-
-
-    document
-      .getElementById("detailsResumption")
-      .value =
-        formatDateInput(
-          school.resumptionDate
-        );
-
-  }catch(error){
-
-    alert(error.message);
-
-  }
-
-}
-
-
-document
-.getElementById("schoolDetailsForm")
-.addEventListener("submit", async function(e){
-
-  e.preventDefault();
-
-  const message =
-    document.getElementById(
-      "schoolDetailsMessage"
+    showStatus(
+      "Please enter your password.",
+      "error"
     );
 
-  try{
+    passwordInput.focus();
 
-    const result =
-      await api("saveSchoolDetails",{
-
-        schoolName:
-          currentUser.schoolName,
-
-        address:
-          document
-            .getElementById("detailsAddress")
-            .value.trim(),
-
-        phone:
-          document
-            .getElementById("detailsPhone")
-            .value.trim(),
-
-        logoUrl:
-          document
-            .getElementById("detailsLogo")
-            .value.trim(),
-
-        resumptionDate:
-          document
-            .getElementById("detailsResumption")
-            .value
-
-      });
+    return;
+  }
 
 
-    message.textContent =
-      result.message ||
-      "School details saved.";
+  loginButton.disabled = true;
 
-    message.style.display = "block";
+  loginButton.textContent = "Logging in...";
 
-
-    setTimeout(function(){
-      message.style.display = "none";
-    },3000);
+  showStatus(
+    "Connecting to ExamPlus...",
+    "info"
+  );
 
 
-  }catch(error){
+  try {
 
-    alert(error.message);
+    const payload = {
+      action: "login",
+      email: email,
+      password: password
+    };
+
+
+    showDebug(
+      "Sending login request...\n\n" +
+      "Email: " + email + "\n" +
+      "API connection started."
+    );
+
+
+    const response = await fetch(API_URL, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+
+      body: JSON.stringify(payload)
+
+    });
+
+
+    showDebug(
+      "Server responded.\n\n" +
+      "HTTP Status: " + response.status + "\n" +
+      "Status Text: " + response.statusText
+    );
+
+
+    const text = await response.text();
+
+
+    showDebug(
+      "Server response received.\n\n" +
+      "HTTP Status: " + response.status + "\n\n" +
+      text
+    );
+
+
+    let result;
+
+    try {
+
+      result = JSON.parse(text);
+
+    } catch (jsonError) {
+
+      throw new Error(
+        "The server did not return valid JSON.\n\n" +
+        "Server response:\n" +
+        text
+      );
+
+    }
+
+
+    if (result.success) {
+
+      showStatus(
+        "Login successful! Welcome " +
+        (result.user?.name ||
+         result.user?.email ||
+         email),
+        "success"
+      );
+
+
+      loginButton.textContent = "Login Successful";
+
+
+      /*
+       * DO NOT REDIRECT YET.
+       *
+       * We first want to confirm that the login
+       * connection is working correctly.
+       */
+
+
+      console.log("LOGIN SUCCESS:", result);
+
+    } else {
+
+      showStatus(
+        result.message ||
+        "Login failed. Please check your email and password.",
+        "error"
+      );
+
+
+      loginButton.disabled = false;
+
+      loginButton.textContent = "Login";
+
+    }
+
+  } catch (error) {
+
+    console.error("LOGIN ERROR:", error);
+
+
+    showStatus(
+      "Login connection failed: " +
+      error.message,
+      "error"
+    );
+
+
+    showDebug(
+      "LOGIN ERROR\n\n" +
+      error.message +
+      "\n\n" +
+      "The page did NOT reload.\n" +
+      "Your email and password should remain in the fields."
+    );
+
+
+    loginButton.disabled = false;
+
+    loginButton.textContent = "Login";
 
   }
+
+}
+
+
+form.addEventListener("submit", function(event) {
+
+  event.preventDefault();
+
+  login();
 
 });
 
 
-/* =================================================
+</script>
+
+</body>
+</html>
