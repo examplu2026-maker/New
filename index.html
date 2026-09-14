@@ -1,1286 +1,1181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ExamPlus - School Management System</title>
+<title>ExamPlus School Management System</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+#loginPage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:linear-gradient(135deg,#0b5ed7,#084298);
+}
+
+.login-card{
+    width:100%;
+    max-width:420px;
+    background:white;
+    border-radius:20px;
+    padding:30px 24px;
+    box-shadow:0 15px 50px rgba(0,0,0,.2);
+}
+
+.logo-box{
+    width:75px;
+    height:75px;
+    border-radius:20px;
+    background:#0b5ed7;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:bold;
+    margin:0 auto 15px;
+}
+
+.login-card h1{
+    text-align:center;
+    font-size:27px;
+    margin-bottom:7px;
+}
+
+.login-card .subtitle{
+    text-align:center;
+    color:#667085;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #d0d5dd;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+    background:white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#0b5ed7;
+    box-shadow:0 0 0 3px rgba(11,94,215,.1);
+}
+
+.password-wrap{
+    position:relative;
+}
+
+.password-wrap input{
+    padding-right:48px;
+}
+
+.password-toggle{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    border:none;
+    background:none;
+    font-size:19px;
+    cursor:pointer;
+}
+
+.login-btn{
+    width:100%;
+    border:none;
+    padding:14px;
+    border-radius:10px;
+    background:#0b5ed7;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.login-message{
+    display:none;
+    margin-top:15px;
+    padding:12px;
+    border-radius:9px;
+    font-size:14px;
+}
+
+.login-message.error{
+    display:block;
+    background:#fff0f0;
+    color:#b42318;
+    border:1px solid #f5c2c7;
+}
+
+.login-message.success{
+    display:block;
+    background:#ecfdf3;
+    color:#027a48;
+    border:1px solid #abefc6;
+}
+
+.login-help{
+    text-align:center;
+    margin-top:18px;
+    color:#667085;
+    font-size:12px;
+}
+
+/* =========================
+   APP
+========================= */
+
+#app{
+    display:none;
+    min-height:100vh;
+}
+
+.topbar{
+    height:65px;
+    background:#0b5ed7;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.menu-btn{
+    border:none;
+    background:rgba(255,255,255,.15);
+    color:white;
+    width:40px;
+    height:40px;
+    border-radius:8px;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.user-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-role{
+    background:rgba(255,255,255,.15);
+    padding:7px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.logout-btn{
+    border:none;
+    background:#dc3545;
+    color:white;
+    padding:8px 12px;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    top:65px;
+    left:0;
+    bottom:0;
+    width:250px;
+    background:#101828;
+    color:white;
+    overflow-y:auto;
+    transition:.25s;
+    z-index:900;
+}
+
+.sidebar.hidden{
+    left:-260px;
+}
+
+.sidebar-header{
+    padding:20px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.sidebar-header strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.sidebar-header small{
+    color:#98a2b3;
+}
+
+.nav-item{
+    width:100%;
+    border:none;
+    background:none;
+    color:#d0d5dd;
+    text-align:left;
+    padding:14px 18px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:14px;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    background:#1d2939;
+    color:white;
+}
+
+.nav-icon{
+    width:24px;
+    text-align:center;
+    font-size:18px;
+}
+
+.nav-title{
+    flex:1;
+}
+
+.main{
+    margin-left:250px;
+    padding:90px 22px 30px;
+    transition:.25s;
+}
+
+.main.full{
+    margin-left:0;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+.page-title{
+    margin-bottom:20px;
+}
+
+.page-title h2{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.page-title p{
+    color:#667085;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:16px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(16,24,40,.06);
+}
+
+.stat-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.stat-icon{
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    background:#e8f1ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+.stat-card h3{
+    font-size:24px;
+}
+
+.stat-card p{
+    color:#667085;
+    font-size:13px;
+}
+
+.panel{
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 3px 15px rgba(16,24,40,.05);
+}
+
+.panel h3{
+    margin-bottom:17px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.btn{
+    border:none;
+    padding:11px 16px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.btn-primary{
+    background:#0b5ed7;
+    color:white;
+}
+
+.btn-success{
+    background:#198754;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-secondary{
+    background:#667085;
+    color:white;
+}
+
+.btn-light{
+    background:#eaecf0;
+    color:#344054;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:15px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:600px;
+}
+
+th,td{
+    padding:12px;
+    border-bottom:1px solid #eaecf0;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    background:#f9fafb;
+}
+
+.empty{
+    text-align:center;
+    color:#667085;
+    padding:30px;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    background:#e8f1ff;
+    color:#0b5ed7;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    .sidebar{
+        left:-260px;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #1f2937;
-      min-height: 100vh;
+    .sidebar.open{
+        left:0;
+        box-shadow:10px 0 30px rgba(0,0,0,.25);
     }
 
-    button,
-    input,
-    select {
-      font: inherit;
+    .main{
+        margin-left:0;
+        padding:85px 14px 25px;
     }
 
-    button {
-      cursor: pointer;
+    .user-role{
+        display:none;
     }
 
-    /* =========================
-       LOGIN
-    ========================= */
-
-    #loginPage {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: linear-gradient(135deg, #0f766e, #2563eb);
+    .brand{
+        font-size:18px;
     }
 
-    .login-card {
-      width: 100%;
-      max-width: 420px;
-      background: white;
-      border-radius: 20px;
-      padding: 35px 25px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    .topbar{
+        padding:0 10px;
     }
 
-    .logo-box {
-      width: 75px;
-      height: 75px;
-      margin: 0 auto 15px;
-      border-radius: 18px;
-      background: #0f766e;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      font-weight: bold;
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:500px){
+
+    .cards{
+        grid-template-columns:1fr;
     }
 
-    .login-card h1 {
-      text-align: center;
-      color: #0f766e;
-      margin-bottom: 5px;
+    .login-card{
+        padding:25px 18px;
     }
 
-    .login-subtitle {
-      text-align: center;
-      color: #6b7280;
-      margin-bottom: 25px;
-      font-size: 14px;
+    .page-title h2{
+        font-size:22px;
     }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 13px 14px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      outline: none;
-      background: white;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus {
-      border-color: #0f766e;
-      box-shadow: 0 0 0 3px rgba(15,118,110,0.1);
-    }
-
-    .login-btn {
-      width: 100%;
-      border: none;
-      padding: 14px;
-      border-radius: 10px;
-      background: #0f766e;
-      color: white;
-      font-weight: bold;
-      margin-top: 5px;
-    }
-
-    .login-btn:hover {
-      background: #0b5f59;
-    }
-
-    #loginMessage {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    /* =========================
-       APP
-    ========================= */
-
-    #app {
-      display: none;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      height: 65px;
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 18px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: bold;
-      color: #0f766e;
-      font-size: 20px;
-    }
-
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      background: #0f766e;
-      color: white;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-    }
-
-    .user-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-    }
-
-    .logout-btn {
-      border: none;
-      background: #fee2e2;
-      color: #b91c1c;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    .layout {
-      display: flex;
-      min-height: calc(100vh - 65px);
-    }
-
-    /* =========================
-       SIDEBAR
-    ========================= */
-
-    .sidebar {
-      width: 245px;
-      background: #111827;
-      color: white;
-      padding: 18px 12px;
-      flex-shrink: 0;
-    }
-
-    .sidebar-title {
-      color: #9ca3af;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 10px 12px;
-    }
-
-    .nav-btn {
-      width: 100%;
-      border: none;
-      background: transparent;
-      color: #d1d5db;
-      padding: 12px;
-      border-radius: 9px;
-      text-align: left;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .nav-btn:hover,
-    .nav-btn.active {
-      background: #0f766e;
-      color: white;
-    }
-
-    .nav-icon {
-      width: 25px;
-      text-align: center;
-      font-size: 17px;
-    }
-
-    /* =========================
-       CONTENT
-    ========================= */
-
-    .content {
-      flex: 1;
-      padding: 25px;
-      overflow-x: hidden;
-    }
-
-    .page-section {
-      display: none;
-    }
-
-    .page-section.active {
-      display: block;
-    }
-
-    .page-header {
-      margin-bottom: 25px;
-    }
-
-    .page-header h2 {
-      font-size: 25px;
-      margin-bottom: 5px;
-    }
-
-    .page-header p {
-      color: #6b7280;
-      font-size: 14px;
-    }
-
-    /* =========================
-       DASHBOARD CARDS
-    ========================= */
-
-    .welcome-card {
-      background: linear-gradient(135deg, #0f766e, #2563eb);
-      color: white;
-      border-radius: 16px;
-      padding: 25px;
-      margin-bottom: 25px;
-    }
-
-    .welcome-card h2 {
-      margin-bottom: 7px;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-    }
-
-    .dashboard-card {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      border: 1px solid #e5e7eb;
-      transition: transform 0.2s;
-    }
-
-    .dashboard-card:hover {
-      transform: translateY(-3px);
-    }
-
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: #ecfdf5;
-      color: #0f766e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 14px;
-    }
-
-    .dashboard-card h3 {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-
-    .dashboard-card p {
-      color: #6b7280;
-      font-size: 13px;
-    }
-
-    /* =========================
-       CONTENT CARDS
-    ========================= */
-
-    .panel {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .panel h3 {
-      margin-bottom: 15px;
-    }
-
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .primary-btn,
-    .secondary-btn,
-    .danger-btn {
-      border: none;
-      padding: 11px 15px;
-      border-radius: 9px;
-      font-weight: bold;
-    }
-
-    .primary-btn {
-      background: #0f766e;
-      color: white;
-    }
-
-    .secondary-btn {
-      background: #e5e7eb;
-      color: #374151;
-    }
-
-    .danger-btn {
-      background: #fee2e2;
-      color: #b91c1c;
-    }
-
-    /* =========================
-       STATS
-    ========================= */
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .stat-card {
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 18px;
-    }
-
-    .stat-label {
-      color: #6b7280;
-      font-size: 13px;
-    }
-
-    .stat-number {
-      font-size: 28px;
-      font-weight: bold;
-      margin-top: 7px;
-      color: #0f766e;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    .menu-toggle {
-      display: none;
-      border: none;
-      background: #f3f4f6;
-      padding: 9px;
-      border-radius: 8px;
-      font-size: 20px;
-    }
-
-    @media (max-width: 800px) {
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .sidebar {
-        position: fixed;
-        top: 65px;
-        left: -260px;
-        height: calc(100vh - 65px);
-        z-index: 200;
-        transition: left 0.25s ease;
-      }
-
-      .sidebar.open {
-        left: 0;
-      }
-
-      .content {
-        padding: 18px;
-      }
-
-      .user-role {
-        display: none;
-      }
-    }
-
-    @media (max-width: 500px) {
-
-      .topbar {
-        padding: 0 12px;
-      }
-
-      .brand {
-        font-size: 17px;
-      }
-
-      .content {
-        padding: 14px;
-      }
-
-      .welcome-card {
-        padding: 20px;
-      }
-
-      .page-header h2 {
-        font-size: 21px;
-      }
-
-      .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .dashboard-card {
-        padding: 15px;
-      }
-    }
-  </style>
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    background:#101828;
+    color:white;
+    padding:13px 17px;
+    border-radius:9px;
+    display:none;
+    z-index:3000;
+    max-width:320px;
+    box-shadow:0 8px 30px rgba(0,0,0,.2);
+}
+
+#toast.show{
+    display:block;
+}
+</style>
 </head>
 
 <body>
 
-<!-- ============================================================
+<!-- =====================================================
      LOGIN PAGE
-============================================================ -->
+===================================================== -->
 
 <div id="loginPage">
 
-  <div class="login-card">
+    <div class="login-card">
 
-    <div class="logo-box">EP</div>
+        <div class="logo-box">EP</div>
 
-    <h1>ExamPlus</h1>
+        <h1>ExamPlus</h1>
 
-    <p class="login-subtitle">
-      School Management System
-    </p>
+        <p class="subtitle">
+            School Management System
+        </p>
 
-    <form id="loginForm">
+        <form id="loginForm">
 
-      <div class="form-group">
-        <label for="email">Email</label>
+            <div class="form-group">
+                <label for="email">Email Address</label>
 
-        <input
-          type="email"
-          id="email"
-          placeholder="Enter your email"
-          required
-        >
-      </div>
+                <input
+                    type="email"
+                    id="email"
+                    autocomplete="username"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
+            <div class="form-group">
 
-        <input
-          type="password"
-          id="password"
-          placeholder="Enter your password"
-          required
-        >
-      </div>
+                <label for="password">Password</label>
 
-      <button
-        type="submit"
-        class="login-btn"
-        id="loginButton"
-      >
-        Login
-      </button>
+                <div class="password-wrap">
 
-    </form>
+                    <input
+                        type="password"
+                        id="password"
+                        autocomplete="current-password"
+                        placeholder="Enter your password"
+                        required
+                    >
 
-    <div id="loginMessage"></div>
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="togglePassword"
+                        aria-label="Show password"
+                    >👁️</button>
 
-  </div>
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginButton"
+            >
+                Login
+            </button>
+
+            <div
+                id="loginMessage"
+                class="login-message"
+            ></div>
+
+        </form>
+
+        <div class="login-help">
+            ExamPlus School Management System
+        </div>
+
+    </div>
 
 </div>
 
 
-<!-- ============================================================
-     MAIN APPLICATION
-============================================================ -->
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
 
 <div id="app">
 
-  <!-- TOP BAR -->
+    <header class="topbar">
 
-  <header class="topbar">
+        <div class="brand">
 
-    <div class="brand">
+            <button
+                class="menu-btn"
+                id="menuButton"
+            >
+                ☰
+            </button>
 
-      <button
-        class="menu-toggle"
-        onclick="toggleSidebar()"
-      >
-        ☰
-      </button>
+            <span>ExamPlus</span>
 
-      <div class="brand-icon">
-        EP
-      </div>
+        </div>
 
-      <span>ExamPlus</span>
+        <div class="user-area">
 
-    </div>
+            <span
+                class="user-role"
+                id="topRole"
+            >
+                User
+            </span>
 
-    <div class="user-area">
+            <button
+                class="logout-btn"
+                id="logoutButton"
+            >
+                Logout
+            </button>
 
-      <span id="schoolNameDisplay">
-        School
-      </span>
+        </div>
 
-      <span class="user-role" id="roleDisplay">
-        Role
-      </span>
+    </header>
 
-      <button
-        class="logout-btn"
-        onclick="logout()"
-      >
-        Logout
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <div class="layout">
 
     <!-- SIDEBAR -->
 
     <aside
-      class="sidebar"
-      id="sidebar"
+        class="sidebar"
+        id="sidebar"
     >
 
-      <div class="sidebar-title">
-        Main
-      </div>
+        <div class="sidebar-header">
 
-      <button
-        class="nav-btn active"
-        onclick="showSection('dashboard', this)"
-      >
-        <span class="nav-icon">⌂</span>
-        Dashboard
-      </button>
+            <strong id="sidebarSchool">
+                ExamPlus
+            </strong>
 
+            <small id="sidebarUser">
+                School Management System
+            </small>
 
-      <!-- ADMIN MENU -->
-
-      <div
-        id="adminMenu"
-        style="display:none;"
-      >
-
-        <div class="sidebar-title">
-          Administration
         </div>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('schoolDetails', this)"
-        >
-          <span class="nav-icon">🏫</span>
-          School Details
-        </button>
 
         <button
-          class="nav-btn"
-          onclick="showSection('students', this)"
+            class="nav-item active"
+            data-section="dashboard"
         >
-          <span class="nav-icon">👨‍🎓</span>
-          Students
+            <span class="nav-icon">🏠</span>
+            <span class="nav-title">Dashboard</span>
         </button>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('classes', this)"
-        >
-          <span class="nav-icon">📚</span>
-          All Classes
-        </button>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('subjects', this)"
-        >
-          <span class="nav-icon">📖</span>
-          All Subjects
-        </button>
+        <!-- ADMIN -->
 
-        <button
-          class="nav-btn"
-          onclick="showSection('reportCard', this)"
-        >
-          <span class="nav-icon">📊</span>
-          General Report Card
-        </button>
+        <div id="adminMenu">
 
-        <button
-          class="nav-btn"
-          onclick="showSection('settings', this)"
-        >
-          <span class="nav-icon">⚙️</span>
-          Settings
-        </button>
+            <button class="nav-item" data-section="schoolDetails">
+                <span class="nav-icon">🏫</span>
+                <span class="nav-title">School Details</span>
+            </button>
 
-      </div>
+            <button class="nav-item" data-section="students">
+                <span class="nav-icon">👨‍🎓</span>
+                <span class="nav-title">Students</span>
+            </button>
 
+            <button class="nav-item" data-section="classes">
+                <span class="nav-icon">📚</span>
+                <span class="nav-title">All Classes</span>
+            </button>
 
-      <!-- BURSAR MENU -->
+            <button class="nav-item" data-section="subjects">
+                <span class="nav-icon">📖</span>
+                <span class="nav-title">All Subjects</span>
+            </button>
 
-      <div
-        id="bursarMenu"
-        style="display:none;"
-      >
+            <button class="nav-item" data-section="reportCard">
+                <span class="nav-icon">📄</span>
+                <span class="nav-title">General Report Card</span>
+            </button>
 
-        <div class="sidebar-title">
-          Bursar
+            <button class="nav-item" data-section="settings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-title">Settings</span>
+            </button>
+
         </div>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('fees', this)"
-        >
-          <span class="nav-icon">💰</span>
-          Fees & Payments
-        </button>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('receipt', this)"
-        >
-          <span class="nav-icon">🧾</span>
-          Generate Receipt
-        </button>
+        <!-- BURSAR -->
 
-        <button
-          class="nav-btn"
-          onclick="showSection('receiptHistory', this)"
-        >
-          <span class="nav-icon">📜</span>
-          Receipt History
-        </button>
+        <div id="bursarMenu">
 
-      </div>
+            <button class="nav-item" data-section="fees">
+                <span class="nav-icon">💰</span>
+                <span class="nav-title">Fees & Payments</span>
+            </button>
 
+            <button class="nav-item" data-section="receipt">
+                <span class="nav-icon">🧾</span>
+                <span class="nav-title">Generate Receipt</span>
+            </button>
 
-      <!-- TEACHER MENU -->
+            <button class="nav-item" data-section="receiptHistory">
+                <span class="nav-icon">📋</span>
+                <span class="nav-title">Receipt History</span>
+            </button>
 
-      <div
-        id="teacherMenu"
-        style="display:none;"
-      >
-
-        <div class="sidebar-title">
-          Teacher
         </div>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('uploadResult', this)"
-        >
-          <span class="nav-icon">📝</span>
-          Upload Result
-        </button>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('viewResults', this)"
-        >
-          <span class="nav-icon">📊</span>
-          View Results
-        </button>
+        <!-- TEACHER -->
 
-      </div>
+        <div id="teacherMenu">
 
+            <button class="nav-item" data-section="uploadResult">
+                <span class="nav-icon">⬆️</span>
+                <span class="nav-title">Upload Result</span>
+            </button>
 
-      <!-- SUPER ADMIN MENU -->
+            <button class="nav-item" data-section="viewResults">
+                <span class="nav-icon">📊</span>
+                <span class="nav-title">View Results</span>
+            </button>
 
-      <div
-        id="superAdminMenu"
-        style="display:none;"
-      >
-
-        <div class="sidebar-title">
-          Platform
         </div>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('createSchool', this)"
-        >
-          <span class="nav-icon">➕</span>
-          Create School
-        </button>
 
-        <button
-          class="nav-btn"
-          onclick="showSection('viewSchools', this)"
-        >
-          <span class="nav-icon">🏫</span>
-          View Schools
-        </button>
+        <!-- SUPER ADMIN -->
 
-        <button
-          class="nav-btn"
-          onclick="showSection('contact', this)"
-        >
-          <span class="nav-icon">☎️</span>
-          Contact / Support
-        </button>
+        <div id="superAdminMenu">
 
-      </div>
+            <button class="nav-item" data-section="createSchool">
+                <span class="nav-icon">➕</span>
+                <span class="nav-title">Create School</span>
+            </button>
+
+            <button class="nav-item" data-section="viewSchools">
+                <span class="nav-icon">🏢</span>
+                <span class="nav-title">View Schools</span>
+            </button>
+
+        </div>
+
+
+        <button class="nav-item" data-section="contact">
+            <span class="nav-icon">☎️</span>
+            <span class="nav-title">Contact Us</span>
+        </button>
 
     </aside>
 
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
 
-    <main class="content">
+    <main class="main" id="main">
 
 
-      <!-- ======================================================
-           DASHBOARD
-      ======================================================= -->
+        <!-- ================= DASHBOARD ================= -->
 
-      <section
-        id="dashboard"
-        class="page-section active"
-      >
-
-        <div class="welcome-card">
-
-          <h2 id="welcomeTitle">
-            Welcome to ExamPlus
-          </h2>
-
-          <p id="welcomeText">
-            Your school management dashboard.
-          </p>
-
-        </div>
-
-
-        <div class="stats-grid">
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Students
-            </div>
-
-            <div
-              class="stat-number"
-              id="studentCount"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Classes
-            </div>
-
-            <div
-              class="stat-number"
-              id="classCount"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Subjects
-            </div>
-
-            <div
-              class="stat-number"
-              id="subjectCount"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Role
-            </div>
-
-            <div
-              class="stat-number"
-              id="dashboardRole"
-              style="font-size:18px;"
-            >
-              -
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="dashboard-grid">
-
-          <div class="dashboard-card">
-
-            <div class="card-icon">
-              👨‍🎓
-            </div>
-
-            <h3>Students</h3>
-
-            <p>
-              Manage student records and classes.
-            </p>
-
-          </div>
-
-
-          <div class="dashboard-card">
-
-            <div class="card-icon">
-              📚
-            </div>
-
-            <h3>Classes</h3>
-
-            <p>
-              Create and manage school classes.
-            </p>
-
-          </div>
-
-
-          <div class="dashboard-card">
-
-            <div class="card-icon">
-              📊
-            </div>
-
-            <h3>Results</h3>
-
-            <p>
-              Manage academic results.
-            </p>
-
-          </div>
-
-
-          <div class="dashboard-card">
-
-            <div class="card-icon">
-              💰
-            </div>
-
-            <h3>Fees</h3>
-
-            <p>
-              Manage school payments and fees.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- ======================================================
-           SCHOOL DETAILS
-      ======================================================= -->
-
-      <section
-        id="schoolDetails"
-        class="page-section"
-      >
-
-        <div class="page-header">
-
-          <h2>School Details</h2>
-
-          <p>
-            Manage your school's basic information.
-          </p>
-
-        </div>
-
-        <div class="panel">
-
-          <h3>School Information</h3>
-
-          <div class="form-group">
-            <label>School Name</label>
-            <input
-              type="text"
-              id="schoolName"
-              placeholder="School name"
-            >
-          </div>
-
-          <div class="form-group">
-            <label>School Address</label>
-            <input
-              type="text"
-              id="schoolAddress"
-              placeholder="School address"
-            >
-          </div>
-
-          <div class="form-group">
-            <label>School Contact</label>
-            <input
-              type="text"
-              id="schoolContact"
-              placeholder="Phone number"
-            >
-          </div>
-
-          <div class="form-group">
-            <label>Resumption Date</label>
-            <input
-              type="date"
-              id="resumptionDate"
-            >
-          </div>
-
-          <div class="form-group">
-            <label>School Logo</label>
-            <input
-              type="file"
-              id="schoolLogo"
-              accept="image/*"
-            >
-          </div>
-
-          <button
-            class="primary-btn"
-            onclick="saveSchoolDetails()"
-          >
-            Save School Details
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- ======================================================
-           STUDENTS
-      ======================================================= -->
-
-      <section
-        id="students"
-        class="page-section"
-      >
-
-        <div class="page-header">
-
-          <h2>Students Details</h2>
-
-          <p>
-            Register and manage students.
-          </p>
-
-        </div>
-
-
-        <div class="panel">
-
-          <h3>Student Management</h3>
-
-          <div class="button-row">
-
-            <button
-              class="primary-btn"
-              onclick="studentAction('single')"
-            >
-              👤 Add Single Student
-            </button>
-
-            <button
-              class="secondary-btn"
-              onclick="studentAction('bulk')"
-            >
-              👥 Add Students in Bulk
-            </button>
-
-            <button
-              class="secondary-btn"
-              onclick="studentAction('view')"
-            >
-              👁 View Students
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="panel"
-          id="studentArea"
+        <section
+            class="section active"
+            id="section-dashboard"
         >
 
-          <h3>
-            Student registration area
-          </h3>
+            <div class="page-title">
 
-          <p style="color:#6b7280;">
-            Select an option above to continue.
-          </p>
+                <h2>Dashboard</h2>
 
-        </div>
+                <p id="welcomeText">
+                    Welcome to ExamPlus.
+                </p>
 
-      </section>
+            </div>
 
 
-      <!-- ======================================================
-           CLASSES
-      ======================================================= -->
+            <div class="cards">
 
-      <section
-        id="classes"
-        class="page-section"
-      >
+                <div class="card stat-card">
 
-        <div class="page-header">
+                    <div class="stat-icon">👨‍🎓</div>
 
-          <h2>All Classes</h2>
+                    <div>
+                        <h3 id="studentCount">0</h3>
+                        <p>Students</p>
+                    </div>
 
-          <p>
-            Create and manage school classes.
-          </p>
+                </div>
 
-        </div>
 
+                <div class="card stat-card">
 
-        <div class="panel">
+                    <div class="stat-icon">📚</div>
 
-          <h3>Create Class</h3>
+                    <div>
+                        <h3 id="classCount">0</h3>
+                        <p>Classes</p>
+                    </div>
 
-          <div class="form-group">
+                </div>
 
-            <label>
-              Class Name
-            </label>
 
-            <input
-              type="text"
-              id="classNameInput"
-              placeholder="Example: SS1"
-            >
+                <div class="card stat-card">
 
-          </div>
+                    <div class="stat-icon">📖</div>
 
-          <button
-            class="primary-btn"
-            onclick="createClass()"
-          >
-            Add Class
-          </button>
+                    <div>
+                        <h3 id="subjectCount">0</h3>
+                        <p>Subjects</p>
+                    </div>
 
-        </div>
+                </div>
 
 
-        <div class="panel">
+                <div class="card stat-card">
 
-          <h3>Existing Classes</h3>
+                    <div class="stat-icon">💰</div>
 
-          <div id="classList">
-            No classes loaded yet.
-          </div>
+                    <div>
+                        <h3 id="paymentCount">0</h3>
+                        <p>Payments</p>
+                    </div>
 
-        </div>
+                </div>
 
-      </section>
+            </div>
 
 
-      <!-- ======================================================
-           SUBJECTS
-      ======================================================= -->
+            <div class="panel">
 
-      <section
-        id="subjects"
-        class="page-section"
-      >
+                <h3>Quick Access</h3>
 
-        <div class="page-header">
+                <div class="actions">
 
-          <h2>All Subjects</h2>
+                    <button
+                        class="btn btn-primary"
+                        onclick="showSection('students')"
+                    >
+                        👨‍🎓 Students
+                    </button>
 
-          <p>
-            Add subjects to each class.
-          </p>
+                    <button
+                        class="btn btn-primary"
+                        onclick="showSection('classes')"
+                    >
+                        📚 Classes
+                    </button>
 
-        </div>
+                    <button
+                        class="btn btn-primary"
+                        onclick="showSection('subjects')"
+                    >
+                        📖 Subjects
+                    </button>
 
+                    <button
+                        class="btn btn-primary"
+                        onclick="showSection('reportCard')"
+                    >
+                        📄 Report Card
+                    </button>
 
-        <div class="panel">
+                </div>
 
-          <h3>Subjects in Bulk</h3>
+            </div>
 
-          <div class="form-group">
+        </section>
 
-            <label>
-              Select Class
-            </label>
 
-            <select id="subjectClassSelect">
+        <!-- ================= SCHOOL DETAILS ================= -->
 
-              <option value="">
-                Select class
-              </option>
+        <section
+            class="section"
+            id="section-schoolDetails"
+        >
 
-            </select>
+            <div class="page-title">
+                <h2>School Details</h2>
+                <p>Manage your school information.</p>
+            </div>
 
-          </div>
+            <div class="panel">
 
+                <div class="grid">
 
-          <div class="form-group">
+                    <div class="form-group">
+                        <label>School Name</label>
+                        <input id="schoolName" placeholder="School name">
+                    </div>
 
-            <label>
-              Subjects
-            </label>
+                    <div class="form-group">
+                        <label>Contact</label>
+                        <input id="schoolContact" placeholder="Phone number">
+                    </div>
 
-            <textarea
-              id="bulkSubjects"
-              rows="7"
-              style="width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;"
-              placeholder="Enter one subject per line"
-            ></textarea>
+                    <div class="form-group">
+                        <label>Resumption Date</label>
+                        <input id="resumptionDate" type="date">
+                    </div>
 
-          </div>
+                    <div class="form-group">
+                        <label>School Logo</label>
+                        <input id="schoolLogo" type="file" accept="image/*">
+                    </div>
 
+                </div>
 
-          <button
-            class="primary-btn"
-            onclick="saveSubjects()"
-          >
-            Save Subjects
-          </button>
+                <div class="form-group">
+                    <label>School Address</label>
+                    <textarea
+                        id="schoolAddress"
+                        rows="3"
+                        placeholder="School address"
+                    ></textarea>
+                </div>
 
-        </div>
+                <button
+                    class="btn btn-primary"
+                    onclick="saveSchoolDetails()"
+                >
+                    Save School Details
+                </button>
 
-      </section>
+            </div>
 
+        </section>
 
-      <!-- ======================================================
-           REPORT CARD
-      ======================================================= -->
 
-      <section
-        id="reportCard"
-        class="page-section"
-      >
+        <!-- ================= STUDENTS ================= -->
 
-        <div class="page-header">
+        <section
+            class="section"
+            id="section-students"
+        >
 
-          <h2>General Report Card</h2>
+            <div class="page-title">
+                <h2>Students</h2>
+                <p>Add, view and manage students.</p>
+            </div>
 
-          <p>
-            Generate student academic reports.
-          </p>
 
-        </div>
+            <div class="panel">
 
+                <h3>Add Single Student</h3>
 
-        <div class="panel">
+                <div class="grid">
 
-          <h3>Report Card</h3>
+                    <div class="form-group">
+                        <label>Select Class</label>
 
-          <p style="color:#6b7280;margin-bottom:15px;">
-            The report card generator will be connected to
-            students, subjects and results.
-          </p>
+                        <select id="studentClass">
+                            <option value="">Select Class</option>
+                        </select>
+                    </div>
 
-          <div class="button-row">
+                    <div class="form-group">
+                        <label>Student Name</label>
+                        <input id="studentName" placeholder="Full name">
+                    </div>
 
-            <button
-              class="primary-btn"
-              onclick="reportAction('single')"
-            >
-              Generate Report
-            </button>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input id="studentDob" type="date">
+                    </div>
 
-            <button
-              class="secondary-btn"
-              onclick="reportAction('all')"
-            >
-              Generate All
-            </button>
+                    <div class="form-group">
+                        <label>Date of Admission</label>
+                        <input id="studentAdmission" type="date">
+                    </div>
 
-          </div>
+                    <div class="form-group">
+                        <label>Parent/Guardian Name</label>
+                        <input id="guardianName">
+                    </div>
 
-        </div>
+                    <div class="form-group">
+                        <label>Parent/Guardian Phone</label>
+                        <input id="guardianPhone">
+                    </div>
 
-      </section>
+                </div>
 
 
-      <!-- ======================================================
-           SETTINGS
-      ======================================================= -->
+                <div class="form-group">
+                    <label>Parent/Guardian Address</label>
 
-      <section
-        id="settings"
-        class="page-section"
-      >
+                    <textarea
+                        id="guardianAddress"
+                        rows="3"
+                    ></textarea>
 
-        <div class="page-header">
+                </div>
 
-          <h2>Settings</h2>
 
-          <p>
-            Configure assessment and school
+                <div class="form-group">
+
+                    <label>
+                        Camera — Capture Student Photo
+                    </label>
+
+                    <input
+                        type="file"
+                        id="studentPhoto"
+                        accept="image/*"
+                        capture="environment"
+                    >
+
+                </div>
+
+
+                <button
+                    class="btn btn-success"
+                    onclick="saveStudent()"
+                >
+                    Save Student
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>Students in Bulk</h3>
+
+                <div class="form-group">
+
+                    <label>Select Class</label>
+
+                    <select id="bulkStudentClass">
+                        <option value="">Select Class</option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Student Names — one student per line
+                    </label>
+
+                    <textarea
+                        id="bulkStudentNames"
+                        rows="8"
+                        placeholder="Enter student names, one per line"
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="saveBulkStudents()"
+                >
+                    Save Bulk Students
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>View Students</h3>
+
+                <div class="form-group">
+
+                    <label>Select Class</label>
+
+                    <select
+                        id="viewStudentClass"
+                        onchange="loadStudentTable()"
+                    >
+                        <option value="">Select Class</option>
+                    </select>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>DOB</th>
+                                <th>Guardian</th>
+                                <th>Phone</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="studentTableBody">
+
+                            <tr>
+                                <td
+                                    colspan="7"
+                                    class="empty"
+                                >
+                                    Select a class.
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CLASSES ================= -->
+
+        <section
+            class="section"
+            id="section-classes"
+        >
+
+            <div class="page-title">
+                <h2>All Classes</h2>
+                <p>Create and manage school classes.</p>
+            </div>
+
+
+            <div class="panel">
+
+                <h3>Create Class</h3>
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>Class Name</label>
+
+                        <input
+                            id="new
