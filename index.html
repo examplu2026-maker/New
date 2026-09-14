@@ -1178,4 +1178,3571 @@ th{
                         <label>Class Name</label>
 
                         <input
-                            id="new
+                            id="newClassName"
+                            placeholder="Example: SS1"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="createClass()"
+                >
+                    Add Class
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>Classes</h3>
+
+                <div
+                    id="classList"
+                    class="grid"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SUBJECTS ================= -->
+
+        <section
+            class="section"
+            id="section-subjects"
+        >
+
+            <div class="page-title">
+                <h2>All Subjects</h2>
+                <p>Add subjects to each class.</p>
+            </div>
+
+
+            <div class="panel">
+
+                <div class="form-group">
+
+                    <label>Select Class</label>
+
+                    <select id="subjectClass">
+                        <option value="">Select Class</option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Subjects — one per line
+                    </label>
+
+                    <textarea
+                        id="bulkSubjects"
+                        rows="8"
+                        placeholder="Mathematics&#10;English Language&#10;Physics"
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="saveSubjects()"
+                >
+                    Save Subjects
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>Subjects</h3>
+
+                <div
+                    id="subjectList"
+                    class="grid"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= REPORT CARD ================= -->
+
+        <section
+            class="section"
+            id="section-reportCard"
+        >
+
+            <div class="page-title">
+                <h2>General Report Card</h2>
+                <p>Generate student academic reports.</p>
+            </div>
+
+
+            <div class="panel">
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>Select Class</label>
+
+                        <select id="reportClass">
+                            <option value="">Select Class</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Term</label>
+
+                        <select id="reportTerm">
+
+                            <option value="First Term">
+                                First Term
+                            </option>
+
+                            <option value="Second Term">
+                                Second Term
+                            </option>
+
+                            <option value="Third Term">
+                                Third Term
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="generateReport()"
+                    >
+                        Generate Report
+                    </button>
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="generateAllReports()"
+                    >
+                        Generate All
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SETTINGS ================= -->
+
+        <section
+            class="section"
+            id="section-settings"
+        >
+
+            <div class="page-title">
+
+                <h2>Settings</h2>
+
+                <p>
+                    Configure assessment marks and school settings.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>Assessment Settings</h3>
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>Test 1 Maximum</label>
+
+                        <input
+                            id="test1Max"
+                            type="number"
+                            value="15"
+                            min="0"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Test 2 Maximum</label>
+
+                        <input
+                            id="test2Max"
+                            type="number"
+                            value="15"
+                            min="0"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Exam Maximum</label>
+
+                        <input
+                            id="examMax"
+                            type="number"
+                            value="70"
+                            min="0"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <p id="assessmentTotal">
+                    Total: 100
+                </p>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="saveAssessmentSettings()"
+                >
+                    Save Assessment Settings
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FEES ================= -->
+
+        <section
+            class="section"
+            id="section-fees"
+        >
+
+            <div class="page-title">
+
+                <h2>Fees & Payments</h2>
+
+                <p>
+                    School Admin sets the payment amounts.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>Fee Setup</h3>
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>School Fees</label>
+
+                        <input
+                            id="schoolFees"
+                            type="number"
+                            placeholder="Amount"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Registration Fee</label>
+
+                        <input
+                            id="registrationFee"
+                            type="number"
+                            placeholder="Amount"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Books Fee</label>
+
+                        <input
+                            id="booksFee"
+                            type="number"
+                            placeholder="Amount"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="saveFeeSettings()"
+                >
+                    Save Fee Settings
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>Record Payment</h3>
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>Student Name</label>
+
+                        <input
+                            id="paymentStudent"
+                            placeholder="Student name"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Class</label>
+
+                        <select id="paymentClass">
+                            <option value="">Select Class</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <p style="margin-top:10px;font-weight:bold;">
+                    Fee Components
+                </p>
+
+
+                <div style="margin:15px 0;">
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="paySchoolFees"
+                        >
+                        School Fees
+                    </label>
+
+                    <br><br>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="payRegistration"
+                        >
+                        Registration Fee
+                    </label>
+
+                    <br><br>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="payBooks"
+                        >
+                        Books Fee
+                    </label>
+
+                </div>
+
+
+                <button
+                    class="btn btn-success"
+                    onclick="recordPayment()"
+                >
+                    Record Payment
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RECEIPT ================= -->
+
+        <section
+            class="section"
+            id="section-receipt"
+        >
+
+            <div class="page-title">
+
+                <h2>Generate Receipt</h2>
+
+                <p>
+                    Generate a receipt for a recorded payment.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>Student Name</label>
+
+                        <input
+                            id="receiptStudent"
+                            placeholder="Student name"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Class</label>
+
+                        <select id="receiptClass">
+                            <option value="">Select Class</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Receipt Number</label>
+
+                        <input
+                            id="receiptNumber"
+                            placeholder="Receipt number"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="generateReceipt()"
+                >
+                    Generate Receipt
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RECEIPT HISTORY ================= -->
+
+        <section
+            class="section"
+            id="section-receiptHistory"
+        >
+
+            <div class="page-title">
+
+                <h2>Receipt History</h2>
+
+                <p>
+                    View recorded receipts.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Receipt</th>
+                                <th>Student</th>
+                                <th>Class</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="receiptHistoryBody">
+
+                            <tr>
+                                <td
+                                    colspan="5"
+                                    class="empty"
+                                >
+                                    No receipts yet.
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TEACHER UPLOAD ================= -->
+
+        <section
+            class="section"
+            id="section-uploadResult"
+        >
+
+            <div class="page-title">
+
+                <h2>Upload Result</h2>
+
+                <p>
+                    Enter student assessment results.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>Class</label>
+
+                        <select id="resultClass">
+                            <option value="">Select Class</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Subject</label>
+
+                        <select id="resultSubject">
+                            <option value="">Select Subject</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Student Name</label>
+
+                    <input
+                        id="resultStudent"
+                        placeholder="Student name"
+                    >
+
+                </div>
+
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>Test 1</label>
+
+                        <input
+                            id="resultTest1"
+                            type="number"
+                            min="0"
+                            max="15"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Test 2</label>
+
+                        <input
+                            id="resultTest2"
+                            type="number"
+                            min="0"
+                            max="15"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Exam</label>
+
+                        <input
+                            id="resultExam"
+                            type="number"
+                            min="0"
+                            max="70"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn btn-success"
+                    onclick="saveResult()"
+                >
+                    Save Result
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= VIEW RESULTS ================= -->
+
+        <section
+            class="section"
+            id="section-viewResults"
+        >
+
+            <div class="page-title">
+
+                <h2>View Results</h2>
+
+                <p>
+                    View uploaded student results.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Test 1</th>
+                                <th>Test 2</th>
+                                <th>Exam</th>
+                                <th>Total</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="resultsBody">
+
+                            <tr>
+                                <td
+                                    colspan="7"
+                                    class="empty"
+                                >
+                                    No results available.
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CREATE SCHOOL ================= -->
+
+        <section
+            class="section"
+            id="section-createSchool"
+        >
+
+            <div class="page-title">
+
+                <h2>Create School</h2>
+
+                <p>
+                    Create a new school account.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>School Name</label>
+
+                        <input
+                            id="newSchoolName"
+                            placeholder="School name"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Admin Email</label>
+
+                        <input
+                            id="newSchoolEmail"
+                            type="email"
+                            placeholder="admin@example.com"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Admin Password</label>
+
+                        <input
+                            id="newSchoolPassword"
+                            type="password"
+                            placeholder="Password"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="createSchool()"
+                >
+                    Create School
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= VIEW SCHOOLS ================= -->
+
+        <section
+            class="section"
+            id="section-viewSchools"
+        >
+
+            <div class="page-title">
+
+                <h2>View Schools</h2>
+
+                <p>
+                    Manage registered schools.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>School</th>
+                                <th>Admin Email</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="schoolsBody">
+
+                            <tr>
+                                <td
+                                    colspan="3"
+                                    class="empty"
+                                >
+                                    No schools available.
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CONTACT ================= -->
+
+        <section
+            class="section"
+            id="section-contact"
+        >
+
+            <div class="page-title">
+
+                <h2>Contact Us</h2>
+
+                <p>
+                    Contact ExamPlus Super Admin support.
+                </p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>ExamPlus Support</h3>
+
+                <p style="margin-bottom:15px;">
+                    For support with your school account,
+                    contact the ExamPlus Super Admin.
+                </p>
+
+
+                <div class="actions">
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="contactSupport()"
+                    >
+                        ☎️ Contact Support
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<div id="toast"></div>
+
+
+<script>
+
+/* ==========================================================
+   EXAMPLUS CONFIGURATION
+========================================================== */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbzl_HGku3NPJ5ENjHpEWw23D4OZkE-SLCkZQmY9WAMkEfD5zSP3vh3lDAJZ_wVOt2IFdw/exec";
+
+
+/* ==========================================================
+   APPLICATION STATE
+========================================================== */
+
+let currentUser = null;
+
+let classes = [];
+
+let subjects = [];
+
+let students = [];
+
+let payments = [];
+
+let results = [];
+
+let receipts = [];
+
+
+/* ==========================================================
+   DOM READY
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    setupNavigation();
+
+    setupLogin();
+
+    setupPasswordToggle();
+
+    setupAssessmentCalculator();
+
+    loadSavedSession();
+
+});
+
+
+/* ==========================================================
+   LOGIN
+========================================================== */
+
+function setupLogin(){
+
+    const form =
+        document.getElementById("loginForm");
+
+    form.addEventListener("submit", async function(event){
+
+        event.preventDefault();
+
+        await loginUser();
+
+    });
+
+}
+
+
+async function loginUser(){
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const button =
+        document.getElementById("loginButton");
+
+    const message =
+        document.getElementById("loginMessage");
+
+
+    if(!email || !password){
+
+        showLoginMessage(
+            "Please enter your email and password.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    /*
+       IMPORTANT:
+
+       We DO NOT clear the email or password here.
+
+       This fixes the problem where the login fields
+       appear to disappear before the login result.
+    */
+
+
+    button.disabled = true;
+
+    button.textContent = "Logging in...";
+
+
+    showLoginMessage(
+        "Checking your login details...",
+        "success"
+    );
+
+
+    try{
+
+        const response =
+            await fetch(API_URL, {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "text/plain;charset=utf-8"
+                },
+
+                body:JSON.stringify({
+
+                    action:"login",
+
+                    email:email,
+
+                    password:password
+
+                })
+
+            });
+
+
+        const text =
+            await response.text();
+
+
+        let data;
+
+
+        try{
+
+            data = JSON.parse(text);
+
+        }catch(parseError){
+
+            throw new Error(
+                "The server returned an invalid response."
+            );
+
+        }
+
+
+        if(data && data.success){
+
+            currentUser =
+                data.user || {
+
+                    email:email,
+
+                    role:"admin",
+
+                    schoolName:""
+
+                };
+
+
+            sessionStorage.setItem(
+                "examplusUser",
+                JSON.stringify(currentUser)
+            );
+
+
+            showLoginMessage(
+                "Login successful. Opening ExamPlus...",
+                "success"
+            );
+
+
+            setTimeout(function(){
+
+                openApplication();
+
+            },500);
+
+
+        }else{
+
+            const errorMessage =
+                data && data.message
+                ? data.message
+                : "Invalid email or password.";
+
+
+            showLoginMessage(
+                errorMessage,
+                "error"
+            );
+
+
+            /*
+               The login fields are deliberately NOT cleared.
+            */
+
+            button.disabled = false;
+
+            button.textContent = "Login";
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+
+        showLoginMessage(
+
+            "Unable to connect to ExamPlus server. " +
+            "Please check your internet connection " +
+            "and Apps Script deployment.",
+
+            "error"
+
+        );
+
+
+        button.disabled = false;
+
+        button.textContent = "Login";
+
+    }
+
+}
+
+
+/* ==========================================================
+   LOGIN MESSAGE
+========================================================== */
+
+function showLoginMessage(message,type){
+
+    const box =
+        document.getElementById("loginMessage");
+
+    box.textContent = message;
+
+    box.className =
+        "login-message " + type;
+
+}
+
+
+/* ==========================================================
+   PASSWORD TOGGLE
+========================================================== */
+
+function setupPasswordToggle(){
+
+    const button =
+        document.getElementById("togglePassword");
+
+    const password =
+        document.getElementById("password");
+
+
+    button.addEventListener("click",function(){
+
+        if(password.type === "password"){
+
+            password.type = "text";
+
+            button.textContent = "🙈";
+
+        }else{
+
+            password.type = "password";
+
+            button.textContent = "👁️";
+
+        }
+
+    });
+
+}
+
+
+/* ==========================================================
+   OPEN APPLICATION
+========================================================== */
+
+function openApplication(){
+
+    document.getElementById("loginPage").style.display =
+        "none";
+
+    document.getElementById("app").style.display =
+        "block";
+
+
+    updateUserInterface();
+
+    loadApplicationData();
+
+}
+
+
+/* ==========================================================
+   SESSION
+========================================================== */
+
+function loadSavedSession(){
+
+    const saved =
+        sessionStorage.getItem("examplusUser");
+
+
+    if(!saved){
+
+        return;
+
+    }
+
+
+    try{
+
+        currentUser =
+            JSON.parse(saved);
+
+        if(currentUser){
+
+            openApplication();
+
+        }
+
+    }catch(error){
+
+        sessionStorage.removeItem(
+            "examplusUser"
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   LOGOUT
+========================================================== */
+
+document.getElementById("logoutButton")
+.addEventListener("click",function(){
+
+    if(!confirm("Are you sure you want to logout?")){
+
+        return;
+
+    }
+
+
+    sessionStorage.removeItem(
+        "examplusUser"
+    );
+
+
+    currentUser = null;
+
+
+    document.getElementById("app")
+        .style.display = "none";
+
+    document.getElementById("loginPage")
+        .style.display = "flex";
+
+
+    document.getElementById("loginForm")
+        .reset();
+
+
+    document.getElementById("loginButton")
+        .disabled = false;
+
+
+    document.getElementById("loginButton")
+        .textContent = "Login";
+
+
+    document.getElementById("loginMessage")
+        .className = "login-message";
+
+
+    document.getElementById("loginMessage")
+        .textContent = "";
+
+});
+
+
+/* ==========================================================
+   USER INTERFACE
+========================================================== */
+
+function updateUserInterface(){
+
+    if(!currentUser){
+
+        return;
+
+    }
+
+
+    const role =
+        normalizeRole(currentUser.role);
+
+
+    const school =
+        currentUser.schoolName || "ExamPlus";
+
+
+    document.getElementById("sidebarSchool")
+        .textContent = school;
+
+
+    document.getElementById("sidebarUser")
+        .textContent =
+        currentUser.email || "";
+
+
+    document.getElementById("topRole")
+        .textContent =
+        formatRole(role);
+
+
+    document.getElementById("welcomeText")
+        .textContent =
+        "Welcome to " +
+        school +
+        ". You are logged in as " +
+        formatRole(role) +
+        ".";
+
+
+    document.getElementById("adminMenu")
+        .style.display = "none";
+
+    document.getElementById("bursarMenu")
+        .style.display = "none";
+
+    document.getElementById("teacherMenu")
+        .style.display = "none";
+
+    document.getElementById("superAdminMenu")
+        .style.display = "none";
+
+
+    if(role === "admin"){
+
+        document.getElementById("adminMenu")
+            .style.display = "block";
+
+        document.getElementById("bursarMenu")
+            .style.display = "block";
+
+    }
+
+
+    if(role === "bursar"){
+
+        document.getElementById("bursarMenu")
+            .style.display = "block";
+
+    }
+
+
+    if(role === "teacher"){
+
+        document.getElementById("teacherMenu")
+            .style.display = "block";
+
+    }
+
+
+    if(role === "superadmin"){
+
+        document.getElementById("superAdminMenu")
+            .style.display = "block";
+
+    }
+
+}
+
+
+function normalizeRole(role){
+
+    if(!role){
+
+        return "";
+
+    }
+
+
+    const value =
+        String(role)
+        .trim()
+        .toLowerCase()
+        .replace(/[\s_-]/g,"");
+
+
+    if(
+        value === "superadmin" ||
+        value === "superadministrator"
+    ){
+
+        return "superadmin";
+
+    }
+
+
+    if(
+        value === "admin" ||
+        value === "schooladmin" ||
+        value === "schooladministrator"
+    ){
+
+        return "admin";
+
+    }
+
+
+    if(value === "bursar"){
+
+        return "bursar";
+
+    }
+
+
+    if(value === "teacher"){
+
+        return "teacher";
+
+    }
+
+
+    return value;
+
+}
+
+
+function formatRole(role){
+
+    if(role === "superadmin"){
+
+        return "Super Admin";
+
+    }
+
+    if(role === "admin"){
+
+        return "School Admin";
+
+    }
+
+    if(role === "bursar"){
+
+        return "Bursar";
+
+    }
+
+    if(role === "teacher"){
+
+        return "Teacher";
+
+    }
+
+    return role || "User";
+
+}
+
+
+/* ==========================================================
+   NAVIGATION
+========================================================== */
+
+function setupNavigation(){
+
+    document.querySelectorAll(".nav-item")
+    .forEach(function(button){
+
+        button.addEventListener("click",function(){
+
+            const section =
+                button.dataset.section;
+
+
+            if(section){
+
+                showSection(section);
+
+            }
+
+        });
+
+    });
+
+
+    document.getElementById("menuButton")
+    .addEventListener("click",function(){
+
+        document.getElementById("sidebar")
+            .classList.toggle("open");
+
+    });
+
+}
+
+
+function showSection(section){
+
+    document.querySelectorAll(".section")
+    .forEach(function(item){
+
+        item.classList.remove("active");
+
+    });
+
+
+    const target =
+        document.getElementById(
+            "section-" + section
+        );
+
+
+    if(target){
+
+        target.classList.add("active");
+
+    }
+
+
+    document.querySelectorAll(".nav-item")
+    .forEach(function(item){
+
+        item.classList.remove("active");
+
+        if(item.dataset.section === section){
+
+            item.classList.add("active");
+
+        }
+
+    });
+
+
+    document.getElementById("sidebar")
+        .classList.remove("open");
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ==========================================================
+   APPLICATION DATA
+========================================================== */
+
+function loadApplicationData(){
+
+    loadClasses();
+
+    loadSubjects();
+
+    loadStudents();
+
+    loadPayments();
+
+    loadResults();
+
+    updateDashboard();
+
+}
+
+
+/* ==========================================================
+   CLASSES
+========================================================== */
+
+function loadClasses(){
+
+    const saved =
+        localStorage.getItem("examplusClasses");
+
+
+    if(saved){
+
+        try{
+
+            classes = JSON.parse(saved);
+
+        }catch(error){
+
+            classes = [];
+
+        }
+
+    }
+
+
+    refreshClassDropdowns();
+
+    renderClasses();
+
+}
+
+
+function createClass(){
+
+    const input =
+        document.getElementById("newClassName");
+
+
+    const name =
+        input.value.trim();
+
+
+    if(!name){
+
+        showToast("Enter a class name.");
+
+        return;
+
+    }
+
+
+    const exists =
+        classes.some(function(item){
+
+            return item.toLowerCase() ===
+                   name.toLowerCase();
+
+        });
+
+
+    if(exists){
+
+        showToast("This class already exists.");
+
+        return;
+
+    }
+
+
+    classes.push(name);
+
+    classes.sort();
+
+
+    localStorage.setItem(
+        "examplusClasses",
+        JSON.stringify(classes)
+    );
+
+
+    input.value = "";
+
+
+    refreshClassDropdowns();
+
+    renderClasses();
+
+    updateDashboard();
+
+
+    showToast("Class created successfully.");
+
+}
+
+
+function renderClasses(){
+
+    const container =
+        document.getElementById("classList");
+
+
+    if(classes.length === 0){
+
+        container.innerHTML =
+            '<div class="empty">No classes created yet.</div>';
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    classes.forEach(function(className,index){
+
+        const card =
+            document.createElement("div");
+
+
+        card.className = "card";
+
+
+        card.innerHTML = `
+
+            <h3>📚 ${escapeHtml(className)}</h3>
+
+            <p style="margin-top:8px;color:#667085;">
+                Class ${index + 1}
+            </p>
+
+            <div class="actions">
+
+                <button
+                    class="btn btn-danger"
+                    onclick="deleteClass('${escapeAttribute(className)}')"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+function deleteClass(className){
+
+    if(!confirm(
+        "Delete class " + className + "?"
+    )){
+
+        return;
+
+    }
+
+
+    classes =
+        classes.filter(function(item){
+
+            return item !== className;
+
+        });
+
+
+    localStorage.setItem(
+        "examplusClasses",
+        JSON.stringify(classes)
+    );
+
+
+    refreshClassDropdowns();
+
+    renderClasses();
+
+    updateDashboard();
+
+
+    showToast("Class deleted.");
+
+}
+
+
+function refreshClassDropdowns(){
+
+    const ids = [
+
+        "studentClass",
+        "bulkStudentClass",
+        "viewStudentClass",
+        "subjectClass",
+        "reportClass",
+        "paymentClass",
+        "receiptClass",
+        "resultClass"
+
+    ];
+
+
+    ids.forEach(function(id){
+
+        const select =
+            document.getElementById(id);
+
+
+        if(!select){
+
+            return;
+
+        }
+
+
+        const oldValue =
+            select.value;
+
+
+        select.innerHTML =
+            '<option value="">Select Class</option>';
+
+
+        classes.forEach(function(className){
+
+            const option =
+                document.createElement("option");
+
+
+            option.value = className;
+
+            option.textContent = className;
+
+
+            select.appendChild(option);
+
+        });
+
+
+        if(classes.includes(oldValue)){
+
+            select.value = oldValue;
+
+        }
+
+    });
+
+
+    updateDashboard();
+
+}
+
+
+/* ==========================================================
+   SUBJECTS
+========================================================== */
+
+function loadSubjects(){
+
+    const saved =
+        localStorage.getItem("examplusSubjects");
+
+
+    if(saved){
+
+        try{
+
+            subjects = JSON.parse(saved);
+
+        }catch(error){
+
+            subjects = [];
+
+        }
+
+    }
+
+
+    renderSubjects();
+
+    updateDashboard();
+
+}
+
+
+function saveSubjects(){
+
+    const className =
+        document.getElementById("subjectClass").value;
+
+
+    const text =
+        document.getElementById("bulkSubjects").value;
+
+
+    if(!className){
+
+        showToast("Select a class.");
+
+        return;
+
+    }
+
+
+    const names =
+        text.split("\n")
+        .map(function(item){
+
+            return item.trim();
+
+        })
+        .filter(Boolean);
+
+
+    if(names.length === 0){
+
+        showToast("Enter at least one subject.");
+
+        return;
+
+    }
+
+
+    names.forEach(function(name){
+
+        subjects.push({
+
+            className:className,
+
+            subject:name
+
+        });
+
+    });
+
+
+    localStorage.setItem(
+        "examplusSubjects",
+        JSON.stringify(subjects)
+    );
+
+
+    document.getElementById("bulkSubjects")
+        .value = "";
+
+
+    renderSubjects();
+
+    updateDashboard();
+
+
+    showToast("Subjects saved.");
+
+}
+
+
+function renderSubjects(){
+
+    const container =
+        document.getElementById("subjectList");
+
+
+    if(subjects.length === 0){
+
+        container.innerHTML =
+            '<div class="empty">No subjects added yet.</div>';
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    subjects.forEach(function(item,index){
+
+        const card =
+            document.createElement("div");
+
+
+        card.className = "card";
+
+
+        card.innerHTML = `
+
+            <h3>📖 ${escapeHtml(item.subject)}</h3>
+
+            <p style="margin-top:8px;color:#667085;">
+                ${escapeHtml(item.className)}
+            </p>
+
+            <div class="actions">
+
+                <button
+                    class="btn btn-danger"
+                    onclick="deleteSubject(${index})"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+function deleteSubject(index){
+
+    subjects.splice(index,1);
+
+
+    localStorage.setItem(
+        "examplusSubjects",
+        JSON.stringify(subjects)
+    );
+
+
+    renderSubjects();
+
+    updateDashboard();
+
+
+    showToast("Subject deleted.");
+
+}
+
+
+/* ==========================================================
+   STUDENTS
+========================================================== */
+
+function loadStudents(){
+
+    const saved =
+        localStorage.getItem("examplusStudents");
+
+
+    if(saved){
+
+        try{
+
+            students = JSON.parse(saved);
+
+        }catch(error){
+
+            students = [];
+
+        }
+
+    }
+
+
+    updateDashboard();
+
+}
+
+
+function saveStudent(){
+
+    const className =
+        document.getElementById("studentClass").value;
+
+    const name =
+        document.getElementById("studentName").value.trim();
+
+    const dob =
+        document.getElementById("studentDob").value;
+
+    const admission =
+        document.getElementById("studentAdmission").value;
+
+    const guardian =
+        document.getElementById("guardianName").value.trim();
+
+    const guardianAddress =
+        document.getElementById("guardianAddress").value.trim();
+
+    const phone =
+        document.getElementById("guardianPhone").value.trim();
+
+
+    if(!className){
+
+        showToast("Select a class.");
+
+        return;
+
+    }
+
+
+    if(!name){
+
+        showToast("Enter student name.");
+
+        return;
+
+    }
+
+
+    const student = {
+
+        id:Date.now(),
+
+        name:name,
+
+        className:className,
+
+        dob:dob,
+
+        admission:admission,
+
+        guardian:guardian,
+
+        guardianAddress:guardianAddress,
+
+        phone:phone,
+
+        date:new Date().toISOString()
+
+    };
+
+
+    students.push(student);
+
+
+    students.sort(function(a,b){
+
+        return a.name.localeCompare(b.name);
+
+    });
+
+
+    localStorage.setItem(
+        "examplusStudents",
+        JSON.stringify(students)
+    );
+
+
+    document.getElementById("studentName").value = "";
+
+    document.getElementById("studentDob").value = "";
+
+    document.getElementById("studentAdmission").value = "";
+
+    document.getElementById("guardianName").value = "";
+
+    document.getElementById("guardianAddress").value = "";
+
+    document.getElementById("guardianPhone").value = "";
+
+    document.getElementById("studentPhoto").value = "";
+
+
+    updateDashboard();
+
+    loadStudentTable();
+
+
+    showToast("Student saved successfully.");
+
+}
+
+
+function saveBulkStudents(){
+
+    const className =
+        document.getElementById("bulkStudentClass").value;
+
+
+    const text =
+        document.getElementById("bulkStudentNames").value;
+
+
+    if(!className){
+
+        showToast("Select a class.");
+
+        return;
+
+    }
+
+
+    const names =
+        text.split("\n")
+        .map(function(item){
+
+            return item.trim();
+
+        })
+        .filter(Boolean);
+
+
+    if(names.length === 0){
+
+        showToast("Enter student names.");
+
+        return;
+
+    }
+
+
+    names.forEach(function(name){
+
+        students.push({
+
+            id:Date.now() +
+               Math.random(),
+
+            name:name,
+
+            className:className,
+
+            dob:"",
+
+            admission:"",
+
+            guardian:"",
+
+            guardianAddress:"",
+
+            phone:"",
+
+            date:new Date().toISOString()
+
+        });
+
+    });
+
+
+    students.sort(function(a,b){
+
+        return a.name.localeCompare(b.name);
+
+    });
+
+
+    localStorage.setItem(
+        "examplusStudents",
+        JSON.stringify(students)
+    );
+
+
+    document.getElementById("bulkStudentNames")
+        .value = "";
+
+
+    updateDashboard();
+
+    loadStudentTable();
+
+
+    showToast(
+        names.length +
+        " students saved successfully."
+    );
+
+}
+
+
+function loadStudentTable(){
+
+    const className =
+        document.getElementById("viewStudentClass").value;
+
+
+    const tbody =
+        document.getElementById("studentTableBody");
+
+
+    if(!className){
+
+        tbody.innerHTML =
+            '<tr><td colspan="7" class="empty">Select a class.</td></tr>';
+
+        return;
+
+    }
+
+
+    const filtered =
+        students
+        .filter(function(student){
+
+            return student.className === className;
+
+        })
+        .sort(function(a,b){
+
+            return a.name.localeCompare(b.name);
+
+        });
+
+
+    if(filtered.length === 0){
+
+        tbody.innerHTML =
+            '<tr><td colspan="7" class="empty">No students found in this class.</td></tr>';
+
+        return;
+
+    }
+
+
+    tbody.innerHTML = "";
+
+
+    filtered.forEach(function(student,index){
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>${index + 1}</td>
+
+            <td>${escapeHtml(student.name)}</td>
+
+            <td>${escapeHtml(student.className)}</td>
+
+            <td>${escapeHtml(student.dob || "-")}</td>
+
+            <td>${escapeHtml(student.guardian || "-")}</td>
+
+            <td>${escapeHtml(student.phone || "-")}</td>
+
+            <td>
+
+                <button
+                    class="btn btn-danger"
+                    onclick="deleteStudent('${student.id}')"
+                >
+                    Delete
+                </button>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+function deleteStudent(id){
+
+    if(!confirm(
+        "Delete this student?"
+    )){
+
+        return;
+
+    }
+
+
+    students =
+        students.filter(function(student){
+
+            return String(student.id) !== String(id);
+
+        });
+
+
+    localStorage.setItem(
+        "examplusStudents",
+        JSON.stringify(students)
+    );
+
+
+    updateDashboard();
+
+    loadStudentTable();
+
+
+    showToast("Student deleted.");
+
+}
+
+
+/* ==========================================================
+   SCHOOL DETAILS
+========================================================== */
+
+function saveSchoolDetails(){
+
+    const details = {
+
+        name:
+            document.getElementById("schoolName").value.trim(),
+
+        contact:
+            document.getElementById("schoolContact").value.trim(),
+
+        address:
+            document.getElementById("schoolAddress").value.trim(),
+
+        resumption:
+            document.getElementById("resumptionDate").value
+
+    };
+
+
+    localStorage.setItem(
+        "examplusSchoolDetails",
+        JSON.stringify(details)
+    );
+
+
+    if(currentUser){
+
+        currentUser.schoolName =
+            details.name ||
+            currentUser.schoolName;
+
+
+        sessionStorage.setItem(
+            "examplusUser",
+            JSON.stringify(currentUser)
+        );
+
+
+        updateUserInterface();
+
+    }
+
+
+    showToast(
+        "School details saved."
+    );
+
+}
+
+
+/* ==========================================================
+   ASSESSMENT SETTINGS
+========================================================== */
+
+function setupAssessmentCalculator(){
+
+    [
+        "test1Max",
+        "test2Max",
+        "examMax"
+    ].forEach(function(id){
+
+        const input =
+            document.getElementById(id);
+
+
+        input.addEventListener(
+            "input",
+            updateAssessmentTotal
+        );
+
+    });
+
+
+    updateAssessmentTotal();
+
+}
+
+
+function updateAssessmentTotal(){
+
+    const test1 =
+        Number(
+            document.getElementById("test1Max").value
+        ) || 0;
+
+
+    const test2 =
+        Number(
+            document.getElementById("test2Max").value
+        ) || 0;
+
+
+    const exam =
+        Number(
+            document.getElementById("examMax").value
+        ) || 0;
+
+
+    const total =
+        test1 + test2 + exam;
+
+
+    document.getElementById("assessmentTotal")
+        .textContent =
+        "Total: " + total;
+
+
+    document.getElementById("assessmentTotal")
+        .style.color =
+        total === 100
+        ? "#027a48"
+        : "#b42318";
+
+}
+
+
+function saveAssessmentSettings(){
+
+    const test1 =
+        Number(
+            document.getElementById("test1Max").value
+        ) || 0;
+
+
+    const test2 =
+        Number(
+            document.getElementById("test2Max").value
+        ) || 0;
+
+
+    const exam =
+        Number(
+            document.getElementById("examMax").value
+        ) || 0;
+
+
+    if(test1 + test2 + exam !== 100){
+
+        showToast(
+            "Test 1 + Test 2 + Exam must equal 100."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "examplusAssessmentSettings",
+        JSON.stringify({
+
+            test1:test1,
+
+            test2:test2,
+
+            exam:exam
+
+        })
+    );
+
+
+    showToast(
+        "Assessment settings saved."
+    );
+
+}
+
+
+/* ==========================================================
+   FEES
+========================================================== */
+
+function saveFeeSettings(){
+
+    const fees = {
+
+        schoolFees:
+            Number(
+                document.getElementById("schoolFees").value
+            ) || 0,
+
+        registration:
+            Number(
+                document.getElementById("registrationFee").value
+            ) || 0,
+
+        books:
+            Number(
+                document.getElementById("booksFee").value
+            ) || 0
+
+    };
+
+
+    localStorage.setItem(
+        "examplusFees",
+        JSON.stringify(fees)
+    );
+
+
+    showToast(
+        "Fee settings saved."
+    );
+
+}
+
+
+function loadPayments(){
+
+    const saved =
+        localStorage.getItem("examplusPayments");
+
+
+    if(saved){
+
+        try{
+
+            payments = JSON.parse(saved);
+
+        }catch(error){
+
+            payments = [];
+
+        }
+
+    }
+
+
+    updateDashboard();
+
+}
+
+
+function recordPayment(){
+
+    const student =
+        document.getElementById("paymentStudent")
+        .value.trim();
+
+
+    const className =
+        document.getElementById("paymentClass")
+        .value;
+
+
+    if(!student || !className){
+
+        showToast(
+            "Enter student name and select class."
+        );
+
+        return;
+
+    }
+
+
+    const feeData =
+        JSON.parse(
+            localStorage.getItem("examplusFees") ||
+            "{}"
+        );
+
+
+    let amount = 0;
+
+    const components = [];
+
+
+    if(document.getElementById("paySchoolFees").checked){
+
+        amount += Number(feeData.schoolFees) || 0;
+
+        components.push("School Fees");
+
+    }
+
+
+    if(document.getElementById("payRegistration").checked){
+
+        amount += Number(feeData.registration) || 0;
+
+        components.push("Registration Fee");
+
+    }
+
+
+    if(document.getElementById("payBooks").checked){
+
+        amount += Number(feeData.books) || 0;
+
+        components.push("Books Fee");
+
+    }
+
+
+    if(components.length === 0){
+
+        showToast(
+            "Select at least one fee component."
+        );
+
+        return;
+
+    }
+
+
+    const payment = {
+
+        id:Date.now(),
+
+        student:student,
+
+        className:className,
+
+        components:components,
+
+        amount:amount,
+
+        date:new Date().toLocaleString()
+
+    };
+
+
+    payments.push(payment);
+
+
+    localStorage.setItem(
+        "examplusPayments",
+        JSON.stringify(payments)
+    );
+
+
+    document.getElementById("paymentStudent")
+        .value = "";
+
+
+    document.getElementById("paySchoolFees")
+        .checked = false;
+
+    document.getElementById("payRegistration")
+        .checked = false;
+
+    document.getElementById("payBooks")
+        .checked = false;
+
+
+    updateDashboard();
+
+
+    showToast(
+        "Payment recorded: ₦" +
+        amount.toLocaleString()
+    );
+
+}
+
+
+/* ==========================================================
+   RECEIPTS
+========================================================== */
+
+function generateReceipt(){
+
+    const student =
+        document.getElementById("receiptStudent")
+        .value.trim();
+
+
+    const className =
+        document.getElementById("receiptClass")
+        .value;
+
+
+    let receiptNumber =
+        document.getElementById("receiptNumber")
+        .value.trim();
+
+
+    if(!student || !className){
+
+        showToast(
+            "Enter student and class."
+        );
+
+        return;
+
+    }
+
+
+    if(!receiptNumber){
+
+        receiptNumber =
+            "EP-" +
+            Date.now();
+
+    }
+
+
+    const payment =
+        payments
+        .filter(function(item){
+
+            return (
+                item.student.toLowerCase() ===
+                student.toLowerCase() &&
+                item.className === className
+            );
+
+        })
+        .pop();
+
+
+    if(!payment){
+
+        showToast(
+            "No payment found for this student."
+        );
+
+        return;
+
+    }
+
+
+    const receipt = {
+
+        receiptNumber:receiptNumber,
+
+        student:student,
+
+        className:className,
+
+        amount:payment.amount,
+
+        components:payment.components,
+
+        date:new Date().toLocaleString()
+
+    };
+
+
+    receipts.push(receipt);
+
+
+    localStorage.setItem(
+        "examplusReceipts",
+        JSON.stringify(receipts)
+    );
+
+
+    renderReceiptHistory();
+
+
+    showReceiptWindow(receipt);
+
+}
+
+
+function renderReceiptHistory(){
+
+    const saved =
+        localStorage.getItem("examplusReceipts");
+
+
+    if(saved){
+
+        try{
+
+            receipts = JSON.parse(saved);
+
+        }catch(error){
+
+            receipts = [];
+
+        }
+
+    }
+
+
+    const tbody =
+        document.getElementById(
+            "receiptHistoryBody"
+        );
+
+
+    if(receipts.length === 0){
+
+        tbody.innerHTML =
+            '<tr><td colspan="5" class="empty">No receipts yet.</td></tr>';
+
+        return;
+
+    }
+
+
+    tbody.innerHTML = "";
+
+
+    receipts.forEach(function(receipt){
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>${escapeHtml(receipt.receiptNumber)}</td>
+
+            <td>${escapeHtml(receipt.student)}</td>
+
+            <td>${escapeHtml(receipt.className)}</td>
+
+            <td>₦${Number(receipt.amount).toLocaleString()}</td>
+
+            <td>${escapeHtml(receipt.date)}</td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+function showReceiptWindow(receipt){
+
+    const school =
+        currentUser &&
+        currentUser.schoolName
+        ? currentUser.schoolName
+        : "ExamPlus";
+
+
+    const html = `
+
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>Receipt ${escapeHtml(receipt.receiptNumber)}</title>
+
+            <style>
+
+                body{
+                    font-family:Arial;
+                    width:58mm;
+                    margin:0 auto;
+                    padding:10px;
+                    font-size:12px;
+                }
+
+                h2{
+                    text-align:center;
+                    font-size:16px;
+                }
+
+                .center{
+                    text-align:center;
+                }
+
+                hr{
+                    border:none;
+                    border-top:1px dashed #000;
+                }
+
+                table{
+                    width:100%;
+                    border-collapse:collapse;
+                }
+
+                td{
+                    padding:4px 0;
+                }
+
+                .total{
+                    font-weight:bold;
+                    font-size:14px;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <h2>${escapeHtml(school)}</h2>
+
+            <div class="center">
+                PAYMENT RECEIPT
+            </div>
+
+            <hr>
+
+            <p>
+                Receipt: ${escapeHtml(receipt.receiptNumber)}
+            </p>
+
+            <p>
+                Student: ${escapeHtml(receipt.student)}
+            </p>
+
+            <p>
+                Class: ${escapeHtml(receipt.className)}
+            </p>
+
+            <hr>
+
+            <table>
+
+                ${receipt.components.map(function(item){
+
+                    return `
+                        <tr>
+                            <td>${escapeHtml(item)}</td>
+                        </tr>
+                    `;
+
+                }).join("")}
+
+            </table>
+
+            <hr>
+
+            <p class="total">
+                Total Paid:
+                ₦${Number(receipt.amount).toLocaleString()}
+            </p>
+
+            <p class="center">
+                Thank you.
+            </p>
+
+            <script>
+                window.onload = function(){
+                    window.print();
+                };
+            <\/script>
+
+        </body>
+
+        </html>
+
+    `;
+
+
+    const win =
+        window.open(
+            "",
+            "_blank",
+            "width=400,height=700"
+        );
+
+
+    if(!win){
+
+        showToast(
+            "Please allow pop-ups to print receipts."
+        );
+
+        return;
+
+    }
+
+
+    win.document.write(html);
+
+    win.document.close();
+
+}
+
+
+/* ==========================================================
+   RESULTS
+========================================================== */
+
+function loadResults(){
+
+    const saved =
+        localStorage.getItem("examplusResults");
+
+
+    if(saved){
+
+        try{
+
+            results = JSON.parse(saved);
+
+        }catch(error){
+
+            results = [];
+
+        }
+
+    }
+
+
+    renderResults();
+
+}
+
+
+function saveResult(){
+
+    const className =
+        document.getElementById("resultClass").value;
+
+
+    const subject =
+        document.getElementById("resultSubject").value;
+
+
+    const student =
+        document.getElementById("resultStudent").value.trim();
+
+
+    const test1 =
+        Number(
+            document.getElementById("resultTest1").value
+        ) || 0;
+
+
+    const test2 =
+        Number(
+            document.getElementById("resultTest2").value
+        ) || 0;
+
+
+    const exam =
+        Number(
+            document.getElementById("resultExam").value
+        ) || 0;
+
+
+    if(
+        !className ||
+        !subject ||
+        !student
+    ){
+
+        showToast(
+            "Complete the result form."
+        );
+
+        return;
+
+    }
+
+
+    if(test1 > 15 || test2 > 15 || exam > 70){
+
+        showToast(
+            "Marks exceed the allowed maximum."
+        );
+
+        return;
+
+    }
+
+
+    const result = {
+
+        id:Date.now(),
+
+        student:student,
+
+        className:className,
+
+        subject:subject,
+
+        test1:test1,
+
+        test2:test2,
+
+        exam:exam,
+
+        total:test1 + test2 + exam
+
+    };
+
+
+    results.push(result);
+
+
+    localStorage.setItem(
+        "examplusResults",
+        JSON.stringify(results)
+    );
+
+
+    renderResults();
+
+
+    showToast(
+        "Result saved successfully."
+    );
+
+
+    document.getElementById("resultStudent")
+        .value = "";
+
+    document.getElementById("resultTest1")
+        .value = "";
+
+    document.getElementById("resultTest2")
+        .value = "";
+
+    document.getElementById("resultExam")
+        .value = "";
+
+}
+
+
+function renderResults(){
+
+    const tbody =
+        document.getElementById("resultsBody");
+
+
+    if(!results.length){
+
+        tbody.innerHTML =
+            '<tr><td colspan="7" class="empty">No results available.</td></tr>';
+
+        return;
+
+    }
+
+
+    tbody.innerHTML = "";
+
+
+    results.forEach(function(result){
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>${escapeHtml(result.student)}</td>
+
+            <td>${escapeHtml(result.className)}</td>
+
+            <td>${escapeHtml(result.subject)}</td>
+
+            <td>${result.test1}</td>
+
+            <td>${result.test2}</td>
+
+            <td>${result.exam}</td>
+
+            <td>
+                <strong>${result.total}</strong>
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+/* ==========================================================
+   REPORT CARD
+========================================================== */
+
+function generateReport(){
+
+    const className =
+        document.getElementById("reportClass").value;
+
+
+    const term =
+        document.getElementById("reportTerm").value;
+
+
+    if(!className){
+
+        showToast(
+            "Select a class."
+        );
+
+        return;
+
+    }
+
+
+    const classStudents =
+        students.filter(function(student){
+
+            return student.className === className;
+
+        });
+
+
+    alert(
+        "Report Card\n\n" +
+        "School: " +
+        (currentUser.schoolName || "ExamPlus") +
+        "\nClass: " +
+        className +
+        "\nTerm: " +
+        term +
+        "\nStudents: " +
+        classStudents.length +
+        "\n\nThe full PDF report-card generator will be connected to the Google Sheets data next."
+    );
+
+}
+
+
+function generateAllReports(){
+
+    const className =
+        document.getElementById("reportClass").value;
+
+
+    if(!className){
+
+        showToast(
+            "Select a class."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Generate All is ready for " +
+        className +
+        "."
+    );
+
+}
+
+
+/* ==========================================================
+   SUPER ADMIN
+========================================================== */
+
+function createSchool(){
+
+    const school =
+        document.getElementById("newSchoolName")
+        .value.trim();
+
+
+    const email =
+        document.getElementById("newSchoolEmail")
+        .value.trim();
+
+
+    const password =
+        document.getElementById("newSchoolPassword")
+        .value;
+
+
+    if(!school || !email || !password){
+
+        showToast(
+            "Complete all school fields."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       The actual Super Admin -> Google Sheets
+       school creation will be connected through
+       the Apps Script API.
+    */
+
+    alert(
+        "School creation form received.\n\n" +
+        "School: " + school +
+        "\nAdmin: " + email +
+        "\n\nThe next backend step will save this into the Users sheet."
+    );
+
+}
+
+
+/* ==========================================================
+   CONTACT
+========================================================== */
+
+function contactSupport(){
+
+    alert(
+        "ExamPlus Support\n\n" +
+        "Please contact your ExamPlus Super Admin."
+    );
+
+}
+
+
+/* ==========================================================
+   DASHBOARD
+========================================================== */
+
+function updateDashboard(){
+
+    document.getElementById("studentCount")
+        .textContent =
+        students.length;
+
+
+    document.getElementById("classCount")
+        .textContent =
+        classes.length;
+
+
+    document.getElementById("subjectCount")
+        .textContent =
+        subjects.length;
+
+
+    document.getElementById("paymentCount")
+        .textContent =
+        payments.length;
+
+}
+
+
+/* ==========================================================
+   TOAST
+========================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+
+/* ==========================================================
+   SECURITY / HTML ESCAPING
+========================================================== */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+    return String(value ?? "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
+}
+
+
+/* ==========================================================
+   INITIAL DATA LOAD
+========================================================== */
+
+(function(){
+
+    const schoolSaved =
+        localStorage.getItem(
+            "examplusSchoolDetails"
+        );
+
+
+    if(schoolSaved){
+
+        try{
+
+            const details =
+                JSON.parse(schoolSaved);
+
+
+            if(document.getElementById("schoolName")){
+
+                document.getElementById("schoolName")
+                    .value = details.name || "";
+
+                document.getElementById("schoolContact")
+                    .value = details.contact || "";
+
+                document.getElementById("schoolAddress")
+                    .value = details.address || "";
+
+                document.getElementById("resumptionDate")
+                    .value = details.resumption || "";
+
+            }
+
+        }catch(error){}
+
+    }
+
+
+    const feeSaved =
+        localStorage.getItem(
+            "examplusFees"
+        );
+
+
+    if(feeSaved){
+
+        try{
+
+            const fee =
+                JSON.parse(feeSaved);
+
+
+            document.getElementById("schoolFees")
+                .value =
+                fee.schoolFees || "";
+
+            document.getElementById("registrationFee")
+                .value =
+                fee.registration || "";
+
+            document.getElementById("booksFee")
+                .value =
+                fee.books || "";
+
+        }catch(error){}
+
+    }
+
+
+    const assessmentSaved =
+        localStorage.getItem(
+            "examplusAssessmentSettings"
+        );
+
+
+    if(assessmentSaved){
+
+        try{
+
+            const settings =
+                JSON.parse(assessmentSaved);
+
+
+            document.getElementById("test1Max")
+                .value =
+                settings.test1 ?? 15;
+
+            document.getElementById("test2Max")
+                .value =
+                settings.test2 ?? 15;
+
+            document.getElementById("examMax")
+                .value =
+                settings.exam ?? 70;
+
+        }catch(error){}
+
+    }
+
+
+    renderReceiptHistory();
+
+})();
+
+</script>
+
+</body>
+</html>
